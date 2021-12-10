@@ -1,0 +1,47 @@
+.contenu{
+    width: 100%;
+    min-height: 70%;
+}
+.box{
+    width: 90%;
+    height: 550px;
+    color: #000;
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+    margin-top: 10px;
+}
+.action{
+    width: 100%;
+    height: 70px;
+    background-color: teal;
+    padding-top: 10px;
+    margin: 0;
+}
+.list{
+    margin: 0;
+}
+input{
+    color: #000;
+    width: 300px;
+}
+input:focus{
+    outline: none;
+    border-bottom: 1px solid #009688;
+}
+thead{
+    border-bottom: 1px solid black;
+}
+tr:hover{
+    background-color: rgb(199, 199, 199);
+}
+.modal-header{
+    background-color:#009688 ;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+.modal-content{
+    border-radius: 20px;
+}
+.modal-content button{
+    color: #009688;
+}

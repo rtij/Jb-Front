@@ -1,0 +1,30 @@
+<div class="title w3-display-container">
+  <div class="w3-display-middle w3-text-white">
+    <h1><span class="glyphicon glyphicon-education"></span> ISTS Fomation à distance</h1>
+    <p class="annee">Année universitaire : {{ AnneeEncours.annee}}</p>
+  </div>
+</div>
+<nav class="navbar w3-teal">
+  <div class="w3-container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li ><a routerLinkActive="active" routerLink="/admin/etudiant">Etudiant</a></li>
+        <li ><a routerLinkActive="active" routerLink="/admin/enseignant">Enseignant</a></li>
+        <li ><a routerLinkActive="active" routerLink="/admin">Administrateur</a></li>
+        <li ><a routerLinkActive="active" routerLink="/admin/communique">Communiqué</a></li>
+        <li><a>Paramètre</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"> Se déconnecter</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<router-outlet></router-outlet>

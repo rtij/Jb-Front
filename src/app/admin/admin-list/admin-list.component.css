@@ -45,3 +45,6 @@ tr:hover{
 .modal-content button{
     color: #009688;
 }
+.w3-btn:focus{
+    outline: none;
+}

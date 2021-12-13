@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
   { path: 'etudiant', loadChildren: () => import('./etudiant/etudiant.module').then(m => m.EtudiantModule) },
+  { path: 'prof', loadChildren: () => import('./prof/prof.module').then(m => m.ProfModule) },
   { path: '**', component: PageNotFoundComponent },
 ];
 

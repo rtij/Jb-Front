@@ -23,7 +23,7 @@ ul{
 }
 .w3-sidebar{
     width: 20%;
-    background-color: rgb(224, 224, 224);
+    background-color: rgb(240, 240, 240);
     margin-top: 0;
     display: inline-block;
 }
@@ -34,15 +34,23 @@ ul{
 }
 li{
     padding-left: 20px;
+    padding-right: 20px;
     text-align: left;
 }
 .active{
     background-color: #009688;
     color: white;
+    border-radius: 15px;
 }
 .content{
     width: 80%;
     height: 100vh;
     margin-left: 20%;
     overflow: hidden;
+}
+.username{
+    box-shadow: 0 0 2px white;
+    border-radius: 15px;
+    background-color: white;
+    margin-bottom: 5px;
 }

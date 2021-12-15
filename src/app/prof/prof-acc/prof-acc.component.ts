@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProfService } from 'src/app/prof.service';
 
 @Component({
   selector: 'app-prof-acc',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfAccComponent implements OnInit {
 
-  constructor() { }
+  constructor(private professeurService: ProfService) { }
 
   ngOnInit(): void {
+    this.getCours();
   }
-
+  getCours(){
+    this.professeurService.getCours().subscribe((res) => {
+      console.log(res);
+    },
+      (err) => {
+        console.log(err.error);
+      }
+    );
+  }
 }

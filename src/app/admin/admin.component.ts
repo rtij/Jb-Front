@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginService } from '../login.service';
 import { Annee } from '../Object/Annee';
 import { AnneeService } from '../Service/annee.service';
 
@@ -9,7 +11,7 @@ import { AnneeService } from '../Service/annee.service';
 })
 export class AdminComponent implements OnInit {
 
-  constructor(private AnneeService: AnneeService) { }
+  constructor(private AnneeService: AnneeService,private LoginService:LoginService,private router:Router) { }
 
   ngOnInit(): void {
     this.getAnneEncours();
@@ -20,6 +22,17 @@ export class AdminComponent implements OnInit {
   getAnneEncours() {
     this.AnneeService.getAll().subscribe((res: Annee) => {
       this.AnneeEncours = res;
+    },
+      (err) => {
+        console.log(err.error);
+      }
+    );
+  }
+  logout(){
+    this.LoginService.Logout().subscribe((res) => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('code');
+      this.router.navigate(['/login']);
     },
       (err) => {
         console.log(err.error);

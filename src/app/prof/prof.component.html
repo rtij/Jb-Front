@@ -1,8 +1,8 @@
 <nav class="navbar w3-sidebar">
     <ul class="nav">
         <li class="nav-title"><span class="glyphicon glyphicon-education"></span> ISTS</li>
-        <li><a>Username</a></li>
-        <li><a href="">Mes cours</a></li>
+        <li><a class="username">{{prof.nom}} {{prof.prenom}}</a></li>
+        <li><a routerLink="/prof" routerLinkActive="active">Mes cours</a></li>
         <hr>
         <li class="titles w3-margin-top">Etudiants</li>
         <li><a href="">Listes</a></li>
@@ -14,7 +14,7 @@
         <li><a href="">Examen</a></li>
         <li><a href="">Encadrement</a></li>
         <hr>
-        <li><a>Déconnexion</a></li>
+        <li><a (click)="logout()">Déconnexion</a></li>
     </ul>
 </nav>
 <div class="content">

@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
+import { url } from './Service/Proxy';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class LoginService {
   token: string = "";
 
   Login(code: string, password: string) {
-    return this.http.post(`https://127.0.0.1:8000/login/login`, { code, password }).pipe(
+    return this.http.post(url+`login/login`, { code, password }).pipe(
       map((res: any) => {
         this.token = res['data'];
         return this.token;
@@ -20,7 +21,7 @@ export class LoginService {
       catchError(this.handleError));
   }
   Logout() {
-    return this.http.get(`https://127.0.0.1:8000/api/logout`).pipe(
+    return this.http.get(url+`api/logout`).pipe(
       map((res: any) => {
         let response = res;
         return response;

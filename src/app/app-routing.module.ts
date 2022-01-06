@@ -5,14 +5,12 @@ import { EtudiantGuard } from './etudiant.guard';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProfGuard } from './prof.guard';
-import { StartComponent } from './start/start.component';
 
 const routes: Routes = [
-  { path: '', component: StartComponent, pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate:[AdminGuard] },
   { path: 'etudiant', loadChildren: () => import('./etudiant/etudiant.module').then(m => m.EtudiantModule) ,canActivate:[EtudiantGuard]},
-  { path: 'prof', loadChildren: () => import('./prof/prof.module').then(m => m.ProfModule) ,canActivate:[ProfGuard]},
+  { path: 'prof', loadChildren: () => import('./prof/prof.module').then(m => m.ProfModule), canActivate:[ProfGuard]},
   { path: '**', component: PageNotFoundComponent },
 ];
 

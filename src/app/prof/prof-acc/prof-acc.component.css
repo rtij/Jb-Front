@@ -1,19 +1,31 @@
+.contenu{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 .center{
     max-height: 100vh;
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 20px;
+    padding-bottom: 20px;
     overflow: auto;
 }
-.contenu{
-    overflow: auto;
+.date{
+    font-size: 10pt;
+    color:grey;
+}
+.margin-top{
+    margin-top: 55px;
 }
 .add{
     width: 100%;
-    height: 50px;
+    min-height: 50px;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.452);
     border-radius: 15px;
     display: inline-block;
+    padding: 5px;
 }
 .btn:hover{
     background-color: transparent;
@@ -23,19 +35,32 @@
     width: 85%;
     min-height: 100px;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.452);
-    margin-left: 50px;
+    margin: auto;
     border-radius: 15px;
     margin-top: 30px;
+    position: relative;
+}
+.action{
+    height: 50px;
+    position: absolute;
+    right: 0;
+    color: white;
+    padding: 5px;
+}
+.action button{
+    margin-right: 5px;
 }
 .search{
-    margin-top: 5px;
-    width: 400px;
+    margin-top: 8px;
+    width: 500px;
 }
 .liste{
     width: 100%;
     height: 100vh;
     overflow: auto;
-
+}
+.post p{
+    width: 100%;
 }
 .liste ul{
     width: 100%;
@@ -45,8 +70,46 @@
 }
 .liste ul li{
     width: 100%;
-    height: 50px;
+    min-height: 50px;
     border-radius: 10px;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.452);
     margin-bottom: 8px;
+    text-align: center;
+}
+.liste ul li span{
+    min-width: 100%;
+    min-height: 100%;
+    padding-top: 10px;
+    justify-content: center;
+    text-align: center;
+}
+.title li{
+    height: auto;
+    padding-left: 10px;
+    padding-top: 15px;
+}
+.title li:hover{
+    background-color: grey;
+    color: white;
+    cursor: pointer;
+}
+.select{
+    display: none;
+}
+.file{
+    width: 100%;
+    min-height: 50px;
+    border-radius: 15px;
+    background-color: rgb(184, 184, 184);
+    margin-bottom: 10px;
+    padding: 10px;
+}
+input:focus{
+    outline: none;
+}
+@media  screen and (max-width:1200px) {
+    .search{
+        width: 200px;
+        margin: auto;
+    }
 }

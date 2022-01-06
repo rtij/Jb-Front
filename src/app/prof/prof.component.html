@@ -1,22 +1,25 @@
-<nav class="navbar w3-sidebar">
+<nav class="navbar sidenav">
+    <div class="nav-title">
+        <h5 class="glyphicon glyphicon-education"> ISTS</h5>
+        <button onclick="test()" class="w3-btn toggle w3-text-white"><span class="glyphicon glyphicon-chevron-left"></span></button>
+    </div>
     <ul class="nav">
-        <li class="nav-title"><span class="glyphicon glyphicon-education"></span> ISTS</li>
-        <li><a class="username">{{prof.nom}} {{prof.prenom}}</a></li>
-        <li><a routerLink="/prof" routerLinkActive="active">Mes cours</a></li>
+        <li><a routerLink="Profil" routerLinkActive="active" class="username">{{prof.nom}} {{prof.prenom}}</a></li>
+        <li class="titles w3-margin-top">Enseignement</li>
+        <li><a routerLink="cours" routerLinkActive="active"> Mes cours</a></li>
+        <li><a routerLink="Retour" routerLinkActive="active">Consulter retour</a></li>
+        <li><a routerLink="Message" routerLinkActive="active"> Messages</a></li>
+        <li><a routerLink="Examen" routerLinkActive="active">Examen</a></li>
+        <li><a >Encadrement</a></li>
         <hr>
-        <li class="titles w3-margin-top">Etudiants</li>
-        <li><a href="">Listes</a></li>
-        <li><a href="">Consulter retour</a></li>
+        <li class="titles w3-margin-top">Responsabilités</li>
+        <li><a routerLink="Etudiant" routerLinkActive="active">Etudiants</a></li>
+        <li><a routerLink="Enseignant" routerLinkActive="active">Enseignants</a></li>
         <li></li>
         <hr>
-        <li class="titles w3-margin-top">Autres</li>
-        <li><a>Messages</a></li>
-        <li><a href="">Examen</a></li>
-        <li><a href="">Encadrement</a></li>
-        <hr>
-        <li><a (click)="logout()">Déconnexion</a></li>
+        <li><a (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>
     </ul>
 </nav>
-<div class="content">
+<div id="content">
     <router-outlet></router-outlet>
 </div>

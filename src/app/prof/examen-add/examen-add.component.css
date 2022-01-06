@@ -1,0 +1,61 @@
+.contenu{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.Exam-details{
+    width: 80%;
+    height: auto;
+    margin: auto;
+    margin-top: 10px;
+}
+input:focus{
+    outline: none;
+    border-bottom: 2px solid #009688;
+}
+.add-question{
+    width: 100%;
+    height: auto;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+.question-details{
+    width: 95%;
+    min-height: 80px;
+    margin: auto;
+    padding-top: 10px;
+    position: relative;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.action{
+    width: 95%;
+    min-height: 80px;
+    margin: auto;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    margin-bottom: 0;
+}
+.liste-choix{
+    width: 100%;
+}
+.liste-choix li{
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    position: relative;
+    margin-bottom: 10px;
+}
+.liste-choix li:hover{
+    background-color: grey;
+    color: white;
+}
+.question{
+    margin: auto;
+    margin-bottom: 5px;
+    width: 90%;
+    min-height: 50px;
+    border-radius: 15px;
+    position:relative;
+
+}

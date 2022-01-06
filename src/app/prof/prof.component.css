@@ -20,32 +20,52 @@ ul{
     vertical-align: middle;
     padding-top: 10px;
     padding-left: 10px;
+    position: relative;
 }
-.w3-sidebar{
-    width: 20%;
+.nav-title button{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 2px;
+}
+.nav-title button:focus{
+    box-shadow: none;
+    border: 1px solid white;
+}
+.sidenav{
+    width: 250px;
+    min-height: 100vh;
     background-color: rgb(240, 240, 240);
     margin-top: 0;
     display: inline-block;
+    position: absolute;
+    top:0;
+    left:0;
 }
-.w3-sidebar li a:hover{
+.sidenav li a:hover{
     border-radius: 15px;
     background-color: #009688;
     color: white;
 }
+li a{
+    margin-top:5px;
+}
+
 li{
     padding-left: 20px;
     padding-right: 20px;
     text-align: left;
 }
-.active{
+li a:focus{
     background-color: #009688;
     color: white;
     border-radius: 15px;
 }
-.content{
-    width: 80%;
+#content{
+    width: calc(100vw - 250px);
     height: 100vh;
-    margin-left: 20%;
+    padding: 0;
+    margin-left: 250px;
     overflow: hidden;
 }
 .username{
@@ -53,4 +73,30 @@ li{
     border-radius: 15px;
     background-color: white;
     margin-bottom: 5px;
+}
+
+.active{
+    background-color: #009688;
+    color: white;
+    border-radius: 15px;
+}
+@media screen and (max-width:600px){
+    .nav-title h5{
+        display: none;
+    }
+    .sidenav{
+        width: 50px;
+        position: fixed;
+        background-color: black;
+        left: 0;
+        top: 0;
+        z-index: 10000;
+    }
+    #content{
+        width: calc(100vw - 50px);
+        margin-left: 50px;
+    }
+    .sidenav ul{
+        display: none;
+    }
 }

@@ -18,6 +18,7 @@ export class ProfComponent implements OnInit {
   }
   prof!:Professeur;
   username:string="";
+  it:[]=[];
   
   getUsername(){
     this.profService.getProf().subscribe((res) => {
@@ -28,12 +29,15 @@ export class ProfComponent implements OnInit {
       }
     );
   }
-  
+  toggleMenu(){
+    document.getElementById('sideMenu')!.style.width = "80px";
+  }
+
   logout(){
     this.LoginService.Logout().subscribe((res) => {
       localStorage.removeItem('token');
       localStorage.removeItem('code');
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
     },
       (err) => {
         console.log(err.error);

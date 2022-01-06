@@ -10,13 +10,15 @@ import { StartComponent } from './start/start.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TokenInterceptor } from './token.interceptor';
 import { ErrorInterceptor } from './error.interceptor';
+import { ExamenAddComponent } from './examen-add/examen-add.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     StartComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ExamenAddComponent
   ],
   imports: [
     BrowserModule,

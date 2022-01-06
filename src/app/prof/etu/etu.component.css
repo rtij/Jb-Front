@@ -1,0 +1,26 @@
+.content{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.parcours li{
+    width: 100%;
+    height: 30px;
+    margin-top: 5px;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+.selected{
+    background-color: grey;
+}
+.assimilation{
+    height: 20px;
+    border-radius: 10px;
+    background-color: green;
+}
+
+.exercice{
+    height: 20px;
+    border-radius: 10px;
+    background-color: yellow;
+}

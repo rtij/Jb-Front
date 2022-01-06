@@ -5,13 +5,17 @@ import { EtudiantRoutingModule } from './etudiant-routing.module';
 import { EtudiantComponent } from './etudiant.component';
 import { EtudiantListComponent } from './etudiant-list/etudiant-list.component';
 import { EtudiantMessageComponent } from './etudiant-message/etudiant-message.component';
+import { ExamenComponent } from './examen/examen.component';
+import { RattrapageComponent } from './rattrapage/rattrapage.component';
 
 
 @NgModule({
   declarations: [
     EtudiantComponent,
     EtudiantListComponent,
-    EtudiantMessageComponent
+    EtudiantMessageComponent,
+    ExamenComponent,
+    RattrapageComponent
   ],
   imports: [
     CommonModule,

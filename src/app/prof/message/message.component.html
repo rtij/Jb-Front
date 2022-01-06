@@ -1,0 +1,53 @@
+<div class="content row w3-padding-24">
+    <div class="user-list col-sm-4 w3-container">
+        <ul class="nav">
+            <li><button class="btn btn-default"  data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"> Nouveau</span></button></li>
+            <li>
+                <div class="user-chat">
+
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col-sm-8">
+        <ul class="message nav">
+            <li></li>
+        </ul>
+    </div>
+</div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Nouveau messages</h4>
+      </div>
+      <div class="modal-body">
+          <form>
+              <label for="Etu">A</label>
+              <div class="col-sm-10">
+                <input 
+                    list="EtudiantListe" 
+                    type="text" 
+                    class="form-control w3-input" 
+                    placeholder="Nom etudiant"
+                    required 
+                    name="Etu"
+                    id="Etu"
+                    >
+                <datalist id="EtudiantListe">
+                    <option *ngFor="let item of Etudiants" value="{{item.nom}}"></option>
+                </datalist>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,1 +1,15 @@
-<p>etudiant works!</p>
+<nav class="navbar w3-sidebar sidenav">
+    <ul class="nav">
+        <li class="nav-title"><span class="glyphicon glyphicon-education"></span> ISTS</li>
+        <li><a class="username">{{Etudiant.nom}} {{Etudiant.prenom}}</a></li>
+        <li><a routerLink="/etudiant" routerLinkActive="active">Cours</a></li>
+        <li><a routerLink="Message" routerLinkActive="active">Messages</a></li>
+        <li><a routerLink="Examen" routerLinkActive="active">Examen</a></li>
+        <li><a >Encadrement</a></li>
+        <hr>
+        <li><a (click)="logout()">Déconnexion</a></li>
+    </ul>
+</nav>
+<div class="content">
+    <router-outlet></router-outlet>
+</div>

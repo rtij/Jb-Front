@@ -12,4 +12,7 @@ export class EtudiantListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getCours(){
+    
+  }
 }

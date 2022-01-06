@@ -1,0 +1,80 @@
+<div class="contenu w3-container w3-card-2" *ngIf="modif==false">
+    <h2 class="w3-center">{{Prof.civilite}} {{Prof.nom}} {{Prof.prenom}}</h2>
+    <h3>Code <span>{{Prof.code}}</span></h3>
+    <h3 class="date">Né le <span>{{Date}}</span></h3>
+    <h3>Contact <span>{{Prof.contact}} </span></h3>
+    <h3>Email <span>{{Prof.email}}</span></h3>
+    <h3 *ngIf="Prof.formateur == '1'">Type <span>Permanent</span></h3>
+    <h3 *ngIf="Prof.formateur == '2'">Type <span>Vacataire</span></h3>
+    <h3>Vos modules :</h3>
+    <ul>
+        <li *ngFor="let item of ModuleProf">{{item.idmodule.nom}} {{item.idniveau.nom}}</li>
+    </ul>
+    <button (click)="modifier()" class="w3-btn w3-blue w3-center">Modifier <span
+            class="glyphicon glyphicon-edit"></span></button>
+</div>
+
+<div class="modif w3-card-2" *ngIf="modif==true">
+    <button (click)="Annuler()" class="w3-btn fermer w3-red"><span class="glyphicon glyphicon-remove"></span></button>
+    <form class="w3-container form-horizontal" #c="ngForm">
+        <div class="form-group">
+            <label for="Civilite" class="col-sm-2">Civilite</label>
+            <div class="col-sm-10">
+
+                <select [(ngModel)]="Prof.civilite" name="civilite" id="civilite" class="w3-select">
+                    <option value="Auccun">Auccun</option>
+                    <option value="Dr">Dr</option>
+                    <option value="Pr">Pr</option>
+                    <option value="Sr">Sr</option>
+                    <option value="Fr">Fr</option>
+                    <option value="Mr">Mr</option>
+                    <option value="Mme">Mme</option>
+                    <option value="Mle">Mle</option>
+                    <option value="Me">Me</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2" for="Nom">Nom</label>
+            <div class="col-sm-10">
+                <input [(ngModel)]="Prof.nom" required type="text" id="Nom" name="Nom" placeholder="Nom"
+                    class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="PreNom" class="col-sm-2">Prénom</label>
+            <div class="col-sm-10">
+                <input [(ngModel)]="Prof.prenom" required type="text" id="PreNom" name="PreNom" placeholder="Prénom"
+                    class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+
+            <label for="DateN" class="col-sm-2">Date de naissance</label>
+            <div class="col-sm-10">
+                <input [(ngModel)]="Prof.datenaiss" type="date" id="DateN" name="DateN" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2" for="Contact">Contact</label>
+            <div class="col-sm-10">
+                <input [(ngModel)]="Prof.contact" type="text" id="Contact" name="Contact" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Email" class="col-sm-2">Email</label>
+            <div class="col-sm-10">
+                <input [(ngModel)]="Prof.email" type="text" id="Email" name="Email" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Mdp" class="col-sm-2">Mot de passe</label>
+            <div class="col-sm-10">
+                <input [(ngModel)]="Prof.motdepasse" required type="password" name="Mdp" id="Mdp"
+                    placeholder="Mot de passe" class="w3-input">
+            </div>
+        </div>
+        <button (click)="UpdateProf()" [disabled]="c.invalid" class="w3-btn w3-blue">Enregistrer <span
+                class="glyphicon glyphicon-save"></span></button>
+    </form>
+</div>

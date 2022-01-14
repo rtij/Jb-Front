@@ -1,4 +1,5 @@
 <div class="contenu">
+    <!-- Ajout de l'examen -->
     <div *ngIf="examAdd == false" class="Exam-details w3-card-2 w3-container w3-padding-24">
         <form class="form-horizontal" #b="ngForm">
             <div class="form-group">
@@ -38,26 +39,36 @@
                 </div>
             </div>
             <button (click)="AddExamTitre()" [disabled]="b.invalid" class="full-width w3-btn w3-blue"><span
-                    class="glyphicon glyphicon-plus"></span> Enregistrer</button>
+                    class="glyphicon glyphicon-plus"></span> {{action}}</button>
+            <button *ngIf="action == 'Modifier'" class="btn w3-red full-width w3-margin-top" (click)="EditAnnulation()">Annuler</button>
         </form>
     </div>
+    <!-- Ajout des questions  -->
     <div *ngIf="examAdd == true" class="add-question">
-        <div class="question-details w3-card-2 navbar w3-container">
-            <ul class="nav navbar-nav">
-                <li><a>Titre: {{Exam.titre}}</a></li>
-                <li><a>Module: {{Exam.idmodule.nom}}</a></li>
-                <li><a>Diffusion: {{diffusion}}</a></li>
-                <li><a>Début: {{Exam.debut}}</a></li>
-                <li><a>Durée: {{Exam.dureeI}}</a></li>
-            </ul>
+        <div class="question-details navbar w3-card-2 w3-container">
+                <ul class="nav navbar-nav">
+                    <li><a class="w3-margin-bottom ">Titre: {{Exam.titre}}</a></li>
+                    <li><a class="w3-margin-bottom">Module: {{Exam.idmodule.nom}}</a></li>
+                    <li><a class="w3-margin-bottom">Diffusion: {{diffusion}}</a></li>
+                    <li><a class="w3-margin-bottom">Début: {{Exam.debut}}</a></li>
+                    <li><a class="w3-margin-bottom">Durée: {{Exam.dureeI}}</a></li>
+                </ul>
             <div class="navbar-right">
                 <ul class="nav navbar-nav">
-                    <li><a class="btn w3-red"><span>Annuler</span></a></li>
+                    <li><a title="Enregistrer" class="btn w3-blue w3-margin-right w3-margin-bottom" (click)="SetFinish()"><span class="glyphicon glyphicon-floppy-disk"></span></a></li>
+                    <li><a title="Modifier" class="btn w3-teal w3-margin-right w3-margin-bottom" (click)="EditExam()"><span class="glyphicon glyphicon-edit"></span></a></li>
+                    <li><a title="Annuler" class="btn w3-red w3-margin-right w3-margin-bottom" (click)="AskForRemoveExam()"><span class="glyphicon glyphicon-trash"></span></a></li>
                 </ul>
             </div>
         </div>
         <div class="action w3-card-2 w3-container w3-padding-top-24">
             <form class="w3-container" #q="ngForm">
+                <!-- Question number -->
+                <div class="form-group">
+                    <label for="QuestionNumber">N°:</label>
+                    <input type="text" id="QuestionNumber" name="QuestionNumber" [(ngModel)]="questionNumber"
+                        class="w3-input" placeholder="N°">
+                </div>
                 <div class="form-group">
                     <label for="QuestionT">Type</label>
                     <select [(ngModel)]="idType" (change)="seType()" name="QuestionT" id="QuestionT"
@@ -94,15 +105,17 @@
                 </div>
             </div>
             <button [disabled]="q.invalid || validChoiceNumber != true" (click)="AddQuestion(q)"
-                class="btn btn-primary full-width"><span *ngIf="!selectedQuestion">Ajouter</span><span *ngIf="selectedQuestion">Modifier</span></button>
+                class="btn btn-primary full-width"><span *ngIf="!selectedQuestion">Ajouter</span><span
+                    *ngIf="selectedQuestion">Modifier</span></button>
         </div>
     </div>
+    <!-- Liste des questions -->
     <div *ngFor="let question of QuestionListe" class="question w3-card-2 w3-container w3-padding-24">
         <div class="navbar">
             <div class="navbar-right w3-container">
                 <ul class="nav navbar-nav">
-                    <li class="w3-margin-right"><a (click)="selectQuestion(question)" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a></li>
-                    <li class="w3-margin-right"><a (click)="AskremoveQuestion(question)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></li>
+                    <li class="w3-margin-right"><a (click)="AskremoveQuestion(question)" class="btn btn-danger"><span
+                                class="glyphicon glyphicon-trash"></span></a></li>
                 </ul>
             </div>
         </div>

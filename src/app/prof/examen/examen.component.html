@@ -1,9 +1,30 @@
-<div class="content w3-container w3-padding-top-24">
-    <div class="action">
-        <a routerLink="/prof/Examen/Examen-add" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Créer un nouveau examen</a>
-    </div>
-    <h2 class="w3-margin-top">Liste des examens</h2>
-    <div class="post w3-card-2">
-
+<div class="contenu w3-container">
+    <div class="content w3-container w3-padding-top-24">
+        <div class="navbar w3-card-2">
+            <ul class="navbar-nav nav">
+                <li> <a routerLink="/prof/Examen/Examen-add" class="btn w3-hover-teal"><span
+                            class="glyphicon glyphicon-plus"></span> Nouveau</a></li>
+            </ul>
+        </div>
+        <div>
+            <h2 class="w3-margin-top">Liste des examens</h2>
+        </div>
+        <div class="w3-margin w3-round-large w3-card-2 full-width w3-padding-24 w3-container"
+            *ngFor="let Exam of ExamTitreListe">
+            <div class="navbar">
+                <div class="navbar-right">
+                    <ul class="navbar-nav nav">
+                        <li><a class="w3-margin btn w3-blue" (click)="selectExam(Exam)"><span class="glyphicon glyphicon-edit"></span></a></li>
+                        <li><a class="w3-margin btn w3-red" (click)="RemoveExam(Exam)"><span class="glyphicon glyphicon-trash"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <h3 class="w3-center"><strong> {{Exam.titre}}</strong></h3>
+            <h4 class="w3-margin-top"><strong>Module: {{Exam.idmodule.nom}}</strong></h4>
+            <h4><strong>Niveau: {{Exam.idniveau.nom}}</strong></h4>
+            <p class="w3-margin-top">Date de diffusion {{Exam.diffusion}}</p>
+            <p class="w3-margin-top">Heure de début: {{Exam.debut}}</p>
+            <p class="w3-margin-top">Durée: {{Exam.dureeI}}</p>
+        </div>
     </div>
 </div>

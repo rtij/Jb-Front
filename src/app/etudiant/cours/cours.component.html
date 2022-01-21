@@ -1,0 +1,43 @@
+<div class="contenu">
+    <div class="row">
+        <div class="hidden-xs col-sm-3 w3-container">
+            <div class="left">
+                <ul class="nav w3-container">
+                    <li [class.w3-blue]="AllCours == Documents"
+                        class="w3-round-large w3-margin-top w3-margin-bottom w3-padding-24 container w3-card-2"
+                        (click)="showAll()">Tous</li>
+                    <li [class.w3-blue]="selectedModule == cours" class="w3-hover-blue w3-round-large w3-margin-top w3-margin-bottom w3-padding-24 container w3-card-2"
+                        *ngFor="let cours of module" (click)="SelectModule(cours)">{{cours.nom}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-9">
+            <div class="cours-liste">
+                <div class=" action w3-round-large w3-container w3-card-2 ">
+                    <div class="navbar-nav nav w3-padding-24">
+                        <input type="text" class="w3-input" placeholder="Recherche" id="Search" name="Search"
+                            [(ngModel)]="search">
+                    </div>
+                </div>
+                <div class="post w3-container w3-padding-top-24" *ngFor="let item of Documents | filter:search">
+                    <p class="date margin-top">Date de création: {{item.creation}}</p>
+                    <p class="date">Date de diffusion: {{item.diffusion}}</p>
+                    <p class="date">Date d' éxpiration: {{item.expiration}}</p>
+                    <p class="date">A rendre le: {{item.aRendre}}</p>
+                    <h4 *ngIf="item.idmodule">Module: {{item.idmodule.nom}}</h4>
+                    <h3>{{item.titre}}</h3>
+                    <div class="type">Type {{item.type}}</div>
+                    <p>{{item.description}}</p>
+                    <p>Pièce jointes</p>
+                    <div *ngFor="let it of item.doclien" class="file">
+                        <a download="{{it.nomFichier}}"
+                            href="ISTS-Formation.digitec.mg/assets/File/{{it.url}}">{{it.nomFichier}}</a>
+                    </div>
+                    <div class="post-action">
+                        <button (click)="SelectCours(item)" class="full-width w3-blue w3-btn w3-margin-bottom" *ngIf="item.aRendre"><span class="glyphicon glyphicon-share-alt"> Envoyer réponse</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

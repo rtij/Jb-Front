@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../login.service';
+import { routerAnimation } from '../Object/Animation';
 import { Etudiant } from '../Object/Etudiant';
 import { EtudiantService } from '../Service/etudiant.service';
 
 @Component({
   selector: 'app-etudiant',
   templateUrl: './etudiant.component.html',
-  styleUrls: ['./etudiant.component.css']
+  styleUrls: ['./etudiant.component.css'],
+  animations:[routerAnimation]
 })
 export class EtudiantComponent implements OnInit {
 
@@ -16,6 +18,7 @@ export class EtudiantComponent implements OnInit {
   ngOnInit(): void {
     this.getEtudiant();
   }
+  
   Etudiant!:Etudiant;
   getEtudiant(){
     this.EtudiantService.getEtudiant().subscribe(
@@ -28,6 +31,10 @@ export class EtudiantComponent implements OnInit {
     )
   }
 
+  getDepth(outlet:any){
+    return outlet.activatedRouteData['depth'];
+  }
+
   logout(){
     this.LoginService.Logout().subscribe((res) => {
       localStorage.removeItem('token');
@@ -38,5 +45,9 @@ export class EtudiantComponent implements OnInit {
         console.log(err.error);
       }
     );
+  }
+  ngOnDestroy(){
+    const it:any = null;
+    this.EtudiantService.DestructData();
   }
 }

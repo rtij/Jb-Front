@@ -1,7 +1,9 @@
 import { Niveau } from "./Niveau";
 import { Parcours } from "./Parcours";
+import {Annee} from "./Annee";
 
 export class Etudiant {
+    code:string;
     matricule: string;
     nom: string;
     prenom: string;
@@ -12,8 +14,11 @@ export class Etudiant {
     motdepasse: string;
     idniveau: Niveau;
     suppr: boolean;
+    idanneeUniversitaire:Annee;
     idetudiant?: number;
     constructor(
+        code:string,
+        idanneeUniversitaire:Annee,
         nom: string, 
         prenom: string, 
         datenaiss: Date, 
@@ -25,6 +30,8 @@ export class Etudiant {
         idparcouurs:Parcours,
         suppr: boolean, id?: number
         ) {
+        this.idanneeUniversitaire = idanneeUniversitaire
+        this.code = code
         this.matricule = matricule;
         this.nom = nom;
         this.motdepasse = motdepasse;

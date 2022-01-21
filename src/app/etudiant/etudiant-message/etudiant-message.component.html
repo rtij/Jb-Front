@@ -1,1 +1,18 @@
-<p>etudiant-message works!</p>
+<div class="contenu">
+    <div class="row">
+        <div class="hidden-xs col-sm-3 w3-grey w3-container">
+            <div class="w3-center w3-container">
+                <button class="full-width w3-margin-top w3-margin-bottom btn w3-padding w3-round-large new w3-blue"><span class="glyphicon glyphicon-plus"> Nouveau</span></button>
+                <ul class="nav">
+                    <li *ngFor='let message of MessageEtudiant'>
+                        <h4>{{message.idprofesseur.nom}}</h4>
+                        <span >{{message.message}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-9">
+
+        </div>
+    </div>
+</div>

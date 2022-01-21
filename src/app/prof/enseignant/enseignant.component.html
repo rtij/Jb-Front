@@ -1,22 +1,25 @@
-<div class="contenu">
-    <table class="w3-table w3-responsive w3-striped w3-bordered">
-        <thead>
-            <tr class="w3-grey">
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Contact</th>
-                <th>Email</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of Prof">
-                <td>{{item.civilite}} {{item.nom}}</td>
-                <td>{{item.prenom}}</td>
-                <td>{{item.contact}}</td>
-                <td>{{item.email}}</td>
-                <td><button class="btn btn-default"><span class="glyphicon glyphicon-comment"></span></button></td>
-            </tr>
-        </tbody>
-    </table>
+<div class="contenu w3-container">
+    <div class="w3-responsive">
+        <table class="w3-table w3-striped w3-bordered">
+            <thead>
+                <tr class="w3-grey">
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Contact</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of Prof">
+                    <td>{{item.civilite}} {{item.nom}}</td>
+                    <td>{{item.prenom}}</td>
+                    <td>{{item.contact}}</td>
+                    <td>{{item.email}}</td>
+                    <td><button class="btn btn-default"><span class="glyphicon glyphicon-comment"></span></button></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
 </div>

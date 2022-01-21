@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ExamTitre } from 'src/app/Object/ExamTitre';
-import { DateFormate, DateToShortDate } from 'src/app/Object/Function';
+import {DateToShortDate } from 'src/app/Object/Function';
 import { ProfService } from 'src/app/prof.service';
 
 @Component({
@@ -47,7 +47,7 @@ export class ExamenComponent implements OnInit {
   }
 
   selectExam(Exam:ExamTitre){
-    this.ProfService.sendSelectedExam(Exam);
+    this.ProfService.SetSelectedExam(Exam);
     this.router.navigate(['/prof/Examen/Examen-add']);
   }
 }

@@ -27,10 +27,10 @@ export class LoginComponent implements OnInit {
      document.location.href="https://www.digitec.mg/ists24/FR/PAGE-Liste-employe.php";
     }
     if(this.loginService.getUserType(this.code)=="PF"){
-      this.router.navigate(['/prof']);
+      this.router.navigate(['/Professeur']);
     }
     if(this.loginService.getUserType(this.code)=="ET"){
-      this.router.navigate(['/etudiant']);
+      this.router.navigate(['/Etudiant']);
     }
     },
       (err) => {

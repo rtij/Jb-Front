@@ -3,6 +3,7 @@ import { Niveau } from "./Niveau";
 import { Parcours } from "./Parcours";
 import { Professeur } from "./Professeur";
 import {Module} from './Module';
+import { ExamQuestion } from "./ExamQuestion";
 
 export class ExamTitre {
     titre: string;
@@ -15,7 +16,8 @@ export class ExamTitre {
     debut:Time;
     duree:Time;
     idexamTitre?: number;
-    constructor(titre: string,dureeI:string,Debut:Time,Duree:Time, idparcours: Parcours, idprofesseur: Professeur,idmodule:Module, diffusion: Date, idniveau: Niveau,idExamTitre?:number) {
+    idexamQuestion:ExamQuestion[];
+    constructor(titre: string,dureeI:string,Debut:Time,Duree:Time, idparcours: Parcours, idprofesseur: Professeur,idmodule:Module, diffusion: Date, idniveau: Niveau,idexamQuestion:ExamQuestion[], idExamTitre?:number) {
         this.idniveau = idniveau;
         this.titre = titre;
         this.idparcours =idparcours;
@@ -26,5 +28,6 @@ export class ExamTitre {
         this.duree = Duree;
         this.idmodule = idmodule;
         this.idexamTitre = idExamTitre;
+        this.idexamQuestion = idexamQuestion;
     }
 }

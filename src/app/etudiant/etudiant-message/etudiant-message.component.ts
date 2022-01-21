@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageEtudiant } from 'src/app/Object/MessageEtudiant';
+import { EtudiantService } from 'src/app/Service/etudiant.service';
 
 @Component({
   selector: 'app-etudiant-message',
@@ -7,9 +9,40 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EtudiantMessageComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private EtudiantService: EtudiantService) { }
+  MessageEtudiant: MessageEtudiant[] = [];
+  conversation:MessageEtudiant[] = [];
+  selectedMessage!:MessageEtudiant;
   ngOnInit(): void {
+    this.getEtudiant();
   }
 
+  getEtudiant(){
+    const etudiant = this.EtudiantService.sendEtudiant();
+    if(etudiant){
+      this.getMessage();
+    }
+    else{
+      this.EtudiantService.getEtudiant().subscribe(
+        (res)=>{
+          this.getMessage();
+        }
+      )
+    }
+  }
+
+  getMessage() {
+    this.EtudiantService.getMessageEtudiant().subscribe(
+      (res) => {
+        this.MessageEtudiant = res;
+      },
+      (err) => {
+        console.log(err.error);
+      }
+    )
+  }
+
+  selectMessage(){
+
+  }
 }

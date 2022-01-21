@@ -2,27 +2,31 @@
     <div class="col-sm-3">
         <h4>Parcours: {{parcours}}</h4>
         <ul class="nav parcours">
-            <li class="w3-container" *ngFor="let it of Niveau" (click)="selectNiveau(it)" [class.selected]="it.nom == nom">{{it.nom}}</li>
+            <li class="w3-container" *ngFor="let it of Niveau" (click)="selectNiveau(it)"
+                [class.w3-teal]="it.nom == nom">{{it.nom}}</li>
         </ul>
     </div>
     <div class="col-sm-9">
-        <table class="w3-table w3-responsive w3-striped w3-bordered">
-            <thead>
-                <tr class="w3-grey">
-                    <th>Matricule</th>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let item of Etudiants">
-                    <td>{{item.matricule}}</td>
-                    <td>{{item.nom}}</td>
-                    <td>{{item.prenom}}</td>
-                    <td><button title="Envoyer un message" class="btn btn-default"><span class="glyphicon glyphicon-comment"></span></button></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="w3-responsive">
+            <table class="w3-table w3-striped w3-bordered">
+                <thead>
+                    <tr class="w3-grey">
+                        <th>Matricule</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of Etudiants">
+                        <td>{{item.matricule}}</td>
+                        <td>{{item.nom}}</td>
+                        <td>{{item.prenom}}</td>
+                        <td><button title="Envoyer un message" class="btn btn-default"><span
+                                    class="glyphicon glyphicon-comment"></span></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

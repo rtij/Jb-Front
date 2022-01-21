@@ -7,7 +7,7 @@ import { Documents } from './Object/Documents';
 import { Etudiant } from './Object/Etudiant';
 import { ExamQuestion } from './Object/ExamQuestion';
 import { ExamTitre } from './Object/ExamTitre';
-import { DateToShortDate, GetResultTime, getTimeLocaleTime } from './Object/Function';
+import { DateToShortDate, GetResultTime, getTimeLocaleTime, SetResultTime } from './Object/Function';
 import { ModuleProfesseur } from './Object/ModuleProfesseur';
 import { Professeur } from './Object/Professeur';
 import { QuestionType } from './Object/QuestionType';
@@ -28,9 +28,22 @@ export class ProfService {
   response: string = "";
   last!: number;
   QuestionType!: QuestionType[];
-  ExamQuestionListe!:ExamQuestion[];
-  ExamLastQuestion!:ExamQuestion;
-  ExamTitreListe!:ExamTitre[];
+  ExamQuestionListe!: ExamQuestion[];
+  ExamLastQuestion!: ExamQuestion;
+  ExamTitreListe!: ExamTitre[];
+  selectedExam!: ExamTitre;
+
+
+  // Data communication
+  SetSelectedExam(Exam: ExamTitre) {
+    this.selectedExam = Exam;
+    return this.selectedExam;
+  }
+  UnsetSelectedExam() {
+    const it: any = undefined;
+    this.selectedExam = it;
+  }
+  // 
   getProf(): Observable<Professeur> {
     return this.http.get(url + `api/prof/prof`).pipe(
       map((res: any) => {
@@ -75,6 +88,7 @@ export class ProfService {
       catchError(this.handleError));
   }
 
+  //Course service
   AddDocs(Doc: Documents): Observable<Documents[]> {
     return this.http.post(url + `api/prof/docs/ajout`, { data: Doc }).pipe(
       map((res: any) => {
@@ -130,7 +144,12 @@ export class ProfService {
   getExamListe() {
     return this.http.get(url + `api/prof/exam/list`).pipe(
       map((res: any) => {
-        this.ExamTitreListe = res['data'];
+        const liste = res['data'];
+        this.ExamTitreListe = [];
+        liste.forEach((item: any) => {
+          const Exam: ExamTitre = new ExamTitre(item.titre, item.dureeI, GetResultTime(item.hDebut), GetResultTime(item.duree), item.idparcours, item.idprofesseur, item.idmodule, DateToShortDate(item.diffusion), item.idniveau, item.idexamQuestion, item.idexamTitre);
+          this.ExamTitreListe.push(Exam);
+        });
         return this.ExamTitreListe;
       }),
       catchError(this.handleError));
@@ -140,25 +159,25 @@ export class ProfService {
       map((res: any) => {
         const data: any = res['data'];
         GetResultTime(data.duree);
-        const Exam:ExamTitre = new ExamTitre(data.titre,data.dureeI,GetResultTime(data.hDebut),GetResultTime(data.duree),data.idparcours,data.idprofesseur,data.idmodule,DateToShortDate(data.diffusion),data.idniveau,data.idexamTitre);
+        const Exam: ExamTitre = new ExamTitre(data.titre, data.dureeI, GetResultTime(data.hDebut), GetResultTime(data.duree), data.idparcours, data.idprofesseur, data.idmodule, DateToShortDate(data.diffusion), data.idniveau, data.idexamTitre);
         this.Exam = Exam;
         return this.Exam;
       }),
       catchError(this.handleError));
   }
-  RemoveExam(Exam:ExamTitre){
-    return this.http.delete(url + `api/prof/exam/remove/`+Exam.idexamTitre).pipe(
+  RemoveExam(Exam: ExamTitre) {
+    return this.http.delete(url + `api/prof/exam/remove/` + Exam.idexamTitre).pipe(
       map((res: any) => {
-        return this.response= res['data'];
+        return this.response = res['data'];
       }),
-      catchError(this.handleError));  
+      catchError(this.handleError));
   }
 
-  EditExam(Exam:ExamTitre){
-    return this.http.post(url + `api/prof/exam/edit/`+Exam.idexamTitre, {data:Exam}).pipe(
+  EditExam(Exam: ExamTitre) {
+    return this.http.post(url + `api/prof/exam/edit/` + Exam.idexamTitre, { data: Exam }).pipe(
       map((res: any) => {
-        const data:any = res['data'];
-        const Exam:ExamTitre = new ExamTitre(data.titre,data.dureeI,GetResultTime(data.hDebut),GetResultTime(data.duree),data.idparcours,data.idprofesseur,data.idmodule,DateToShortDate(data.diffusion),data.idniveau,data.idexamTitre);
+        const data: any = res['data'];
+        const Exam: ExamTitre = new ExamTitre(data.titre, data.dureeI, GetResultTime(data.hDebut), GetResultTime(data.duree), data.idparcours, data.idprofesseur, data.idmodule, DateToShortDate(data.diffusion), data.idniveau, data.idexamTitre);
         this.Exam = Exam;
         return this.Exam;
       }),
@@ -169,30 +188,28 @@ export class ProfService {
     return this.http.get(url + `api/prof/exam/last`).pipe(
       map((res: any) => {
         const data: any = res['data'];
-        GetResultTime(data.duree);
-        const Exam:ExamTitre = new ExamTitre(data.titre,data.dureeI,GetResultTime(data.hDebut),GetResultTime(data.duree),data.idparcours,data.idprofesseur,data.idmodule,DateToShortDate(data.diffusion),data.idniveau,data.idexamTitre);
+        const Exam: ExamTitre = new ExamTitre(data.titre, data.dureeI, GetResultTime(data.hDebut), GetResultTime(data.duree), data.idparcours, data.idprofesseur, data.idmodule, DateToShortDate(data.diffusion), data.idniveau, data.idexamTitre);
         this.Exam = Exam;
         return this.Exam;
       }),
       catchError(this.handleError));
   }
-  FindExam(Exam:ExamTitre){
-    return this.http.get(url + `api/prof/exam/get/`+Exam.idexamTitre).pipe(
+  FindExam(Exam: ExamTitre) {
+    return this.http.get(url + `api/prof/exam/get/` + Exam.idexamTitre).pipe(
       map((res: any) => {
         const data: any = res['data'];
-        GetResultTime(data.duree);
-        const Exam:ExamTitre = new ExamTitre(data.titre,data.dureeI,GetResultTime(data.hDebut),GetResultTime(data.duree),data.idparcours,data.idprofesseur,data.idmodule,DateToShortDate(data.diffusion),data.idniveau,data.idexamTitre);
+        const Exam: ExamTitre = new ExamTitre(data.titre, data.dureeI, GetResultTime(data.hDebut), GetResultTime(data.duree), data.idparcours, data.idprofesseur, data.idmodule, DateToShortDate(data.diffusion), data.idniveau, data.idexamTitre);
         this.Exam = Exam;
         return this.Exam;
       }),
       catchError(this.handleError));
   }
-  SetExamFinished(Exam:ExamTitre){
-    return this.http.put(url + `api/prof/exam/finish/`+Exam.idexamTitre ,{data:Exam}).pipe(
+  SetExamFinished(Exam: ExamTitre) {
+    return this.http.put(url + `api/prof/exam/finish/` + Exam.idexamTitre, { data: Exam }).pipe(
       map((res: any) => {
-        return this.response= res['data'];
+        return this.response = res['data'];
       }),
-      catchError(this.handleError));  
+      catchError(this.handleError));
   }
   getQuestionType() {
     return this.http.get(url + `api/prof/exam/question/type`).pipe(
@@ -202,66 +219,59 @@ export class ProfService {
       }),
       catchError(this.handleError));
   }
-  AddQuestion(Question:ExamQuestion){
-    return this.http.post(url + `api/prof/exam/question/add/`+Question.idexamTitre.idexamTitre ,{data:Question}).pipe(
+  AddQuestion(Question: ExamQuestion) {
+    return this.http.post(url + `api/prof/exam/question/add/` + Question.idexamTitre.idexamTitre, { data: Question }).pipe(
       map((res: any) => {
         return this.ExamLastQuestion = res['data'];
       }),
-      catchError(this.handleError));  
+      catchError(this.handleError));
   }
-  Addchoice(choix:string,Question:ExamQuestion){
-    return this.http.post(url + `api/prof/exam/question/choice/add/`+Question.idexamQuestion ,{data:choix}).pipe(
+  Addchoice(choix: string, Question: ExamQuestion) {
+    return this.http.post(url + `api/prof/exam/question/choice/add/` + Question.idexamQuestion, { data: choix }).pipe(
       map((res: any) => {
         return this.ExamLastQuestion = res['data'];
       }),
-      catchError(this.handleError));  
+      catchError(this.handleError));
   }
-  GetlastQuestion(Exam:ExamTitre){
-    return this.http.get(url + `api/prof/exam/question/last/`+Exam.idexamTitre).pipe(
+  GetlastQuestion(Exam: ExamTitre) {
+    return this.http.get(url + `api/prof/exam/question/last/` + Exam.idexamTitre).pipe(
       map((res: any) => {
         return this.ExamLastQuestion = res['data'];
       }),
-      catchError(this.handleError));  
+      catchError(this.handleError));
   }
 
-  RemoveChoix(Choix:Choix){
-    return this.http.delete(url + `api/prof/exam/question/choice/remove/`+Choix.idchoix).pipe(
+  RemoveChoix(Choix: Choix) {
+    return this.http.delete(url + `api/prof/exam/question/choice/remove/` + Choix.idchoix).pipe(
       map((res: any) => {
         return this.response = res['data'];
       }),
-      catchError(this.handleError));  
+      catchError(this.handleError));
   }
-  RemoveQuestion(Question:ExamQuestion){
-    return this.http.delete(url + `api/prof/exam/question/remove/`+Question.idexamQuestion).pipe(
+  RemoveQuestion(Question: ExamQuestion) {
+    return this.http.delete(url + `api/prof/exam/question/remove/` + Question.idexamQuestion).pipe(
       map((res: any) => {
         return this.response = res['data'];
       }),
-      catchError(this.handleError));     
+      catchError(this.handleError));
   }
   // Edit Quesiton service
-  EditQuestion(Question:ExamQuestion){
-    return this.http.put(url + `api/prof/exam/question/edit/`+Question.idexamQuestion ,{data:Question}).pipe(
+  EditQuestion(Question: ExamQuestion) {
+    return this.http.put(url + `api/prof/exam/question/edit/` + Question.idexamQuestion, { data: Question }).pipe(
       map((res: any) => {
         return this.ExamLastQuestion = res['data'];
       }),
-      catchError(this.handleError));  
+      catchError(this.handleError));
   }
-  GetQuestion(Question:ExamQuestion){
-      return this.http.post(url + `api/prof/exam/question/getQuestion`,{data:Question}).pipe(
+  GetQuestion(Question: ExamQuestion) {
+    return this.http.post(url + `api/prof/exam/question/getQuestion`, { data: Question }).pipe(
       map((res: any) => {
         return this.ExamLastQuestion = res['data'];
       }),
-      catchError(this.handleError));  
+      catchError(this.handleError));
   }
-  private _selectedExamSource = new Subject<ExamTitre>();
-  selectedExam$ = this._selectedExamSource.asObservable();
 
-  sendSelectedExam(Exam:ExamTitre){
-    const data: any = Exam;
-    GetResultTime(data.duree);
-    const Examen:ExamTitre = new ExamTitre(data.titre,data.dureeI,GetResultTime(data.hDebut),GetResultTime(data.duree),data.idparcours,data.idprofesseur,data.idmodule,DateToShortDate(data.diffusion),data.idniveau,data.idexamTitre);
-    this._selectedExamSource.next(Examen);
-  }
+  // Handle Error
   private handleError(error: HttpErrorResponse) {
     console.log(error.error);
     // return an observable with a user friendly message

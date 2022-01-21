@@ -1,6 +1,6 @@
 <div class="contenu">
     <!-- Ajout de l'examen -->
-    <div *ngIf="examAdd == false" class="Exam-details w3-card-2 w3-container w3-padding-24">
+    <div *ngIf="examAdd == false" class="Exam-details w3-card-2 w3-container w3-margin-bottom w3-padding-24">
         <form class="form-horizontal" #b="ngForm">
             <div class="form-group">
                 <label for="titre" class="col-sm-2">Titre</label>
@@ -38,7 +38,7 @@
                     <input type="time" class="w3-input" id="duree" name="duree" [(ngModel)]="Duree" required>
                 </div>
             </div>
-            <button (click)="AddExamTitre()" [disabled]="b.invalid" class="full-width w3-btn w3-blue"><span
+            <button (click)="AddExamTitre(b)" [disabled]="b.invalid" class="full-width w3-btn w3-blue"><span
                     class="glyphicon glyphicon-plus"></span> {{action}}</button>
             <button *ngIf="action == 'Modifier'" class="btn w3-red full-width w3-margin-top" (click)="EditAnnulation()">Annuler</button>
         </form>
@@ -110,7 +110,7 @@
         </div>
     </div>
     <!-- Liste des questions -->
-    <div *ngFor="let question of QuestionListe" class="question w3-card-2 w3-container w3-padding-24">
+    <div *ngFor="let question of QuestionListe" class="w3-margin-top question w3-card-2 w3-container w3-padding-24">
         <div class="navbar">
             <div class="navbar-right w3-container">
                 <ul class="nav navbar-nav">

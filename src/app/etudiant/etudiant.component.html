@@ -1,15 +1,23 @@
-<nav class="navbar w3-sidebar sidenav">
-    <ul class="nav">
-        <li class="nav-title"><span class="glyphicon glyphicon-education"></span> ISTS</li>
-        <li><a class="username">{{Etudiant.nom}} {{Etudiant.prenom}}</a></li>
-        <li><a routerLink="/etudiant" routerLinkActive="active">Cours</a></li>
-        <li><a routerLink="Message" routerLinkActive="active">Messages</a></li>
-        <li><a routerLink="Examen" routerLinkActive="active">Examen</a></li>
-        <li><a >Encadrement</a></li>
-        <hr>
-        <li><a (click)="logout()">Déconnexion</a></li>
-    </ul>
+<nav class="navbar w3-white">
+    <div class="w3-container w3-padding-24">
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-target="#myNavbar" data-toggle="collapse">
+                <span class="glyphicon glyphicon-menu-hamburger"></span>
+            </button>
+            <a routerLink="/Etudiant" class="navbar-brand w3-circle navbar-title"><span class="glyphicon glyphicon-education w3-text-teal"></span></a>
+        </div>
+        <div class="navbar-collapse collapse" id="myNavbar">
+            <ul class="navbar-right navbar-nav nav w3-text-teal">
+                <li><a routerLink="Profil" routerLinkActive="active"><span class="glyphicon glyphicon-user"></span> <span> </span> Profil</a></li>
+                <li><a routerLink="Cours" routerLinkActive="active"><span class="glyphicon glyphicon-book"></span> Leçons</a></li>
+                <li><a routerLink="Examen" routerLinkActive="active"><span class="fa fa-list-alt"></span> <span></span> Examen</a></li>
+                <li><a routerLink="Message" routerLinkActive="active"><span class="fa fa-paper-plane"></span> <span></span> Messages</a></li>
+                <li><a routerLink="Notifications" routerLinkActive="active"><span class="glyphicon glyphicon-bell"></span> <span> </span> Notifications</a></li>
+                <li><a (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> <span> </span>  Déconnexion</a></li>
+            </ul>
+        </div>
+    </div>
 </nav>
-<div class="content">
-    <router-outlet></router-outlet>
+<div class="routerContainer" [@routerAnimation]="getDepth(myOutlet)">
+    <router-outlet #myOutlet="outlet"></router-outlet>
 </div>

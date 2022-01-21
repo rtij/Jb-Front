@@ -10,6 +10,10 @@ export function DateToShortDate(date: Date, number: number = 0): Date {
     return result;
 }
 
+export function getDateAndTimeFromServer(ServerDate:Date,number = 0){
+
+}
+
 export function getTimeLocaleTime(date: Date): Time {
     var it = date.toString();
         var value = "";
@@ -18,6 +22,11 @@ export function getTimeLocaleTime(date: Date): Time {
         }
     const val:any = value;
     return val;
+}
+
+export function gethours()
+{
+
 }
 
 export function DateStringToDate(date: string): Date {
@@ -114,14 +123,17 @@ export function getMonthNow() {
     let date = new Date();
     return date.getMonth();
 }
+
 export function getMonthNameNow() {
     let date = new Date();
     return Mois[date.getMonth()];
 }
+
 export function getYearNow() {
     let date = new Date();
     return date.getFullYear();
 }
+
 export function FormateDate(date:Date):Date{
     var value =  "";
     let day = date.getDate();
@@ -130,7 +142,6 @@ export function FormateDate(date:Date):Date{
     }
     else{
         value = date.getFullYear()+"-0"+(date.getMonth()+1)+"-"+date.getDate();
-     
     }
     const result:any = value;
     return result;
@@ -145,3 +156,13 @@ export function GetResultTime(Date:Date,i:number = 11):Time{
      const final_result:any = result;
      return final_result;
 }
+
+export function SetResultTime(Date:Time,i:number = 11):Time{
+    
+    
+    const resutlt : any = "";
+    return resutlt;
+}
+
+
+

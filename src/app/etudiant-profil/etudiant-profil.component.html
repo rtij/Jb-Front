@@ -1,0 +1,140 @@
+<div class="contenu w3-container">
+    <div class="w3-padding-24">
+        <h4><strong> Votre profil </strong></h4>
+        <div class="w3-white w3-card-2 profil w3-round-large w3-padding-24 w3-container form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2" for="code"><strong> Code: </strong></label>
+                <div class="col-sm-10">
+                    <h4 id="code">{{Etudiant.code}}</h4>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2" for="nom"><strong> Nom: </strong></label>
+                <div class="col-sm-10">
+                    <h4 id="nom">{{Etudiant.nom}}</h4>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2" for="prenom"><strong> Prenom: </strong></label>
+                <div class="col-sm-10">
+                    <h4 id="prenom">{{Etudiant.prenom}}</h4>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2" for="prenom"><strong> email: </strong></label>
+                <div class="col-sm-10">
+                    <h4 id="email">{{Etudiant.email}}</h4>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2" for="contact"><strong> Contact: </strong></label>
+                <div class="col-sm-10">
+                    <h4 id="contact">{{Etudiant.contact}}</h4>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2" for="contact"><strong> Parcours: </strong></label>
+                <div class="col-sm-10">
+                    <h4 id="contact">{{Etudiant.idparcours.nom}}</h4>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2" for="contact"><strong> Niveau: </strong></label>
+                <div class="col-sm-10">
+                    <h4 id="contact">{{Etudiant.idniveau.nom}}</h4>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4" for="contact"><strong> Année Universitaire: </strong></label>
+                <div class="col-sm-8">
+                    <h4 id="contact">{{Etudiant.idanneeUniversitaire.annee}}</h4>
+                </div>
+            </div>
+            <button class="full-width btn w3-teal" type="button" data-target="#MdpModal" data-toggle="modal">Modifier
+                mot de passe</button>
+        </div>
+    </div>
+
+    <h4><strong>Responsable de classe</strong> </h4>
+    <div class="w3-padding-24">
+        <div class="w3-white w3-padding w3-card-2 w3-container w3-round-large">
+            <ul class="nav w3-margin-top">
+                <li class="resListe w3-margin-top w3-round-large" *ngFor="let Responsable of ResponsableListe">
+                    {{Responsable.idprofesseur.nom}} {{Responsable.idprofesseur.prenom}}<button
+                        class="btn w3-right w3-card-2" (click)="selectProfesseur(Responsable.idprofesseur)"><span class="glyphicon glyphicon-envelope"></span></button></li>
+            </ul>
+        </div>
+    </div>
+    <div class="w3-padding-24">
+        <h4> <strong> Vos professeur </strong></h4>
+        <div class="w3-responsive">
+
+            <table class="w3-table w3-white w3-striped">
+                <tr class="w3-teal">
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Module</th>
+                    <th></th>
+                </tr>
+                <tbody>
+                    <tr *ngFor="let item of ProfesseurListe">
+                        <td>{{item.idprofesseur.nom}}</td>
+                        <td>{{item.idprofesseur.prenom}}</td>
+                        <td>{{item.idmodule.nom}}</td>
+                        <td><button (click)="selectProfesseur(item.idprofesseur)" class="btn w3-card-2 w3-right" type="button" data-target="#MessageModal" data-toggle="modal"><span class="glyphicon glyphicon-envelope"></span></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<!-- Modal modifier mdp -->
+<div class="modal fade" role="dialog" id="MdpModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close w3-text-red"><span
+                        class="glyphicon glyphicon-remove"></span></button>
+                <h4 class="w3-center"><strong> Modifier mot de passe </strong></h4>
+            </div>
+            <div class="modal-body">
+                <form class="w3-container" #m="ngForm">
+                    <input type="password" id="Newmdp" name="NewMdp" class="w3-input w3-margin-top" minlength="6"
+                        [(ngModel)]="mdp" #Mdp="ngModel" placeholder="Nouveau mot de passe" required>
+                    <input type="password" id="ConfMdp" name="ConfMdp" class="w3-input w3-margin-top"
+                        [(ngModel)]="confMdp" placeholder="Confirmer mot de passe" required>
+                    <button (click)="modifMdp(m)" [disabled]="m.invalid || mdp != confMdp"
+                        class="btn w3-blue w3-margin-top w3-right">Confirmer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Message modal -->
+<div class="modal fade" role="dialog" id="MessageModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="w3-text-red close" type="button" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+            </div>
+            <div class="modal-body w3-container">
+                <form #s ="ngForm" >
+                    <label *ngIf="selectedProfesseur" for="destinataire">À: {{selectedProfesseur.nom}} {{selectedProfesseur.prenom}}</label>
+                    <span class="selectedProfesseur"></span>
+                    <textarea class="w3-input" [(ngModel)]="message"  name="MessageC" id="MessageC" cols="30" rows="10" placeholder="Insérer votre message"></textarea>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <ul class="navbar-nav nav w3-right">
+                    <li><a title="Ajouter un fichier" class="btn w3-margin w3-blue"><span class="glyphicon glyphicon-file"></span></a></li>
+                    <li><a class="btn w3-blue w3-margin" (click)="SendMessage()">Envoyer</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

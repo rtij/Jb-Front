@@ -8,9 +8,9 @@ import { ProfGuard } from './prof.guard';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate:[AdminGuard] },
-  { path: 'etudiant', loadChildren: () => import('./etudiant/etudiant.module').then(m => m.EtudiantModule) ,canActivate:[EtudiantGuard]},
-  { path: 'prof', loadChildren: () => import('./prof/prof.module').then(m => m.ProfModule), canActivate:[ProfGuard]},
+  { path: 'Admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate:[AdminGuard] },
+  { path: 'Etudiant', loadChildren: () => import('./etudiant/etudiant.module').then(m => m.EtudiantModule) ,canActivate:[EtudiantGuard]},
+  { path: 'Professeur', loadChildren: () => import('./prof/prof.module').then(m => m.ProfModule), canActivate:[ProfGuard]},
   { path: '**', component: PageNotFoundComponent },
 ];
 

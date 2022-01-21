@@ -5,7 +5,6 @@
                 <li><a class="btn" routerLink="/prof/cours/cours-ajout"><span class="glyphicon glyphicon-plus"></span>
                         Ajouter</a>
                 </li>
-                <li><a class="btn"><span class="glyphicon glyphicon-list"></span> Trier par</a></li>
                 <li><input type="text" id="search" name="search" [(ngModel)]="search" placeholder="Rechercher"
                         class="w3-input search"></li>
             </ul>
@@ -36,12 +35,12 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-4">
-        <div class="liste w3-container">
+    <div class="hidden-xs col-sm-4">
+        <div class="liste container">
             <ul class="nav title">
                 <h3>Vos Cours</h3>
                 <li [class.w3-blue]="titre == ''" (click)="showAll()">Touts</li>
-                <li [class.w3-blue]="titre == item.titre" *ngFor="let item of Docs" (click)="selectCours(item)">{{item.titre}}</li>
+                <li [class.w3-blue]="item == selectedDoc" *ngFor="let item of Docs" (click)="selectCours(item)">{{item.titre}}</li>
             </ul>
         </div>
     </div>
@@ -52,7 +51,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close w3-hover red" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Modifier ce post</h4>
             </div>
             <div class="modal-body">
@@ -120,7 +119,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default">Sauvegarder</button>
+                <button type="button" class="btn w3-blue">Sauvegarder</button>
             </div>
         </div>
 

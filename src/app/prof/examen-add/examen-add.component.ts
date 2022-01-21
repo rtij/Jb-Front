@@ -41,19 +41,36 @@ export class ExamenAddComponent implements OnInit {
   lastQuestion!: ExamQuestion;
   selectedQuestion!: ExamQuestion;
   action: string = "Enregistrer";
+  ngOnInit(): void {
+    this.getModuleProf();
+    this.GetQuestionType();
+  }
+
 
   constructor(private ProfService: ProfService, private router: Router) {
     this.diffusion = "";
     this.examAdd = false;
   }
+
   // Get Data function
-
-  ngOnInit(): void {
-    this.getModuleProf();
-    this.GetQuestionType();
-
+  getSelectedExam(){
+    const it= this.ProfService.selectedExam;
+    if(it){
+      this.examAdd = true;
+      this.Exam = it;
+      console.log(this.Exam);
+      this.diffusion = DateFormate(it.diffusion);
+      this.QuestionListe = this.Exam.idexamQuestion;
+      const idniveau:any = this.Exam.idniveau.idniveau;
+      const idparcours:any = this.Exam.idparcours.idparcours;
+      const idmodule:any = this.Exam.idmodule.idmodule;
+      const result:any = this.ProfesseurModule.find((item)=>{
+        return item.idmodule == idmodule && item.idniveau == idniveau && item.idparcours == idparcours
+      });
+      this.selectedModule = result;
+      console.assert(result,"result not found");
+    }
   }
-
 
   setModule() {
     const result = this.ProfesseurModule.find((item) => {
@@ -69,73 +86,28 @@ export class ExamenAddComponent implements OnInit {
     this.ProfService.getCours().subscribe(
       (res) => {
         this.ProfesseurModule = res;
-        this.getLastExam();
+        this.getSelectedExam();
       },
       (err) => {
         console.log(err.error);
       }
     );
   }
-  getLastExam() {
-    this.ProfService.selectedExam$.subscribe
-      (
-        (res) => {
-          if(res){
-            console.log(res);
-          }
-          this.Exam = res;
-          this.ProfService.FindExam(this.Exam).subscribe(
-            (res) => {
-              this.Exam = res;
-              this.examAdd = false;
-              this.titre = this.Exam.titre;
-              this.Duree = this.Exam.duree;
-              this.heureDeb = this.Exam.debut;
-              const id:any = this.Exam.idmodule.idmodule;
-              const result:any  = this.ProfesseurModule.find((item)=>{
-                return item.idmodule == id
-              });
-              this.selectedModule = result;
-              this.DateDiffusion = this.Exam.diffusion;
-              this.action = "Modifier";
-            },err=>console.log(err.error)
-          )
-        },err=>console.log(err.error)
-      )
-    // this.ProfService.getLastExam().subscribe(
-    //   (res) => {
-    //     this.Exam = res;
-    //     this.Exam.diffusion = DateToShortDate(this.Exam.diffusion);
-    //     this.diffusion = DateFormate(this.Exam.diffusion);
-    //     this.examAdd = true;
-    //     this.titre = this.Exam.titre;
-    //     const id:any = this.Exam.idmodule.idmodule;
-    //     const result =  this.ProfesseurModule.find((item)=>{
-    //       return item.idmodule.idmodule == id;
-    //     });
-    //     if(result){
-    //       this.selectedModule = result;
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(err.error);
-    //   }
-    // )
-  }
-
+ 
   // Action function
-  AddExamTitre() {
+  AddExamTitre(b:any) {
     if (this.action == "Modifier") {
-      this.SaveEditExam();
+      this.SaveEditExam(b);
     }
     else {
-      const exam = new ExamTitre(this.titre, this.Duree.toString(), this.heureDeb, this.Duree, this.selectedModule.idparcours, this.selectedModule.idprofesseur, this.selectedModule.idmodule, this.DateDiffusion, this.selectedModule.idniveau);
+      const exam = new ExamTitre(this.titre, this.Duree.toString(), this.heureDeb, this.Duree, this.selectedModule.idparcours, this.selectedModule.idprofesseur, this.selectedModule.idmodule, this.DateDiffusion, this.selectedModule.idniveau,[]);
       this.ProfService.createExam(exam).subscribe(
         (res) => {
           this.examAdd = true;
           this.Exam = res;
           this.Exam.diffusion = DateToShortDate(this.Exam.diffusion);
           this.diffusion = DateFormate(this.Exam.diffusion);
+          b.reset();
         },
         (err) => {
           console.log(err.error);
@@ -149,17 +121,23 @@ export class ExamenAddComponent implements OnInit {
     this.titre = this.Exam.titre;
     this.Duree = this.Exam.duree;
     this.heureDeb = this.Exam.debut;
-    this.selectedModule.idmodule = this.Exam.idmodule;
-    this.selectedModule.idniveau = this.Exam.idniveau;
-    this.selectedModule.idparcours = this.Exam.idparcours;
     this.DateDiffusion = this.Exam.diffusion;
     this.action = "Modifier";
+    const result:any = this.ProfesseurModule.find(
+      (item)=>{
+        return item.idmodule.idmodule == this.Exam.idmodule.idmodule;
+      }
+    );
+    console.log(result);
+    this.selectedModule = result;
   }
+
   EditAnnulation() {
     this.examAdd = true;
     this.action = "Enregistrer";
   }
-  SaveEditExam() {
+
+  SaveEditExam(b:any) {
     this.Exam.titre = this.titre;
     this.Exam.duree = this.Duree;
     this.Exam.debut = this.heureDeb;
@@ -174,9 +152,11 @@ export class ExamenAddComponent implements OnInit {
         this.examAdd = true;
         this.Exam.diffusion = DateToShortDate(this.Exam.diffusion);
         this.diffusion = DateFormate(this.Exam.diffusion);
+        b.reset();
       }, err => { console.log(err.error) }
     )
   }
+
   GetQuestionType() {
     this.ProfService.getQuestionType().subscribe(
       (res) => {
@@ -217,6 +197,7 @@ export class ExamenAddComponent implements OnInit {
       this.choiceFound = false;
     }
   }
+
   removeChoice(choice: string) {
     this.choiceListe = this.choiceListe.filter((item) => {
       return item != choice;
@@ -225,6 +206,7 @@ export class ExamenAddComponent implements OnInit {
       this.validChoiceNumber = false;
     }
   }
+
   SaveChoice() {
     this.ProfService.Addchoice(this.choiceListe[this.index], this.lastQuestion).subscribe(
       (res) => {
@@ -284,6 +266,7 @@ export class ExamenAddComponent implements OnInit {
       }
     )
   }
+
   SetFinish() {
     this.ProfService.SetExamFinished(this.Exam).subscribe((res) => {
       this.router.navigate(['/prof/Examen']);
@@ -292,6 +275,7 @@ export class ExamenAddComponent implements OnInit {
         console.log(err.error);
       });
   }
+
   // Remove Question function
   removeQuestionChoice() {
     this.ProfService.RemoveChoix(this.selectedQuestion.questionChoice[this.index]).subscribe((res) => {
@@ -337,7 +321,6 @@ export class ExamenAddComponent implements OnInit {
     this.selectedQuestion = Question;
     const questionN = this.QuestionListe.indexOf(this.selectedQuestion);
     alert(questionN);
-
     const idT: any = this.selectedQuestion.idtype.idtype;
     this.idType = idT;
     this.choiceListe = [];
@@ -346,6 +329,7 @@ export class ExamenAddComponent implements OnInit {
     });
     this.Question = this.selectedQuestion.question;
   }
+
   RemoveExam() {
     this.ProfService.RemoveExam(this.Exam).subscribe(
       (res) => {
@@ -354,9 +338,15 @@ export class ExamenAddComponent implements OnInit {
       }
     )
   }
+
   AskForRemoveExam() {
     if (confirm("Voulez-vous vraiment annuler cette examen ?")) {
       this.RemoveExam();
     }
   }
+
+  ngOnDestroy(){
+    this.ProfService.UnsetSelectedExam();
+  }
+
 }

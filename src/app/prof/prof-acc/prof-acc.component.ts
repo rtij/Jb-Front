@@ -70,6 +70,7 @@ export class ProfAccComponent implements OnInit {
   }
   selectCours(docs: Documents) {
     this.Doc = this.Docs;
+    this.selectedDoc = docs;
     this.titre = docs.titre;
     this.Doc = this.Doc.filter((item) => {
       return item == docs
@@ -79,6 +80,8 @@ export class ProfAccComponent implements OnInit {
   showAll() {
     this.Doc = this.Docs;
     this.titre = "";
+    const it:any =null;
+    this.selectedDoc = it;
   }
   
   deleteDoc(it: Documents) {

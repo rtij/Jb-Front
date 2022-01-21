@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ProfRoutingModule } from './prof-routing.module';
 import { ProfComponent } from './prof.component';
 import { ProfAccComponent } from './prof-acc/prof-acc.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { CoursAddComponent } from './cours-add/cours-add.component';
 import { EtuComponent } from './etu/etu.component';
@@ -35,6 +35,7 @@ import { EnseignantComponent } from './enseignant/enseignant.component';
     CommonModule,
     Ng2SearchPipeModule,
     FormsModule,
+    ReactiveFormsModule,
     ProfRoutingModule
   ]
 })

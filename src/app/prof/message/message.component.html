@@ -22,7 +22,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close w3-text-red" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Nouveau messages</h4>
       </div>
       <div class="modal-body">
@@ -39,13 +39,13 @@
                     id="Etu"
                     >
                 <datalist id="EtudiantListe">
-                    <option *ngFor="let item of Etudiants" value="{{item.nom}}"></option>
+                    <option *ngFor="let item of Etudiants" value="{{item.nom}} {{item.prenom}}"></option>
                 </datalist>
             </div>
           </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
       </div>
     </div>
 

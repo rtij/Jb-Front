@@ -10,15 +10,18 @@ import { EtudiantService } from 'src/app/Service/etudiant.service';
   styleUrls: ['./exam-p.component.css']
 })
 export class ExamPComponent implements OnInit {
-
-  constructor(private EtudiantService:EtudiantService) { }
   Exam!:ExamTitre;
   ActuTime!:Time;
   ActuDate!:Date;
   serverTime!:Time;
   CoolDown!:Time;
-  timesUp:boolean = true;
+  timesUp:boolean;
   DateString:string="";
+  
+  constructor(private EtudiantService:EtudiantService) { 
+    this.timesUp = false;
+  }
+  
   ngOnInit(): void {
     this.getSelectedExam();
   }
@@ -27,7 +30,7 @@ export class ExamPComponent implements OnInit {
     const exam = this.EtudiantService.ExamListe[0];
     if(exam){
       this.Exam = exam;
-      
+      console.log(this.Exam);
     }
     this.getTime();
   }
@@ -37,18 +40,11 @@ export class ExamPComponent implements OnInit {
     this.EtudiantService.selectedExam  = it;
   }
 
-  ngOnDestroy(){
-    this.unselectExam();   
-  }
-
+  
   getTime(){
     this.EtudiantService.getTime().subscribe
     ((res)=>{
      this.ActuDate = res;
-     this.DateString = DateFormate( DateToShortDate(this.ActuDate));
-     this.serverTime = GetResultTime( this.ActuDate);
-     this.ActuDate = DateToShortDate(this.ActuDate);
-     this.CoolDown = this.Exam.duree;
     this.TimeCounter();
     },
     (err)=>console.log(err.error))
@@ -58,12 +54,13 @@ export class ExamPComponent implements OnInit {
   TimeCounter(){
     setTimeout(()=>{
       this.CoolDown = TimerDown(this.CoolDown);
-      let it:any = this.serverTime;
-      it = it.toString();
-      if(it == "00:00:00"){
-        this.timesUp = true;
-      }
       this.TimeCounter();
       },1000);
   }
+
+
+  ngOnDestroy(){
+    this.unselectExam();   
+  }
+
 }

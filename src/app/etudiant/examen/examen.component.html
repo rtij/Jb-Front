@@ -50,7 +50,8 @@
                 </div>
             </div>
             <div class="w3-margin-bottom full-width">
-                <button [disabled]="(ActuDate<exam.diffusion || serverTime<exam.debut) " (click)="selectExam(exam)" class="full-width btn w3-blue">Commencer</button>
+                <button (click)="selectExam(exam)" class="full-width btn w3-blue">Commencer</button>
+            <!-- [disabled]="(ActuDate<exam.diffusion || serverTime<exam.debut) " -->
             </div>
         </div>
     </div>

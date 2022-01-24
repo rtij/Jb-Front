@@ -1,11 +1,10 @@
 <div class="contenu">
     <div class="w3-blue w3-padding-24">
-        <div class="w3-padding" *ngIf="timesUp == true">
-            <h3 class="w3-text-green"><strong> Temps écoulé</strong></h3>
-            <p></p>
-        </div>
         <div class="" *ngIf="timesUp == false">
             {{CoolDown}}
         </div>
     </div>
+    {{timesUp}}
+   {{Exam.titre}}
+   {{Exam.duree}}
 </div>

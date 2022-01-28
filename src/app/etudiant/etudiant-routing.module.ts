@@ -5,15 +5,17 @@ import { CoursReplyComponent } from './cours-reply/cours-reply.component';
 import { CoursComponent } from './cours/cours.component';
 import { EtudiantMessageComponent } from './etudiant-message/etudiant-message.component';
 import { EtudiantComponent } from './etudiant.component';
+import { ExamPComponent } from './exam-p/exam-p.component';
 import { ExamenComponent } from './examen/examen.component';
 
 const routes: Routes = [
   { path: '', component: EtudiantComponent,children:[
     {path:'',redirectTo:'Cours',pathMatch:'full'},
     {path:'Cours',component:CoursComponent, data:{depth:'2'}},
-    {path:'Cours/Reply',component:CoursReplyComponent,data:{depth:'3'}},
+    {path:'Cours/Reply',component:CoursReplyComponent,data:{depth:'2'}},
     {path:'Message',component:EtudiantMessageComponent,data:{depth:'4'}},
     {path:'Examen',component:ExamenComponent,data:{depth:'3'}},
+    {path:'Examen/Reply',component:ExamPComponent,data:{depth:'3'}},
     {path:'Profil',component:EtudiantProfilComponent,data:{depth:'1'}},
   ] } 
 ];

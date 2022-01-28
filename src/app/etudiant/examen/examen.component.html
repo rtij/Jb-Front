@@ -1,20 +1,57 @@
 <div class="contenu">
-    <div>
-        {{DateString}}
-        {{ActuTime}}
-        <button (click)="MyTime()" class="btn w3-red">show it</button>
-        <input type="time" id="ActualTime" name="ActualTime" [(ngModel)]="serverTime">
+    <div class="navbar w3-padding w3-blue">
+        <div class="w3-container">
+            <div class="navbar-header">
+                <h5><strong> {{DateString}}</strong></h5>
+            </div>
+            <div class="navbar-right">
+                <h5><strong> {{serverTime}}</strong></h5>
+            </div>
+        </div>
     </div>
     <div class="w3-padding">
         <h3 class="w3-text-teal w3-center">Examen à venir</h3>
-        <p> <span class="w3-text-red"><strong> N.b:</strong></span> Dès que vous cliquez sur le bouton commencer le compteur se déclenchera. Assurer que vous ne serez pas intérompu pendant le test.</p>
+        <p> <span class="w3-text-red"><strong> N.b:</strong></span> Dès que vous cliquez sur le bouton commencer le
+            compteur se déclenchera. Assurer que vous ne serez pas intérompu pendant le test.</p>
     </div>
-    <div *ngFor="let exam of ExamListe" class="exam-post w3-round-large w3-card-2 w3-blue w3-padding-top-64 w3-margin">
+    <div *ngFor="let exam of ExamListe" class="exam-post w3-round-large w3-card-2 w3-blue w3-padding-top-48 w3-margin">
         <h4 class="w3-margin">{{exam.titre}}</h4>
-        <div class="w3-padding-64 w3-container w3-white w3-margin-top">
-           <div>
-               <button (click)="selectExam(exam)" class="btn w3-blue">Commencer</button>
-           </div>
+        <div class="w3-padding-top-64 w3-container w3-white w3-margin-top">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h5><strong>Matière:</strong></h5>
+                </div>
+                <div class="col-sm-9">
+                    <p>{{exam.idmodule.nom}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h5><strong>Date de diffusuion:</strong></h5>
+                </div>
+                <div class="col-sm-9">
+                    <p>{{exam.diffusion}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h5><strong>Heure de début:</strong></h5>
+                </div>
+                <div class="col-sm-9">
+                    <p>{{exam.debut}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h5><strong>Durée:</strong></h5>
+                </div>
+                <div class="col-sm-9">
+                    <p>{{exam.duree}}</p>
+                </div>
+            </div>
+            <div class="w3-margin-bottom full-width">
+                <button [disabled]="(ActuDate<exam.diffusion || serverTime<exam.debut) " (click)="selectExam(exam)" class="full-width btn w3-blue">Commencer</button>
+            </div>
         </div>
     </div>
 </div>

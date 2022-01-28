@@ -5,7 +5,7 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { Documents } from '../Object/Documents';
 import { Etudiant } from '../Object/Etudiant';
 import { ExamTitre } from '../Object/ExamTitre';
-import { GetResultTime } from '../Object/Function';
+import { DateToShortDate, GetResultTime } from '../Object/Function';
 import { MessageEtudiant } from '../Object/MessageEtudiant';
 import { ModuleProfesseur } from '../Object/ModuleProfesseur';
 import { Professeur } from '../Object/Professeur';
@@ -82,7 +82,12 @@ export class EtudiantService {
   getExamEtudiant(){
     return this.http.get(url+`api/etudiant/exam/liste/`+ this.Etudiants.idetudiant).pipe
     (map((res:any)=>{
-      this.ExamListe = res['data'];
+      const liste = res['data'];
+        this.ExamListe = [];
+        liste.forEach((item: any) => {
+          const Exam: ExamTitre = new ExamTitre(item.titre, item.dureeI, GetResultTime(item.hDebut), GetResultTime(item.duree), item.idparcours, item.idprofesseur, item.idmodule, DateToShortDate(item.diffusion), item.idniveau, item.idexamQuestion, item.idexamTitre);
+          this.ExamListe.push(Exam);
+        });
       return this.ExamListe;
     }),
     catchError(this.handleError));

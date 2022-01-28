@@ -92,7 +92,7 @@ export class CoursAddComponent implements OnInit {
         }
         else {
           alert("Enregistrement effectuer");
-          this.router.navigate(['/prof']);
+          this.router.navigate(['/Professeur']);
         }
       },
       (err) => {

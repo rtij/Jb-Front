@@ -64,7 +64,7 @@
             <ul class="nav w3-margin-top">
                 <li class="resListe w3-margin-top w3-round-large" *ngFor="let Responsable of ResponsableListe">
                     {{Responsable.idprofesseur.nom}} {{Responsable.idprofesseur.prenom}}<button
-                        class="btn w3-right w3-card-2" (click)="selectProfesseur(Responsable.idprofesseur)"><span class="glyphicon glyphicon-envelope"></span></button></li>
+                        class="btn w3-right w3-card-2" (click)="selectProfesseur(Responsable.idprofesseur)"  type="button" data-target="#MessageModal" data-toggle="modal"><span class="glyphicon glyphicon-envelope"></span></button></li>
             </ul>
         </div>
     </div>

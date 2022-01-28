@@ -1,13 +1,13 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, Subject, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { Choix } from './Object/Choix';
 import { DocLien } from './Object/DocLien';
 import { Documents } from './Object/Documents';
 import { Etudiant } from './Object/Etudiant';
 import { ExamQuestion } from './Object/ExamQuestion';
 import { ExamTitre } from './Object/ExamTitre';
-import { DateToShortDate, GetResultTime, getTimeLocaleTime, SetResultTime } from './Object/Function';
+import { DateToShortDate, GetResultTime, getTimeLocaleTime } from './Object/Function';
 import { ModuleProfesseur } from './Object/ModuleProfesseur';
 import { Professeur } from './Object/Professeur';
 import { QuestionType } from './Object/QuestionType';
@@ -158,7 +158,6 @@ export class ProfService {
     return this.http.post(url + `api/prof/exam/ajout`, { data: Exam }).pipe(
       map((res: any) => {
         const data: any = res['data'];
-        GetResultTime(data.duree);
         const Exam: ExamTitre = new ExamTitre(data.titre, data.dureeI, GetResultTime(data.hDebut), GetResultTime(data.duree), data.idparcours, data.idprofesseur, data.idmodule, DateToShortDate(data.diffusion), data.idniveau, data.idexamTitre);
         this.Exam = Exam;
         return this.Exam;

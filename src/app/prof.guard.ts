@@ -17,7 +17,7 @@ export class ProfGuard implements CanActivate {
       if (this.authenticateService.isLogedIn() == true) {
         return true;
       } else {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
         return false;
       }
   }

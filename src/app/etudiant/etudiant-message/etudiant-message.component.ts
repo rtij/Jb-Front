@@ -13,6 +13,7 @@ export class EtudiantMessageComponent implements OnInit {
   MessageEtudiant: MessageEtudiant[] = [];
   conversation:MessageEtudiant[] = [];
   selectedMessage!:MessageEtudiant;
+  File!: FileList;
   ngOnInit(): void {
     this.getEtudiant();
   }
@@ -44,5 +45,12 @@ export class EtudiantMessageComponent implements OnInit {
 
   selectMessage(){
 
+  }
+
+  uploadFile() {
+    const fd = new FormData();
+    fd.append('file', this.File[0], this.File[0].name);
+    console.log(fd);
+    
   }
 }

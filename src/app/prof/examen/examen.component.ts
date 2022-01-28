@@ -48,6 +48,6 @@ export class ExamenComponent implements OnInit {
 
   selectExam(Exam:ExamTitre){
     this.ProfService.SetSelectedExam(Exam);
-    this.router.navigate(['/prof/Examen/Examen-add']);
+    this.router.navigate(['/Professeur/Examen/Examen-add']);
   }
 }

@@ -1,5 +1,6 @@
 import { Time } from "@angular/common";
 
+// Server Date Formater
 export function DateToShortDate(date: Date, number: number = 0): Date {
     var it = date.toString();
     var value = "";
@@ -10,24 +11,20 @@ export function DateToShortDate(date: Date, number: number = 0): Date {
     return result;
 }
 
-export function getDateAndTimeFromServer(ServerDate:Date,number = 0){
+export function getDateAndTimeFromServer(ServerDate: Date, number = 0) {
 
 }
 
 export function getTimeLocaleTime(date: Date): Time {
     var it = date.toString();
-        var value = "";
-        for(let number=16;number<=23;number++){
-            value = value + it[number]
-        }
-    const val:any = value;
+    var value = "";
+    for (let number = 16; number <= 23; number++) {
+        value = value + it[number]
+    }
+    const val: any = value;
     return val;
 }
 
-export function gethours()
-{
-
-}
 
 export function DateStringToDate(date: string): Date {
     let result = "";
@@ -134,35 +131,147 @@ export function getYearNow() {
     return date.getFullYear();
 }
 
-export function FormateDate(date:Date):Date{
-    var value =  "";
+export function FormateDate(date: Date): Date {
+    var value = "";
     let day = date.getDate();
-    if(day<10){
-        value = date.getFullYear()+"-0"+(date.getMonth()+1)+"-0"+date.getDate();
+    if (day < 10) {
+        value = date.getFullYear() + "-0" + (date.getMonth() + 1) + "-0" + date.getDate();
     }
-    else{
-        value = date.getFullYear()+"-0"+(date.getMonth()+1)+"-"+date.getDate();
+    else {
+        value = date.getFullYear() + "-0" + (date.getMonth() + 1) + "-" + date.getDate();
     }
-    const result:any = value;
+    const result: any = value;
     return result;
 }
 
-export function GetResultTime(Date:Date,i:number = 11):Time{
+
+// Some function to formate date from the server
+
+
+export function GetResultTime(Date: Date, i: number = 11): Time {
     const it = Date.toString();
     var result = '';
-    for(i;i<=15;i++){
-         result = result + it[i];
-     }
-     const final_result:any = result;
-     return final_result;
+    for (i; i <= 18; i++) {
+        result = result + it[i];
+    }
+    const final_result: any = result;
+    return final_result;
 }
 
-export function SetResultTime(Date:Time,i:number = 11):Time{
-    
-    
-    const resutlt : any = "";
-    return resutlt;
+// Timer values getter
+
+export function getTimeHours(Hours: Time, i = 0): number {
+    const it = Hours.toString();
+    var result = "";
+    for (i; i < 2; i++) {
+        result = result + it[i];
+    }
+    const hours: any = result;
+    return hours;
 }
 
+export function getMinutes(Hours: Time, i = 3): number {
+    const it = Hours.toString();
+    var result = "";
+    for (i; i < 5; i++) {
+        result = result + it[i];
+    }
+    const minutes: any = result;
+    return minutes;
+}
 
+export function getSecond(Hours: Time, i = 6): number {
+    const it = Hours.toString();
+    var result = "";
+    for (i; i < 8; i++) {
+        result = result + it[i];
+    }
+    const minutes: any = result;
+    return minutes;
+}
 
+export function TimerUp(Hours: Time): Time {
+    let it: any = "";
+    let second: number = getSecond(Hours);
+    let min: number = getMinutes(Hours);
+    let Heure: number = getTimeHours(Hours);
+    let minresult = "";
+    let secondResult = "";
+    let HeureRes = "";
+    // check second
+    let i: number = ++second;
+    second = i;
+    secondResult = second.toString();
+    minresult = min.toString();
+    HeureRes = Heure.toString();
+    if (second < 10) {
+        secondResult = "0" + second.toString();
+    }
+    if (second == 60) {
+        ++min;
+        second = 0;
+        secondResult = "0" + second.toString();
+        minresult = min.toString();
+        if (min < 10) {
+            minresult = "0" + min.toString();
+        }
+    }
+    if (min == 60) {
+        ++Heure;
+        min = 0;
+        minresult = "0" + min.toString();
+        HeureRes = Heure.toString();
+        if (Heure < 10) {
+            HeureRes = "0" + Heure.toString();
+        }
+    }
+    if (Heure == 24) {
+        it = "00:00:00";
+        return it;
+    }
+    it = HeureRes + ":" + minresult + ":" + secondResult;
+    return it;
+}
+
+export function TimerDown(Hours: Time) {
+    let it: any = "";
+    let second: number = getSecond(Hours);
+    let min: number = getMinutes(Hours);
+    let Heure: number = getTimeHours(Hours);
+    let minresult = "";
+    let secondResult = "";
+    let HeureRes = "";
+    // check second
+    let i: number = --second;
+    second = i;
+    secondResult = second.toString();
+    minresult = min.toString();
+    HeureRes = Heure.toString();
+    if (second < 10) {
+        secondResult = "0" + second.toString();
+    }
+    if (second <= 0) {
+        --min;
+        second = 59;
+        secondResult = second.toString();
+        minresult = min.toString();
+        if (min < 10) {
+            minresult = "0" + min.toString();
+        }
+    }
+    if (min <= 0) {
+        --Heure;
+        min = 59;
+        minresult = min.toString();
+        HeureRes = Heure.toString();
+        if (Heure < 0) {
+            it = "00:00:00";
+            return it;
+        }
+        if (Heure < 10) {
+            HeureRes = "0" + Heure.toString();
+        }
+    }
+    it = HeureRes + ":" + minresult + ":" + secondResult;
+    return it;
+}

@@ -118,7 +118,7 @@ export class EtudiantProfilComponent implements OnInit {
   SendMessage(){
     this.EtudiantService.SendMessage(this.selectedProfesseur,this.message).subscribe(
       (res)=>{
-        alert(res);
+        this.router.navigate(['/Etudiant/Message']);
       },
       (err)=>{
         console.log(err.error);

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Etudiant } from 'src/app/Object/Etudiant';
 import { ExamTitre } from 'src/app/Object/ExamTitre';
-import { DateFormate, DateToShortDate, FormateDate, GetResultTime, getTimeLocaleTime } from 'src/app/Object/Function';
+import { DateFormate, DateToShortDate, FormateDate, getMonth, GetResultTime, getTimeLocaleTime, Month, TimerDown, TimerUp } from 'src/app/Object/Function';
 import { EtudiantService } from 'src/app/Service/etudiant.service';
 
 @Component({
@@ -17,7 +17,6 @@ export class ExamenComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEtudiant();
-    this.getTime();
   }
 
   ExamListe:ExamTitre[] = [];
@@ -45,6 +44,7 @@ export class ExamenComponent implements OnInit {
     this.EtudiantService.getExamEtudiant().subscribe
     ((res)=>{
       this.ExamListe = res;
+      this.getTime();
     },
     (err)=>{
       console.log(err.error);
@@ -55,25 +55,26 @@ export class ExamenComponent implements OnInit {
   selectExam(exam:ExamTitre){
     this.selectedExam = exam;
     this.EtudiantService.selectedExam = exam;
-    this.router.navigate(['Cours/Reply']);
+    this.router.navigate(['Etudiant/Examen/Reply']);
   }
 
   getTime(){
     this.EtudiantService.getTime().subscribe
     ((res)=>{
-      console.log(res);
-      this.DateString = DateFormate(res);
-      this.serverTime = GetResultTime(res); 
-      this.ActuTime = this.serverTime;
-      console.log(this.ActuTime);
-      console.log("this is the actual hours"+ this.ActuTime.hours);
-
+     this.ActuDate = res;
+     this.DateString = DateFormate( DateToShortDate(this.ActuDate));
+     this.serverTime = GetResultTime( this.ActuDate);
+     this.ActuDate = DateToShortDate(this.ActuDate);
+    this.TimeCounter();
     },
     (err)=>console.log(err.error))
   }
 
-  MyTime(){
-   
+  TimeCounter(){
+    setTimeout(()=>{
+      this.serverTime = TimerUp(this.serverTime);
+      this.TimeCounter();
+      },1000);
   }
 
 }

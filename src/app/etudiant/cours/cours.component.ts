@@ -145,6 +145,6 @@ export class CoursComponent implements OnInit {
 
   SelectCours(doc:Documents){
     this.EtudiantService.selectedCours = doc;
-    this.router.navigate(['Cours/Reply']);
+    this.router.navigate(['/Etudiant/Cours/Reply']);
   }
 }

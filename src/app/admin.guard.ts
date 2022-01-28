@@ -26,7 +26,7 @@ export class AdminGuard implements CanActivate {
     } 
     this.authenticateService.Logout();
     this.authenticateService.removeData();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
       return false;
   }
 

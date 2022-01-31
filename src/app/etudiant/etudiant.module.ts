@@ -14,6 +14,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { CoursReplyComponent } from './cours-reply/cours-reply.component';
 import { ExamPComponent } from './exam-p/exam-p.component';
 import { EtudiantProfilComponent } from '../etudiant-profil/etudiant-profil.component';
+import { AutosizeModule } from '@techiediaries/ngx-textarea-autosize';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { EtudiantProfilComponent } from '../etudiant-profil/etudiant-profil.comp
   ],
   imports: [
     CommonModule,
+    AutosizeModule,
     Ng2SearchPipeModule,
     ReactiveFormsModule,
     FormsModule,

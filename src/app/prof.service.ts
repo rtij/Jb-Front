@@ -158,7 +158,7 @@ export class ProfService {
     return this.http.post(url + `api/prof/exam/ajout`, { data: Exam }).pipe(
       map((res: any) => {
         const data: any = res['data'];
-        const Exam: ExamTitre = new ExamTitre(data.titre, data.dureeI, GetResultTime(data.hDebut), GetResultTime(data.duree), data.idparcours, data.idprofesseur, data.idmodule, DateToShortDate(data.diffusion), data.idniveau, data.idexamTitre);
+        const Exam: ExamTitre = new ExamTitre(data.titre, data.dureeI, GetResultTime(data.hDebut), GetResultTime(data.duree), data.idparcours, data.idprofesseur, data.idmodule, DateToShortDate(data.diffusion), data.idniveau,[], data.idexamTitre);
         this.Exam = Exam;
         return this.Exam;
       }),

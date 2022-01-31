@@ -64,7 +64,9 @@
             <ul class="nav w3-margin-top">
                 <li class="resListe w3-margin-top w3-round-large" *ngFor="let Responsable of ResponsableListe">
                     {{Responsable.idprofesseur.nom}} {{Responsable.idprofesseur.prenom}}<button
-                        class="btn w3-right w3-card-2" (click)="selectProfesseur(Responsable.idprofesseur)"  type="button" data-target="#MessageModal" data-toggle="modal"><span class="glyphicon glyphicon-envelope"></span></button></li>
+                        class="btn w3-right w3-card-2" (click)="selectProfesseur(Responsable.idprofesseur)"
+                        type="button" data-target="#MessageModal" data-toggle="modal"><span
+                            class="glyphicon glyphicon-envelope"></span></button></li>
             </ul>
         </div>
     </div>
@@ -72,7 +74,7 @@
         <h4> <strong> Vos professeur </strong></h4>
         <div class="w3-responsive">
 
-            <table class="w3-table w3-white w3-striped">
+            <table class="w3-table w3-margin-bottom w3-white w3-striped">
                 <tr class="w3-teal">
                     <th>Nom</th>
                     <th>Prenom</th>
@@ -84,7 +86,9 @@
                         <td>{{item.idprofesseur.nom}}</td>
                         <td>{{item.idprofesseur.prenom}}</td>
                         <td>{{item.idmodule.nom}}</td>
-                        <td><button (click)="selectProfesseur(item.idprofesseur)" class="btn w3-card-2 w3-right" type="button" data-target="#MessageModal" data-toggle="modal"><span class="glyphicon glyphicon-envelope"></span></button>
+                        <td><button (click)="selectProfesseur(item.idprofesseur)" class="btn w3-card-2 w3-right"
+                                type="button" data-target="#MessageModal" data-toggle="modal"><span
+                                    class="glyphicon glyphicon-envelope"></span></button>
                         </td>
                     </tr>
                 </tbody>
@@ -120,21 +124,32 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button class="w3-text-red close" type="button" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                <button class="w3-text-red close" type="button" data-dismiss="modal"><span
+                        class="glyphicon glyphicon-remove"></span></button>
             </div>
             <div class="modal-body w3-container">
-                <form #s ="ngForm" >
-                    <label *ngIf="selectedProfesseur" for="destinataire">À: {{selectedProfesseur.nom}} {{selectedProfesseur.prenom}}</label>
+                <form #s="ngForm">
+                    <label *ngIf="selectedProfesseur" for="destinataire">À: {{selectedProfesseur.nom}}
+                        {{selectedProfesseur.prenom}}</label>
                     <span class="selectedProfesseur"></span>
-                    <textarea class="w3-input" [(ngModel)]="message"  name="MessageC" id="MessageC" cols="30" rows="10" placeholder="Insérer votre message"></textarea>
+                    <ul *ngIf="filename != '' " class="nav w3-margin w3-container w3-padding w3-round-large w3-card-2">
+                        <li>
+                            <span class="glyphicon glyphicon-file"> {{filename}}</span>
+                        </li>
+                    </ul>
+                    <textarea (keyup)="ValidateMessage()" class="w3-input" [(ngModel)]="message" name="MessageC"
+                        id="MessageC" cols="30" rows="10" placeholder="Insérer votre message" required></textarea>
+                    <ul class="w3-margin-top navbar-nav nav w3-right">
+                        <li><button (click)="Pick.click()" title="Ajouter un fichier"
+                                class="btn w3-margin w3-blue"><span class="glyphicon glyphicon-file"></span></button>
+                        </li>
+                        <li><button [disabled]="nombre<=0 && validMessage == false" class="btn w3-blue w3-margin"
+                                (click)="SendMessage()">Envoyer</button></li>
+                    </ul>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <ul class="navbar-nav nav w3-right">
-                    <li><a title="Ajouter un fichier" class="btn w3-margin w3-blue"><span class="glyphicon glyphicon-file"></span></a></li>
-                    <li><a class="btn w3-blue w3-margin" (click)="SendMessage()">Envoyer</a></li>
-                </ul>
             </div>
         </div>
     </div>
+    <input (change)="onSelectFile($event)" type="file" id="MessageFile" name="MessageFile" #Pick
+        accept=".txt, .pdf, .png, .jpg, .mp4, .mp3" class="select">
 </div>

@@ -13,68 +13,81 @@ import { EtudiantService } from 'src/app/Service/etudiant.service';
 })
 export class ExamenComponent implements OnInit {
 
-  constructor(private EtudiantService:EtudiantService,private router:Router) { }
+  constructor(private EtudiantService: EtudiantService, private router: Router) { }
 
   ngOnInit(): void {
     this.getEtudiant();
   }
 
-  ExamListe:ExamTitre[] = [];
-  selectedExam!:ExamTitre;
-  ActuTime!:Time;
-  ActuDate!:Date;
-  serverTime!:Time;
-  DateString:string="";
+  ExamListe: ExamTitre[] = [];
+  selectedExam!: ExamTitre;
+  ActuTime!: Time;
+  ActuDate!: Date;
+  serverTime!: Time;
+  DateString: string = "";
 
-  getEtudiant(){
+  getEtudiant() {
     const etu = this.EtudiantService.sendEtudiant();
-    if(etu){
+    if (etu) {
       this.getExamListe();
     }
-    else{
+    else {
       this.EtudiantService.getEtudiant().subscribe(
-        (res)=>{
+        (res) => {
           this.getExamListe();
         }
       )
     }
   }
 
-  getExamListe(){
-    this.EtudiantService.getExamEtudiant().subscribe
-    ((res)=>{
-      this.ExamListe = res;
+  getExamListe() {
+    const it= this.EtudiantService.ExamListe;
+    if (it.length != 0) {
+      this.ExamListe = it;
       this.getTime();
-    },
-    (err)=>{
-      console.log(err.error);
     }
-    )
+    else {
+      this.EtudiantService.getExamEtudiant().subscribe
+        ((res) => {
+          this.ExamListe = res;
+          this.getTime();
+        },
+          (err) => {
+            console.log(err.error);
+          }
+        )
+    }
+
   }
 
-  selectExam(exam:ExamTitre){
-    this.selectedExam = exam;
+  selectExam(exam: ExamTitre) {
     this.EtudiantService.selectedExam = exam;
-    this.router.navigate(['Etudiant/Examen/Reply']);
+    this.EtudiantService.EtudiantExamStart(exam).subscribe(
+      (res)=>{
+        if(this.EtudiantService.selectedExam){
+          this.router.navigate(['Etudiant/Examen/Reply']);
+        }
+      }
+    );
   }
 
-  getTime(){
+  getTime() {
     this.EtudiantService.getTime().subscribe
-    ((res)=>{
-     this.ActuDate = res;
-     this.DateString = DateFormate( DateToShortDate(this.ActuDate));
-     this.serverTime = GetResultTime( this.ActuDate);
-     this.ActuDate = DateToShortDate(this.ActuDate);
-    this.TimeCounter();
-    },
-    (err)=>console.log(err.error))
+      ((res) => {
+        this.ActuDate = res;
+        this.DateString = DateFormate(DateToShortDate(this.ActuDate));
+        this.serverTime = GetResultTime(this.ActuDate);
+        this.ActuDate = DateToShortDate(this.ActuDate);
+        this.TimeCounter();
+      },
+        (err) => console.log(err.error))
   }
 
-  TimeCounter(){
-    setTimeout(()=>{
+  TimeCounter() {
+    setTimeout(() => {
       this.serverTime = TimerUp(this.serverTime);
       this.TimeCounter();
-      },1000);
+    }, 1000);
   }
 
 }

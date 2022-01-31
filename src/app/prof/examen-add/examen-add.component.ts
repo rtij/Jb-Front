@@ -105,6 +105,7 @@ export class ExamenAddComponent implements OnInit {
         (res) => {
           this.examAdd = true;
           this.Exam = res;
+          console.log(res);
           this.Exam.diffusion = DateToShortDate(this.Exam.diffusion);
           this.diffusion = DateFormate(this.Exam.diffusion);
           b.reset();
@@ -149,10 +150,10 @@ export class ExamenAddComponent implements OnInit {
     this.ProfService.EditExam(this.Exam).subscribe(
       (res) => {
         this.Exam = res;
-        this.examAdd = true;
         this.Exam.diffusion = DateToShortDate(this.Exam.diffusion);
         this.diffusion = DateFormate(this.Exam.diffusion);
-        b.reset();
+        alert("Modification enregistrer");
+        this.examAdd = true;
       }, err => { console.log(err.error) }
     )
   }
@@ -239,7 +240,7 @@ export class ExamenAddComponent implements OnInit {
       return item.idtype == this.idType;
     });
     const choix: Choix[] = []
-    const question = new ExamQuestion(this.Exam, this.questionNumber, this.Question, questionT, choix);
+    const question = new ExamQuestion(this.Exam, this.questionNumber, this.Question,"" ,questionT, choix);
     this.ProfService.AddQuestion(question).subscribe(
       (res) => {
         this.lastQuestion = res;
@@ -269,12 +270,13 @@ export class ExamenAddComponent implements OnInit {
 
   SetFinish() {
     this.ProfService.SetExamFinished(this.Exam).subscribe((res) => {
-      this.router.navigate(['/prof/Examen']);
+      this.router.navigate(['/Professeur/Examen']);
     },
       (err) => {
         console.log(err.error);
       });
   }
+
 
   // Remove Question function
   removeQuestionChoice() {
@@ -334,7 +336,7 @@ export class ExamenAddComponent implements OnInit {
     this.ProfService.RemoveExam(this.Exam).subscribe(
       (res) => {
         alert('Suppréssion effectuer');
-        this.router.navigate(['/prof/Examen']);
+        this.router.navigate(['/Professeur/Examen']);
       }
     )
   }

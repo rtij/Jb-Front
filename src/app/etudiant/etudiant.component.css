@@ -40,3 +40,16 @@ li a{
     margin: 0;
     overflow: hidden;
 }
+.info-btn{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    opacity: 1;
+    z-index: 9999;
+    margin: 30px;
+}
+.close{
+    color: red;
+}

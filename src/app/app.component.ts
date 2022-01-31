@@ -7,5 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ISTS-Angular';
-   a:string = "hello word";
 }

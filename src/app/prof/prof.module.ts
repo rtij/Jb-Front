@@ -15,6 +15,8 @@ import { ExamenComponent } from './examen/examen.component';
 import { EncadrementComponent } from './encadrement/encadrement.component';
 import { ExamenAddComponent } from './examen-add/examen-add.component';
 import { EnseignantComponent } from './enseignant/enseignant.component';
+import { AutosizeModule } from '@techiediaries/ngx-textarea-autosize';
+import { CoursReplyComponent } from './cours-reply/cours-reply.component';
 
 
 @NgModule({
@@ -29,11 +31,13 @@ import { EnseignantComponent } from './enseignant/enseignant.component';
     ExamenComponent,
     EncadrementComponent,
     ExamenAddComponent,
-    EnseignantComponent
+    EnseignantComponent,
+    CoursReplyComponent
   ],
   imports: [
     CommonModule,
     Ng2SearchPipeModule,
+    AutosizeModule,
     FormsModule,
     ReactiveFormsModule,
     ProfRoutingModule

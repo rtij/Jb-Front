@@ -14,12 +14,18 @@ export class ProfGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if (this.authenticateService.isLogedIn() == true) {
-        return true;
-      } else {
-        this.router.navigate(['/']);
-        return false;
+    if (this.authenticateService.isLogedIn() == true) {
+      let code = localStorage.getItem('code');
+      if (code) {
+        if (this.authenticateService.getUserType(code) == "PF") {
+          return true;
+        }
       }
+    }
+    this.authenticateService.Logout();
+    this.authenticateService.removeData();
+    this.router.navigate(['/']);
+    return false;
   }
-  
+
 }

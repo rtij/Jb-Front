@@ -1,10 +1,39 @@
 <div class="contenu">
-    <div class="w3-blue w3-padding-24">
-        <div class="" *ngIf="timesUp == false">
+    <div class="w3-blue w3-padding-24 navbar w3-container">
+        <div class="navbar-header" *ngIf="timesUp == false">
             {{CoolDown}}
         </div>
+        <div class="navbar-right" *ngIf="CoolDown >Exam.duree">
+            <button routerLink="/Etudiant/Examen" class="btn btn-primary"><span
+                    class="glyphicon glyphicon-chervron-left"> Retour</span></button>
+        </div>
+        <div *ngIf="CoolDown < Exam.duree" class="navbar-right">
+            <button (click)="Finish()" class="btn w3-green"> Terminer</button>
+        </div>
     </div>
-    {{timesUp}}
-   {{Exam.titre}}
-   {{Exam.duree}}
+
+    <div *ngIf="CoolDown >Exam.duree" class="">
+        <h4 class="w3-center"><strong> Examen terminer</strong></h4>
+    </div>
+    <div class="question w3-container" *ngIf="CoolDown <Exam.duree || timesUp == false">
+        {{Exam.titre}}
+        <form class="w3-margin" *ngFor="let question of Exam.idexamQuestion">
+            <p>{{question.numQuestion}}. {{question.question}} </p>
+            <div *ngIf="question.idtype.idtype == 1">
+                <textarea placeholder="Inserer votre réponse" class="w3-input w3-text-black" autosize name="question.numQuestion" id="question.numQuestion" cols="30"
+                rows="10" [(ngModel)]="question.reponse"></textarea>
+            </div>
+            <div *ngIf="question.idtype.idtype == 2">
+                <div *ngFor="let choix of question.questionChoice" class="radio">
+                    <label for="" class="w3-label"><input (change)="SetSelectChoice(question,choix)" type="radio" name="optradio{{question.numQuestion}}"> {{choix.choix}}</label>
+                </div>
+            </div>
+            
+            <div *ngIf="question.idtype.idtype == 3">
+                <div *ngFor="let choix of question.questionChoice" class="checkbox">
+                    <label for=""><input (change)="SetSelectChoice(question,choix)" type="checkbox" name="optcheckbox{{choix.idchoix}}"> {{choix.choix}}</label>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

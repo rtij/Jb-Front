@@ -22,6 +22,10 @@ export class EtudiantProfilComponent implements OnInit {
   selectedProfesseur!:Professeur;
   message:string = "";
   url:string = "";
+  File!: FileList;
+  filename="";
+  nombre:number = 0;
+  validMessage:boolean = false;
   ngOnInit(): void {
     this.getEtudiant();
   }
@@ -110,19 +114,56 @@ export class EtudiantProfilComponent implements OnInit {
       }
     )
   }
+  
+  onSelectFile(event: any) {
+    this.File = event.target.files;
+    this.nombre = this.File.length;
+    console.log(this.nombre);
+    this.filename = this.File[0].name;
+  }
 
   selectProfesseur(Prof:Professeur){
     this.selectedProfesseur = Prof; 
   }
 
+  // Check Valid message
+  ValidateMessage(){
+    let message = "";
+    message = this.message.trim();
+    if(message.length == 0){
+      this.validMessage = false;
+    }
+    else{
+      this.validMessage = true;
+    }
+  }
+
   SendMessage(){
-    this.EtudiantService.SendMessage(this.selectedProfesseur,this.message).subscribe(
-      (res)=>{
-        this.router.navigate(['/Etudiant/Message']);
-      },
-      (err)=>{
-        console.log(err.error);
-      }
-    )
+    let message = "";
+    const fd = new FormData();
+    if(this.validMessage){
+      message = this.message;
+      this.EtudiantService.SendMessage(this.selectedProfesseur,message).subscribe(
+        (res)=>{
+          alert("Message envoyé");
+        },
+        (err)=>{
+          console.log(err.error);
+        }
+      )
+    }
+    let file:any="";
+    if(this.File){
+      file = this.File[0];
+    }
+    if(file){
+      fd.append('file',file);
+      this.EtudiantService.SendMessageFile(this.selectedProfesseur,fd).subscribe(
+        (res)=>{
+          alert("Message envoyé");
+        }
+      )
+    }
+    
   }
 }

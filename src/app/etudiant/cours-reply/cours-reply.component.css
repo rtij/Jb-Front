@@ -1,0 +1,13 @@
+.contenu{
+    width: 100%;
+    height: 85vh;
+    overflow: auto;
+    margin: 0;
+}
+.Rform{
+    width: 100%;
+    overflow: auto;
+}
+.pick{
+    display: none;
+}

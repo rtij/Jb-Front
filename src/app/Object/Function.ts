@@ -250,7 +250,7 @@ export function TimerDown(Hours: Time) {
     if (second < 10) {
         secondResult = "0" + second.toString();
     }
-    if (second <= 0) {
+    if (second < 0) {
         --min;
         second = 59;
         secondResult = second.toString();
@@ -259,7 +259,7 @@ export function TimerDown(Hours: Time) {
             minresult = "0" + min.toString();
         }
     }
-    if (min <= 0) {
+    if (min < 0) {
         --Heure;
         min = 59;
         minresult = min.toString();

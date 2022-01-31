@@ -51,6 +51,6 @@ export class EtudiantMessageComponent implements OnInit {
     const fd = new FormData();
     fd.append('file', this.File[0], this.File[0].name);
     console.log(fd);
-    
+    //  Service to upload file
   }
 }

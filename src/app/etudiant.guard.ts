@@ -15,12 +15,17 @@ export class EtudiantGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.authenticateService.isLogedIn() == true) {
-      return true;
+      let code = localStorage.getItem('code');
+      if (code) {
+        if (this.authenticateService.getUserType(code) == "ET") {
+          return true;
+        }
+      }
     }
-    else {
-      this.router.navigate(['/']);
-      return false;
-    }
+    this.authenticateService.Logout();
+    this.authenticateService.removeData();
+    this.router.navigate(['/']);
+    return false;
   }
 
 }

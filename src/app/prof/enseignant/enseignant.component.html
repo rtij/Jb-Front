@@ -11,15 +11,42 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of Prof">
+                <tr *ngFor="let item of ProfListe">
                     <td>{{item.civilite}} {{item.nom}}</td>
                     <td>{{item.prenom}}</td>
                     <td>{{item.contact}}</td>
                     <td>{{item.email}}</td>
-                    <td><button class="btn btn-default"><span class="glyphicon glyphicon-comment"></span></button></td>
+                    <td><button (click)="SelectProfesseur(item)" data-toggle="modal" type="button" data-target="#EnsMessage"
+                            class="btn btn-default"><span class="glyphicon glyphicon-comment"></span></button></td>
                 </tr>
             </tbody>
         </table>
 
     </div>
+</div>
+<!-- Modal -->
+<!-- Message modal -->
+<div class="modal fade" role="dialog" id="EnsMessage">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="dismissM" class="w3-text-red close" type="button" data-dismiss="modal"><span
+                        class="glyphicon glyphicon-remove"></span></button>
+            </div>
+            <div class="modal-body w3-container">
+                <form #s="ngForm">
+                    <label *ngIf="selectedProfesseur" for="destinataire">À: {{selectedProfesseur.nom}}
+                        {{selectedProfesseur.prenom}}</label>
+                    <span class="selectedProfesseur"></span>
+                    <textarea class="w3-input" [(ngModel)]="message" name="MessageC" id="MessageC" cols="30" rows="10"
+                        placeholder="Insérer votre message" required></textarea>
+                    <ul class="w3-margin-top navbar-nav nav w3-right">
+                        <li><button [disabled]="s.invalid" class="btn w3-blue w3-margin"
+                                (click)="SendMessage()">Envoyer</button></li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </div>

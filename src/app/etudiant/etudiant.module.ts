@@ -15,6 +15,8 @@ import { CoursReplyComponent } from './cours-reply/cours-reply.component';
 import { ExamPComponent } from './exam-p/exam-p.component';
 import { EtudiantProfilComponent } from '../etudiant-profil/etudiant-profil.component';
 import { AutosizeModule } from '@techiediaries/ngx-textarea-autosize';
+import { MessageEnvComponent } from './message-env/message-env.component';
+import { MessageRComponent } from './message-r/message-r.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { AutosizeModule } from '@techiediaries/ngx-textarea-autosize';
     CoursDetailsComponent,
     CoursReplyComponent,
     ExamPComponent,
-    EtudiantProfilComponent
+    EtudiantProfilComponent,
+    MessageEnvComponent,
+    MessageRComponent
   ],
   imports: [
     CommonModule,

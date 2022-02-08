@@ -1,8 +1,11 @@
 <div class="content row w3-container">
     <div class="col-sm-3">
         <h4>Parcours: {{parcours}}</h4>
+        <select (change)="SetEtudiant()" [(ngModel)]="selectedParcoursN" name="Parcours" id="Parcours"  class="w3-select">
+            <option *ngFor="let it of data" value="it">{{it.parcours.nom}}</option>
+        </select>
         <ul class="nav parcours">
-            <li class="w3-container" *ngFor="let it of Niveau" (click)="selectNiveau(it)"
+            <li class="w3-container w3-margin" *ngFor="let it of Niveau" (click)="selectNiveau(it)"
                 [class.w3-teal]="it.nom == nom">{{it.nom}}</li>
         </ul>
     </div>
@@ -22,7 +25,7 @@
                         <td>{{item.matricule}}</td>
                         <td>{{item.nom}}</td>
                         <td>{{item.prenom}}</td>
-                        <td><button title="Envoyer un message" class="btn btn-default"><span
+                        <td><button (click)="selectEtudiant(item)" data-target="#MessageModal" data-toggle="modal" title="Envoyer un message" class="btn btn-default"><span
                                     class="glyphicon glyphicon-comment"></span></button></td>
                     </tr>
                 </tbody>
@@ -30,3 +33,38 @@
         </div>
     </div>
 </div>
+<!-- ModalMessage -->
+
+<div class="modal fade" role="dialog" id="MessageModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="dismissM" class="w3-text-red close" type="button" data-dismiss="modal"><span
+                        class="glyphicon glyphicon-remove"></span></button>
+            </div>
+            <div class="modal-body w3-container">
+                <form #s="ngForm">
+                    <label *ngIf="selectedEtudiant" for="destinataire">À: {{selectedEtudiant.nom}}
+                        {{selectedEtudiant.prenom}}</label>
+                    <ul *ngIf="filename != '' " class="nav w3-margin w3-container w3-padding w3-round-large w3-card-2">
+                        <li>
+                            <span class="glyphicon glyphicon-file"> {{filename}}</span>
+                        </li>
+                    </ul>
+                    <textarea (keyup)="ValidateMessage()" class="w3-input" [(ngModel)]="message" name="MessageC"
+                        id="MessageC" cols="30" rows="10" placeholder="Insérer votre message" required></textarea>
+                    <ul class="w3-margin-top navbar-nav nav w3-right">
+                        <li><button (click)="Pick.click()" title="Ajouter un fichier"
+                                class="btn w3-margin w3-blue"><span class="glyphicon glyphicon-file"></span></button>
+                        </li>
+                        <li><button [disabled]="nombre<=0 && validMessage == false" class="btn w3-blue w3-margin"
+                                (click)="SendMessage()">Envoyer</button></li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+    <input (change)="onSelectFile($event)" type="file" id="MessageFile" name="MessageFile" #Pick
+        accept=".txt, .pdf, .png, .jpg, .mp4, .mp3" class="select">
+</div>
+

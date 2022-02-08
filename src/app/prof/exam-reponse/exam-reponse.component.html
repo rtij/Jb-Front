@@ -1,0 +1,36 @@
+<div class="contenu w3-container">
+    <div class="navbar">
+        <div class="navbar-right">
+            <ul class="navbar-nav nav">
+                <li><a routerLink="/Professeur/Examen//ListeParticipant" class="w3-btn w3-blue">Retour</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="">
+        <h4><strong>{{ExamEtudiant.idexamTitre.titre}} </strong></h4>
+        <h4><strong>Module:</strong> {{ExamEtudiant.idexamTitre.idmodule.nom}}</h4>
+        <h4><strong> Nom </strong>{{ExamEtudiant.idetudiant.nom}}</h4>
+        <h4><strong>Prénom:</strong> {{ExamEtudiant.idetudiant.prenom}}</h4>
+    </div>
+    <div class="" *ngFor="let question of ExamEtudiant.idexamTitre.idexamQuestion">
+        <p><strong>{{question.numQuestion}} .</strong> {{question.question}}</p>
+
+        <div *ngIf="question.idtype.idtype == 1">
+            <h4><strong>Réponse:</strong>
+            </h4>
+            <div *ngFor="let reponse of ExamEtudiant.idexamReponse">
+                <p *ngIf="reponse.idexamQuestion.idexamQuestion == question.idexamQuestion">{{reponse.reponse}}</p>
+            </div>
+        </div>
+        <div *ngIf="question.idtype.idtype == 2">
+            <div class="radio" *ngFor="let it of question.questionChoice">
+                <label [class.w3-text-blue]="SetChoiceSelected(it)"  ><input readonly [checked]="SetChoiceSelected(it)" type="radio" name="optradio">{{it.choix}}</label>
+            </div>
+        </div>
+        <div *ngIf="question.idtype.idtype == 3">
+            <div class="checkbox" *ngFor="let it of question.questionChoice">
+                <label [class.w3-text-blue]="SetChoiceSelected(it)"><input readonly [checked]="SetChoiceSelected(it)" type="checkbox">{{it.choix}}</label>
+            </div>
+        </div>
+    </div>
+</div>

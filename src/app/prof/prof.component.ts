@@ -18,16 +18,28 @@ export class ProfComponent implements OnInit {
   }
   prof!:Professeur;
   username:string="";
+  isResponsable:boolean = false;
   it:[]=[];
   
   getUsername(){
     this.profService.getProf().subscribe((res) => {
       this.prof = res;
+      this.getResponsabilite();
     },
       (err) => {
         console.log(err.error);
       }
     );
+  }
+
+  getResponsabilite(){
+    this.profService.GetResponsabilite().subscribe(
+      (res)=>{
+        if(res.length != 0){
+          this.isResponsable = true;
+        }
+      }
+    )
   }
   toggleMenu(){
     document.getElementById('sideMenu')!.style.width = "80px";

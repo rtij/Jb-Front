@@ -11,6 +11,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { TokenInterceptor } from './token.interceptor';
 import { ErrorInterceptor } from './error.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ExamReponseComponent } from './exam-reponse/exam-reponse.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     LoginComponent,
     StartComponent,
     PageNotFoundComponent,
+    ExamReponseComponent,
   ],
   imports: [
     BrowserModule,

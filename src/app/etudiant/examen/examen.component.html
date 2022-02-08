@@ -12,7 +12,7 @@
     <div class="w3-padding">
         <h3 class="w3-text-teal w3-center">Examen à venir</h3>
         <p> <span class="w3-text-red"><strong> N.b:</strong></span> Dès que vous cliquez sur le bouton commencer le
-            compteur se déclenchera. Assurer que vous ne serez pas intérompu pendant le test.</p>
+            compteur se déclenchera. Assurer que vous ne serez pas intérrompu pendant le test.</p>
     </div>
     <div *ngFor="let exam of ExamListe" class="exam-post w3-round-large w3-card-2 w3-blue w3-padding-top-48 w3-margin">
         <h4 class="w3-margin">{{exam.titre}}</h4>
@@ -49,7 +49,7 @@
                     <p>{{exam.duree}}</p>
                 </div>
             </div>
-            <div *ngIf="ActuDate >= exam.diffusion && serverTime>=exam.debut" class="w3-margin-bottom full-width">
+            <div *ngIf="ActuDate == exam.diffusion && serverTime>=exam.debut" class="w3-margin-bottom full-width">
                 <button (click)="selectExam(exam)" class="full-width btn w3-blue">Commencer</button>
             </div>
         </div>

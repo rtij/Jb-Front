@@ -12,6 +12,7 @@
         <div class="contenu">
             <div class="post w3-container w3-padding-top-24" *ngFor="let item of Doc | filter:search">
                 <div class="action">
+                    <button (click)="showCoursReplyListe(item)" class="btn w3-teal w3-hover-teal"><span class="glyphicon glyphicon-eye-open"></span></button>
                     <button (click)="selectDoc(item)" class="btn w3-blue w3-hover-blue" data-toggle="modal"
                         data-target="#myModal"><span class="glyphicon glyphicon-pencil"></span>
                     </button>
@@ -30,7 +31,7 @@
                 <p>{{item.description}}</p>
                 <div *ngFor="let it of item.doclien" class="file">
                     <a download="{{it.nomFichier}}"
-                        href="ISTS-Formation.digitec.mg/assets/File/{{it.url}}">{{it.nomFichier}}</a>
+                        href="/assets/File/{{it.url}}">{{it.nomFichier}}</a>
                 </div>
             </div>
         </div>
@@ -39,7 +40,7 @@
         <div class="liste container">
             <ul class="nav title">
                 <h3>Vos Cours</h3>
-                <li [class.w3-blue]="titre == ''" (click)="showAll()">Touts</li>
+                <li [class.w3-blue]="titre == ''" (click)="showAll()">Tous</li>
                 <li [class.w3-blue]="item == selectedDoc" *ngFor="let item of Docs" (click)="selectCours(item)">{{item.titre}}</li>
             </ul>
         </div>

@@ -58,4 +58,11 @@ export class ExamenComponent implements OnInit {
       this.router.navigate(['/Professeur/Examen/Examen-add']);
     }
   }
+
+  VoirRetour(Exam:ExamTitre){
+    this.ProfService.SetSelectedExam(Exam);
+    if(this.ProfService.selectedExam){
+      this.router.navigate(['/Professeur/Examen/ListeParticipant']);
+    }
+  }
 }

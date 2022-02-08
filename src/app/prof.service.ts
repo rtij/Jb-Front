@@ -2,15 +2,21 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { Choix } from './Object/Choix';
+import { DocEtudiant } from './Object/docEtudiant';
 import { DocLien } from './Object/DocLien';
 import { Documents } from './Object/Documents';
 import { Etudiant } from './Object/Etudiant';
+import { ExamEtudiant } from './Object/ExamEtudiant';
 import { ExamQuestion } from './Object/ExamQuestion';
 import { ExamTitre } from './Object/ExamTitre';
 import { DateToShortDate, GetResultTime, getTimeLocaleTime } from './Object/Function';
+import { MessageEtudiant } from './Object/MessageEtudiant';
 import { ModuleProfesseur } from './Object/ModuleProfesseur';
+import { MsgEnseingnant } from './Object/MsgEnseingant';
+import { Parcours } from './Object/Parcours';
 import { Professeur } from './Object/Professeur';
 import { QuestionType } from './Object/QuestionType';
+import { Responsabilite } from './Object/Responsabilite';
 import { url } from './Service/Proxy';
 
 @Injectable({
@@ -21,9 +27,12 @@ export class ProfService {
   constructor(private http: HttpClient) { }
 
   Prof!: Professeur;
+  ProfCours:ModuleProfesseur[] = [];
   ProfModule!: ModuleProfesseur[];
   Docs!: Documents[];
   Etudiants!: Etudiant[];
+  EtudiantListe: Etudiant[] = [];
+  ProfesseurListe: Professeur[] = [];
   Exam!: ExamTitre;
   response: string = "";
   last!: number;
@@ -32,8 +41,22 @@ export class ProfService {
   ExamLastQuestion!: ExamQuestion;
   ExamTitreListe!: ExamTitre[];
   selectedExam!: ExamTitre;
-
-
+  ExamEtudiant: ExamEtudiant[] = [];
+  selectedExamEtudiant!: ExamEtudiant;
+  ExamReponse!: ExamEtudiant;
+  selectedCours!: Documents;
+  docEtudiantListe: DocEtudiant[] = [];
+  selectedDocEtudiant!: DocEtudiant;
+  ReceivedMessageEtudiant: MessageEtudiant[] = [];
+  SendedMessageEtudiant: MessageEtudiant[] = [];
+  selectedEtudiant!: Etudiant;
+  selectedProfesseur!: Professeur;
+  ResponsabiliteListe: Responsabilite[] = [];
+  ProfSendMessage: MsgEnseingnant[] = [];
+  ProfReceiveMessage: MsgEnseingnant[] = [];
+  EtudiantFinalListe:Etudiant[] = [];
+  ProfesseurFinalListe:Professeur[] = [];
+  EtudiantResponsabiliteListe:Etudiant[] = [];
   // Data communication
   SetSelectedExam(Exam: ExamTitre) {
     this.selectedExam = Exam;
@@ -55,8 +78,8 @@ export class ProfService {
   getCours(): Observable<ModuleProfesseur[]> {
     return this.http.get(url + `api/prof/cours`).pipe(
       map((res: any) => {
-        this.ProfModule = res['data'];
-        return this.ProfModule;
+        this.ProfCours = res['data'];
+        return this.ProfCours;
       }),
       catchError(this.handleError));
   }
@@ -158,7 +181,7 @@ export class ProfService {
     return this.http.post(url + `api/prof/exam/ajout`, { data: Exam }).pipe(
       map((res: any) => {
         const data: any = res['data'];
-        const Exam: ExamTitre = new ExamTitre(data.titre, data.dureeI, GetResultTime(data.hDebut), GetResultTime(data.duree), data.idparcours, data.idprofesseur, data.idmodule, DateToShortDate(data.diffusion), data.idniveau,[], data.idexamTitre);
+        const Exam: ExamTitre = new ExamTitre(data.titre, data.dureeI, GetResultTime(data.hDebut), GetResultTime(data.duree), data.idparcours, data.idprofesseur, data.idmodule, DateToShortDate(data.diffusion), data.idniveau, [], data.idexamTitre);
         this.Exam = Exam;
         return this.Exam;
       }),
@@ -269,7 +292,186 @@ export class ProfService {
       }),
       catchError(this.handleError));
   }
+  // Response service
+  getExamEtudiantList(Exam: ExamTitre) {
+    return this.http.get(url + `api/prof/exam/etudiant/list/` + Exam.idexamTitre).pipe(
+      map((res: any) => {
+        return this.ExamEtudiant = res['data'];
+      }),
+      catchError(this.handleError));
+  }
 
+  GetResponse() {
+    return this.http.get(url + `api/prof/exam/etudiant/response/` + this.selectedExam.idexamTitre + '/' + this.selectedExamEtudiant.idetudiant).pipe(
+      map((res: any) => {
+        return this.ExamReponse = res['data'];
+      }),
+      catchError(this.handleError));
+  }
+
+  GetCoursReply() {
+    return this.http.get(url + `api/prof/cours/response/` + this.selectedCours.iddocument).pipe(
+      map((res: any) => {
+        return this.docEtudiantListe = res['data'];
+      }),
+      catchError(this.handleError));
+  }
+  selectExamEtudiant(ExamEtudiant: ExamEtudiant) {
+    this.selectedExamEtudiant = ExamEtudiant;
+  }
+
+  SetDocViewed() {
+    return this.http.get(url + `api/prof/cours/response/vue/` + this.selectedCours.iddocument + '/' + this.selectedDocEtudiant.iddocEtudiant).pipe(
+      map((res: any) => {
+        return this.docEtudiantListe = res['data'];
+      }),
+      catchError(this.handleError));
+  }
+
+  // MEssage part
+  getEtudiantReceivedMessage() {
+    return this.http.get(url + `api/prof/message/etudiant/received/` + this.Prof.idprofesseur).pipe(
+      map((res: any) => {
+        return this.ReceivedMessageEtudiant = res['data'];
+      }),
+      catchError(this.handleError));
+  }
+
+  getEtudiantSendedMessage() {
+    return this.http.get(url + `api/prof/message/etudiant/sended/` + this.Prof.idprofesseur).pipe(
+      map((res: any) => {
+        return this.SendedMessageEtudiant = res['data'];
+      }),
+      catchError(this.handleError));
+  }
+
+  SendEtudiantMessage(message: string) {
+    return this.http.post(url + `api/prof/message/` + this.selectedEtudiant.idetudiant + '/' + this.Prof.idprofesseur, { message: message }).pipe(
+      map((res: any) => {
+        this.response = res['data'];
+        return this.response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  SendEtudiantMessageFile(Doc: FormData) {
+    return this.http.post(url + `api/prof/message/file/` + this.selectedEtudiant.idetudiant + '/' + this.Prof.idprofesseur, Doc).pipe(
+      map((res: any) => {
+        this.response = res['data'];
+        return this.response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  SendProfMessage(MsgEnseignant: MsgEnseingnant) {
+    return this.http.post(url + `api/prof/message/SendProf/` + this.Prof.idprofesseur, { data: MsgEnseignant }).pipe(
+      map((res: any) => {
+        this.response = res['data'];
+        return this.response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getLastSendedMessage() {
+    return this.http.get(url + `api/prof/message/etudiant/lastS/` + this.Prof.idprofesseur).pipe
+      (map((res: any) => {
+        let n = res['data'];
+        return n;
+      }),
+        catchError(this.handleError));
+  }
+
+  getLastReceivedMessage() {
+    return this.http.get(url + `api/prof/message/etudiant/lastR/` + this.Prof.idprofesseur).pipe
+      (map((res: any) => {
+        let n = res['data'];
+        return n;
+      }),
+        catchError(this.handleError));
+  }
+  // ProfMessage
+  GetResponsabilite() {
+    return this.http.get(url + `api/prof/responsabilite/` + this.Prof.idprofesseur).pipe(
+      map((res: any) => {
+        this.ResponsabiliteListe = res['data'];
+        return this.ResponsabiliteListe;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getProfSendMessage() {
+    return this.http.get(url + `api/prof/message/SendProf/` + this.Prof.idprofesseur).pipe(
+      map((res: any) => {
+        this.ProfSendMessage = res['data'];
+        return this.ProfSendMessage;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getProfReceivedMessage() {
+    return this.http.get(url + `api/prof/message/ProfR/` + this.Prof.idprofesseur).pipe(
+      map((res: any) => {
+        this.ProfReceiveMessage = res['data'];
+        return this.ProfReceiveMessage;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getLastProfReceiveMessage() {
+    return this.http.get(url + `api/prof/message/ReceiveProf/last/` + this.Prof.idprofesseur).pipe(
+      map((res: any) => {
+        let n = res['data'];
+        return n;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getLastProfSendMessage() {
+    return this.http.get(url + `api/prof/message/SendProf/last/` + this.Prof.idprofesseur).pipe(
+      map((res: any) => {
+        let n = res['data'];
+        return n;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getEtudiantCours(Module: ModuleProfesseur) {
+    return this.http.get(url + `api/prof/etudiant/cours/liste/` + Module.idprofesseurModule).pipe(
+      map((res: any) => {
+        let n = res['data'];
+        return n;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getEtudiantByParcours(Parcours:Parcours){
+    return this.http.get(url + `api/prof/etudiant/parcours/liste/` + Parcours.idparcours).pipe(
+      map((res: any) => {
+        let n = res['data'];
+        return n;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getProfbyParcours(Parcours:Parcours){
+    return this.http.get(url + `api/prof/prof/parcours/liste/` + Parcours.idparcours).pipe(
+      map((res: any) => {
+        let n = res['data'];
+        return n;
+      }),
+      catchError(this.handleError)
+    );
+  }
   // Handle Error
   private handleError(error: HttpErrorResponse) {
     console.log(error.error);

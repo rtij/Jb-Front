@@ -25,18 +25,16 @@
         </div>
     </div>
 </nav>
-
+<button class="w3-btn w3-blue info-btn w3-circle" data-toggle="modal" data-target="#FlashModal" id="modal"
+name="modal">
+<span class="glyphicon glyphicon-bell">
+</span>
+</button>
 <div class="routerContainer" [@routerAnimation]="getDepth(myOutlet)">
-    <button class="w3-btn w3-blue info-btn w3-circle" data-toggle="modal" data-target="#FlashModal" id="modal"
-        name="modal">
-        <span class="glyphicon glyphicon-info-sign">
-        </span>
-    </button>
     <router-outlet #myOutlet="outlet"></router-outlet>
 </div>
 <div id="FlashModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header w3-teal">
@@ -44,8 +42,9 @@
             </div>
             <div class="modal-body">
                 <ul class="nav w3-container">
-                    <li class="w3-card-2" *ngFor="let flash of info">
-                        
+                    <li class="w3-card-2 w3-container w3-padding w3-margin" *ngFor="let flash of info">
+                        <p>Date de difusion: {{flash.diffusion}}</p>
+                        <p>{{flash.info}}</p>
                     </li>
                 </ul>
             </div>

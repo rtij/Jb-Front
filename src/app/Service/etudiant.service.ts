@@ -2,6 +2,7 @@ import { Time } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
+import { DocEtudiant } from '../Object/docEtudiant';
 import { Documents } from '../Object/Documents';
 import { Etudiant } from '../Object/Etudiant';
 import { ExamEtudiant } from '../Object/ExamEtudiant';
@@ -31,10 +32,14 @@ export class EtudiantService {
   selectedCours!: Documents;
   selectedExam!: ExamTitre;
   MessageEtudiant: MessageEtudiant[] = [];
+  ReceivedMessage: MessageEtudiant[] = [];
+  SendedMessage: MessageEtudiant[] = [];
   ExamListe: ExamTitre[] = [];
   ActualTime!: Date;
   EtudiantExam!: ExamEtudiant;
   info: Flash[] = [];
+  lastDocEtudiant!: DocEtudiant;
+  LastMessageEtudiant!: MessageEtudiant;
   // GetDataFunction
   getEtudiant(): Observable<Etudiant> {
     return this.http.get(url + `api/etudiant/etudiant`).pipe(
@@ -83,19 +88,67 @@ export class EtudiantService {
 
   }
 
+  getReceivedMessageEtudiant() {
+    return this.http.get(url + `api/etudiant/message/received/` + this.Etudiants.idetudiant).pipe
+      (map((res: any) => {
+        this.ReceivedMessage = res['data'];
+        return this.MessageEtudiant;
+      }),
+        catchError(this.handleError));
+
+  }
+
+
+  getSendedMessageEtudiant() {
+    return this.http.get(url + `api/etudiant/message/sended/` + this.Etudiants.idetudiant).pipe
+      (map((res: any) => {
+        this.SendedMessage = res['data'];
+        return this.MessageEtudiant;
+      }),
+        catchError(this.handleError));
+
+  }
+
   getInfo() {
-    return this.http.get(url + `api/etudiant/flash` + this.Etudiants.idetudiant).pipe
+    return this.http.get(url + `api/etudiant/flash`).pipe
       (map((res: any) => {
         const liste = res['data'];
         this.info = [];
         liste.forEach((item: any) => {
-          const info: Flash = new Flash(item.info,DateToShortDate(item.expiration),DateToShortDate(item.diffusion),item.idflashInfo);
+          const info: Flash = new Flash(item.info, DateToShortDate(item.expiration), DateToShortDate(item.diffusion), item.idflashInfo);
           this.info.push(info);
         });
         return this.info;
       }),
         catchError(this.handleError));
+  }
 
+  getLastInfo() {
+    return this.http.get(url + `api/etudiant/flash/last`).pipe
+      (map((res: any) => {
+        let info = res['data'];
+        info = new Flash(info.info, DateToShortDate(info.expiration), DateToShortDate(info.diffusion), info.idflashInfo)
+        return info;
+      }),
+        catchError(this.handleError));
+  }
+
+  getLastSendedMessage() {
+    return this.http.get(url + `api/etudiant/message/lastSend/` + this.Etudiants.idetudiant).pipe
+      (map((res: any) => {
+        let n = res['data'];
+        return n;
+      }),
+        catchError(this.handleError));
+  }
+
+  getLastReceivedMessage() {
+    return this.http.get(url + `api/etudiant/mess/lastR/` + this.Etudiants.idetudiant).pipe
+      (map((res: any) => {
+        let n = res['data'];
+        return n;
+      }),
+        catchError(this.handleError));
   }
   // Exam Service Start
 
@@ -111,7 +164,6 @@ export class EtudiantService {
         return this.ExamListe;
       }),
         catchError(this.handleError));
-
   }
 
   getTime() {
@@ -139,6 +191,10 @@ export class EtudiantService {
         catchError(this.handleError));
   }
 
+  checkUploadResponse(){
+    
+  }
+
 
   SendQuestionResponse(ExamReponse: ExamReponse) {
     let target = "";
@@ -161,15 +217,25 @@ export class EtudiantService {
   SendMessage(Professeur: Professeur, message: string) {
     return this.http.post(url + `api/etudiant/message/` + this.Etudiants.idetudiant + '/' + Professeur.idprofesseur, { message: message }).pipe(
       map((res: any) => {
-        this.response = res['data'];
-        return this.response;
+        this.LastMessageEtudiant = res['data'];
+        return this.LastMessageEtudiant;
       }),
       catchError(this.handleError)
     );
   }
 
   SendMessageFile(Professeur: Professeur, Doc: FormData) {
-    return this.http.post(url + `api/etudiant/message/file/` + this.Etudiants.idetudiant + '/' + Professeur.idprofesseur, Doc).pipe(
+    return this.http.post(url + `api/etudiant/message/file/` + this.Etudiants.idetudiant, Doc).pipe(
+      map((res: any) => {
+        this.LastMessageEtudiant = res['data'];
+        return this.LastMessageEtudiant;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  SendCoursResponseFile(Doc: FormData) {
+    return this.http.post(url + `api/etudiant/cours/file`, Doc).pipe(
       map((res: any) => {
         this.response = res['data'];
         return this.response;
@@ -187,7 +253,17 @@ export class EtudiantService {
       catchError(this.handleError)
     );
   }
+  // Cours reply
+  SendCoursReply(DocEtudiant: DocEtudiant) {
+    return this.http.post(url + `api/etudiant/cours/` + this.selectedCours.iddocument + '/' + this.Etudiants.idetudiant, { data: DocEtudiant }).pipe(
+      map((res: any) => {
+        this.lastDocEtudiant = res['data'];
+        return this.lastDocEtudiant;
+      }),
+      catchError(this.handleError)
+    );
 
+  }
 
   // Data Communcation service
   getResponsableListe(): Responsabilite[] {

@@ -127,10 +127,6 @@ export class ExamPComponent implements OnInit {
   }
 
 
-  showResponse(Question: ExamQuestion) {
-    alert(Question.reponse);
-  }
-
 
   // Send Response function
   Finish() {
@@ -168,8 +164,6 @@ export class ExamPComponent implements OnInit {
       this.SendResponse();
     }
   }
-
-
 
   SendResponse() {
     let question = this.Exam.idexamQuestion[this.index];

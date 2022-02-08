@@ -1,53 +1,75 @@
-<div class="content row w3-padding-24">
-    <div class="user-list col-sm-4 w3-container">
-        <ul class="nav">
-            <li><button class="btn btn-default"  data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"> Nouveau</span></button></li>
-            <li>
-                <div class="user-chat">
-
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div class="col-sm-8">
-        <ul class="message nav">
-            <li></li>
-        </ul>
+<div class="contenu">
+    <div class="row">
+        <div class="col-xs-3 col-sm-3 w3-container">
+            <div class="w3-center w3-container menu w3-card-2">
+                <ul class="nav">
+                    <li>
+                        <button data-target="#myModal" data-toggle="modal"
+                            class="full-width w3-margin-top w3-margin-bottom btn w3-padding w3-round-large new w3-blue"><span
+                                class="glyphicon glyphicon-plus"></span> <span class="text"> Nouveau</span></button>
+                    </li>
+                    <li>
+                        <button routerLink="Envoye" routerLinkActive="w3-teal"
+                            class="btn MessageListe w3-round-large w3-hover-blue w3-card-2 w3-margin-bottom w3-padding">
+                            <span class="glyphicon glyphicon-send"></span>
+                            <span class="text">
+                                Message envoyé
+                            </span>
+                        </button>
+                    </li>
+                    <li>
+                        <button routerLink="Recu" routerLinkActive="w3-teal"
+                            class="btn MessageListe w3-hover-blue w3-round-large w3-card-2 w3-margin-bottom w3-padding">
+                            <span class="glyphicon glyphicon-inbox"></span>
+                            <span class="text">
+                                Message réçu
+                            </span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-9 col-sm-9">
+            <div class="routerContainer">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
     </div>
 </div>
 <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close w3-text-red" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Nouveau messages</h4>
-      </div>
-      <div class="modal-body">
-          <form>
-              <label for="Etu">A</label>
-              <div class="col-sm-10">
-                <input 
-                    list="EtudiantListe" 
-                    type="text" 
-                    class="form-control w3-input" 
-                    placeholder="Nom etudiant"
-                    required 
-                    name="Etu"
-                    id="Etu"
-                    >
-                <datalist id="EtudiantListe">
-                    <option *ngFor="let item of Etudiants" value="{{item.nom}} {{item.prenom}}"></option>
-                </datalist>
+<div class="modal fade" role="dialog" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="dismissM" class="w3-text-red close" type="button" data-dismiss="modal"><span
+                        class="glyphicon glyphicon-remove"></span></button>
             </div>
-          </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-      </div>
+            <div class="modal-body w3-container">
+                <form #s="ngForm">
+                    <label for="Etu">A</label>
+                    <input [(ngModel)]="fullname" (keyup)="FindSelectedName()" list="EtudiantListe" type="text"
+                        class="form-control w3-input" placeholder="Nom" required name="Etu" id="Etu">
+                    <ul *ngIf="filename != '' " class="nav w3-margin w3-container w3-padding w3-round-large w3-card-2">
+                        <li>
+                            <span class="glyphicon glyphicon-file"> {{filename}}</span>
+                        </li>
+                    </ul>
+                    <textarea (keyup)="ValidateMessage()" required class="w3-input" [(ngModel)]="message" name="MessageC" id="MessageC" cols="30"
+                        rows="10" placeholder="Insérer votre message" required></textarea>
+                    <ul class="w3-margin-top navbar-nav nav w3-right">
+                        <li *ngIf="selectedEtudiant"><button (click)="Pick.click()" title="Ajouter un fichier"
+                                class="btn w3-margin w3-blue"><span class="glyphicon glyphicon-file"></span></button>
+                        </li>
+                        <li><button [disabled]="s.invalid || validMessage == false" class="btn w3-blue w3-margin"
+                                (click)="SendMessage()">Envoyer</button></li>
+                    </ul>
+                </form>
+            </div>
+        </div>
     </div>
-
-  </div>
+    <input (change)="onSelectFile($event)" type="file" id="MessageFile" name="MessageFile" #Pick
+        accept=".txt, .pdf, .png, .jpg, .mp4, .mp3" class="select">
 </div>
+<datalist id="EtudiantListe">
+    <option *ngFor="let item of data">{{item}}</option>
+</datalist>

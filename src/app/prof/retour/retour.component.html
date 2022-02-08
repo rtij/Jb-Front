@@ -1,1 +1,17 @@
-<p>retour works!</p>
+<div class="contenu w3-container">
+    <div class="navbar">
+        <div class="navbar-right">
+            <ul class="navbar-nav nav">
+                <li><a class="btn btn-primary" routerLink="/Professeur/cours/cours-reply-list">Retour</a></li>
+            </ul>
+        </div>
+    </div>
+    <h4><strong> Retour sur :</strong>{{DocEtudiant.iddocument.titre}}</h4>
+    <h4><strong>Module : </strong> {{DocEtudiant.iddocument.idmodule.nom}}</h4>
+    <h4><strong>Nom:</strong> {{DocEtudiant.idetudiant.nom}}</h4>
+    <h4><strong>Prénom</strong> {{DocEtudiant.idetudiant.prenom}}</h4>
+    <h4><strong>Réponse :</strong></h4>
+    <h4><strong>Pièce Jointe</strong> <a download="DocEtudiant.nomFichier"  href="/assets/File/{{DocEtudiant.url}}">{{DocEtudiant.nomFichier}}</a></h4>
+    <h4><strong>Titre:</strong> {{DocEtudiant.titre}}</h4>
+    <p>{{DocEtudiant.description}}</p>
+</div>

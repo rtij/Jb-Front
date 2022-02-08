@@ -4,6 +4,7 @@ import { ProfService } from 'src/app/prof.service';
 import { DateToShortDate } from 'src/app/Object/Function';
 import { ModuleProfesseur } from 'src/app/Object/ModuleProfesseur';
 import { DocLien } from 'src/app/Object/DocLien';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-prof-acc',
   templateUrl: './prof-acc.component.html',
@@ -11,7 +12,7 @@ import { DocLien } from 'src/app/Object/DocLien';
 })
 export class ProfAccComponent implements OnInit {
 
-  constructor(private professeurService: ProfService) { }
+  constructor(private professeurService: ProfService,private router:Router) { }
 
   ngOnInit(): void {
     this.getCours();
@@ -159,5 +160,13 @@ export class ProfAccComponent implements OnInit {
       console.log(err.error);
     }
     )
+  }
+
+  showCoursReplyListe(doc:Documents){
+    this.professeurService.selectedCours = doc;
+    let it = this.professeurService.selectedCours;
+    if(it){
+      this.router.navigate(['/Professeur/cours/cours-reply-list']);
+    }
   }
 }

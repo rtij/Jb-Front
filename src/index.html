@@ -28,9 +28,20 @@
     }
     
     function ShowCoursList(){
-      
+      var a = $('#list').css("display");
+      if(a == "block"){  
+        $('#list').hide();
+        $(".btn-list").css({transform: "rotateY(0deg)"});
+      }
+      else{
+        $(".btn-list").css(
+        {transform: "rotateY(180deg)"}
+      );
+        $('#list').show();
+      }
     }
 
+    
 
     function show() {
       var position = $('.sidenav').css("position");

@@ -1,0 +1,28 @@
+<div class="contenu">
+    <div>
+        <h4 class="w3-center">Liste des participants</h4>
+    </div>
+<div class="w3-responsive">
+    <div class="w3-responsive">
+        <table class="w3-table w3-striped w3-bordered">
+            <thead>
+                <tr class="w3-grey">
+                    <th>Matricule</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of Etudiant">
+                    <td>{{item.idetudiant.matricule}}</td>
+                    <td>{{item.idetudiant.nom}}</td>
+                    <td>{{item.idetudiant.prenom}}</td>
+                    <td><button (click)="selectEtudiant(item)" title="Voir réponse" class="btn btn-default"><span
+                                class="glyphicon glyphicon-eye-open"></span></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>

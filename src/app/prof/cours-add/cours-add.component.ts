@@ -82,7 +82,6 @@ export class CoursAddComponent implements OnInit {
   uploadFile() {
     const fd = new FormData();
     fd.append('file', this.File[this.index], this.File[this.index].name);
-    console.log(fd);
     this.ProfService.UploadDoc(fd, this.last).subscribe(
       (res) => {
         if (this.index < this.nombre -1) {

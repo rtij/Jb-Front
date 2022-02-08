@@ -17,6 +17,10 @@ import { ExamenAddComponent } from './examen-add/examen-add.component';
 import { EnseignantComponent } from './enseignant/enseignant.component';
 import { AutosizeModule } from '@techiediaries/ngx-textarea-autosize';
 import { CoursReplyComponent } from './cours-reply/cours-reply.component';
+import { ExamReponseComponent } from './exam-reponse/exam-reponse.component';
+import { ExamenEtudiantListComponent } from './examen-etudiant-list/examen-etudiant-list.component';
+import { MessageRComponent } from './message-r/message-r.component';
+import { MessageEnvComponent } from './message-env/message-env.component';
 
 
 @NgModule({
@@ -32,7 +36,11 @@ import { CoursReplyComponent } from './cours-reply/cours-reply.component';
     EncadrementComponent,
     ExamenAddComponent,
     EnseignantComponent,
-    CoursReplyComponent
+    CoursReplyComponent,
+    ExamReponseComponent,
+    ExamenEtudiantListComponent,
+    MessageRComponent,
+    MessageEnvComponent
   ],
   imports: [
     CommonModule,

@@ -13,19 +13,19 @@ import { EtudiantService } from '../Service/etudiant.service';
 })
 export class EtudiantProfilComponent implements OnInit {
 
-  constructor(private EtudiantService: EtudiantService,private router:Router) { }
+  constructor(private EtudiantService: EtudiantService, private router: Router) { }
   Etudiant!: Etudiant;
   mdp: string = "";
   confMdp: string = "";
   ProfesseurListe: ModuleProfesseur[] = [];
   ResponsableListe: Responsabilite[] = [];
-  selectedProfesseur!:Professeur;
-  message:string = "";
-  url:string = "";
+  selectedProfesseur!: Professeur;
+  message: string = "";
+  url: string = "";
   File!: FileList;
-  filename="";
-  nombre:number = 0;
-  validMessage:boolean = false;
+  filename = "";
+  nombre: number = 0;
+  validMessage: boolean = false;
   ngOnInit(): void {
     this.getEtudiant();
   }
@@ -55,7 +55,7 @@ export class EtudiantProfilComponent implements OnInit {
     const responsable = this.EtudiantService.getResponsableListe();
     if (responsable.length != 0) {
       this.ResponsableListe = responsable;
-      if(responsable[0].idparcours != this.Etudiant.idparcours && responsable[0]){
+      if (responsable[0].idparcours != this.Etudiant.idparcours && responsable[0]) {
         this.EtudiantService.getResponsable().subscribe
           ((res) => {
             this.ResponsableListe = res;
@@ -82,14 +82,14 @@ export class EtudiantProfilComponent implements OnInit {
     const professeurListe = this.EtudiantService.ModuleProfesseurListe;
     if (professeurListe.length != 0) {
       this.ProfesseurListe = professeurListe
-      if(professeurListe[0].idparcours != this.Etudiant.idparcours && professeurListe[0].idniveau !=  this.Etudiant.idniveau){
+      if (professeurListe[0].idparcours != this.Etudiant.idparcours && professeurListe[0].idniveau != this.Etudiant.idniveau) {
         this.EtudiantService.getEtudiantProfs().subscribe
-        ((res) => {
-          this.ProfesseurListe = res;
-        },
-          (err) => {
-            console.log(err.error)
-          });
+          ((res) => {
+            this.ProfesseurListe = res;
+          },
+            (err) => {
+              console.log(err.error)
+            });
       }
     }
     else {
@@ -108,13 +108,14 @@ export class EtudiantProfilComponent implements OnInit {
     this.EtudiantService.ModifMdp(this.mdp).subscribe(
       (res) => {
         alert("Modification effectuer");
+        document.getElementById('dismiss')?.click();
         r.reset();
         this.confMdp = "";
         this.mdp = "";
       }
     )
   }
-  
+
   onSelectFile(event: any) {
     this.File = event.target.files;
     this.nombre = this.File.length;
@@ -122,48 +123,53 @@ export class EtudiantProfilComponent implements OnInit {
     this.filename = this.File[0].name;
   }
 
-  selectProfesseur(Prof:Professeur){
-    this.selectedProfesseur = Prof; 
+  selectProfesseur(Prof: Professeur) {
+    this.selectedProfesseur = Prof;
   }
 
   // Check Valid message
-  ValidateMessage(){
+  ValidateMessage() {
     let message = "";
     message = this.message.trim();
-    if(message.length == 0){
+    if (message.length == 0) {
       this.validMessage = false;
     }
-    else{
+    else {
       this.validMessage = true;
     }
   }
 
-  SendMessage(){
+  SendMessage() {
     let message = "";
     const fd = new FormData();
-    if(this.validMessage){
+    if (this.validMessage) {
       message = this.message;
-      this.EtudiantService.SendMessage(this.selectedProfesseur,message).subscribe(
-        (res)=>{
+      this.EtudiantService.SendMessage(this.selectedProfesseur, message).subscribe(
+        (res) => {
           alert("Message envoyé");
+          document.getElementById('dismissM')?.click();
+          this.message = "";
         },
-        (err)=>{
+        (err) => {
           console.log(err.error);
         }
       )
     }
-    let file:any="";
-    if(this.File){
+    let file: any = "";
+    if (this.File) {
       file = this.File[0];
     }
-    if(file){
-      fd.append('file',file);
-      this.EtudiantService.SendMessageFile(this.selectedProfesseur,fd).subscribe(
-        (res)=>{
+    if (file) {
+      fd.append('file', file);
+      this.EtudiantService.SendMessageFile(this.selectedProfesseur, fd).subscribe(
+        (res) => {
           alert("Message envoyé");
+          let a: any = undefined;
+          this.File = a;
+          this.filename ="";
         }
       )
     }
-    
+
   }
 }

@@ -3,6 +3,7 @@
     height: 100%;
     padding-top: 30px;
     position: relative;
+    overflow: auto;
 }
 .head{
     width: 100%;

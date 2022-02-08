@@ -122,6 +122,9 @@ export class ExamenAddComponent implements OnInit {
     this.titre = this.Exam.titre;
     this.Duree = this.Exam.duree;
     this.heureDeb = this.Exam.debut;
+    let i:any = this.Exam.idmodule.idmodule;
+    this.id = i;
+    console.log(this.id);
     this.DateDiffusion = this.Exam.diffusion;
     this.action = "Modifier";
     const result:any = this.ProfesseurModule.find(
@@ -129,7 +132,6 @@ export class ExamenAddComponent implements OnInit {
         return item.idmodule.idmodule == this.Exam.idmodule.idmodule;
       }
     );
-    console.log(result);
     this.selectedModule = result;
   }
 

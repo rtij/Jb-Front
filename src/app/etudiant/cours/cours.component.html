@@ -1,7 +1,19 @@
 <div class="contenu">
-    <button class="w3-btn w3-circle w3-teal btn-list" ><span class="glyphicon glyphicon-chevron-right"></span></button>
+    <button onclick="ShowCoursList()" class="w3-btn w3-circle w3-teal btn-list" ><span class="glyphicon glyphicon-chevron-right"></span></button>
+    
+    <div class="" id="list">
+        <div class="left">
+            <ul class="nav w3-container">
+                <li [class.w3-blue]="AllCours == Documents"
+                    class="w3-round-large w3-margin-top w3-margin-bottom w3-padding-24 container w3-card-2"
+                    (click)="showAll()">Tous</li>
+                <li [class.w3-blue]="selectedModule == cours" class="w3-hover-blue w3-round-large w3-margin-top w3-margin-bottom w3-padding-24 container w3-card-2"
+                    *ngFor="let cours of module" (click)="SelectModule(cours)">{{cours.nom}}</li>
+            </ul>
+        </div>
+    </div>
     <div class="row">
-        <div class="hidden-xs col-sm-3 w3-container" id="ModuleL">
+        <div class="hidden-xs col-sm-3 w3-container">
             <div class="left">
                 <ul class="nav w3-container">
                     <li [class.w3-blue]="AllCours == Documents"
@@ -32,7 +44,7 @@
                     <p>Pièce jointes</p>
                     <div *ngFor="let it of item.doclien" class="file">
                         <a download="{{it.nomFichier}}"
-                            href="ISTS-Formation.digitec.mg/assets/File/{{it.url}}">{{it.nomFichier}}</a>
+                            href="/assets/File/{{it.url}}">{{it.nomFichier}}</a>
                     </div>
                     <div class="post-action">
                         <button (click)="SelectCours(item)" class="full-width w3-blue w3-btn w3-margin-bottom" *ngIf="item.aRendre"><span class="glyphicon glyphicon-share-alt"> Envoyer réponse</span></button>

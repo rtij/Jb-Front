@@ -27,3 +27,6 @@
 .table{
     width: 100%;
 }
+.select{
+    display: none;
+}

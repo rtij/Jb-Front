@@ -4,21 +4,21 @@
         <p>Module : {{cours.idmodule.nom}}</p>
     </div>
     <div class="w3-margin w3-container">
-        <form>
+        <form #c = "ngForm">
             <div class="w3-margin">
                 <label for="" class="w3-label">Titre</label>
-                <input type="text" class="w3-input" placeholder="Titre">
+                <input id="Titre" name="Titre" [(ngModel)]="titre" type="text" class="w3-input" placeholder="Titre">
             </div>
             <div class="w3-margin">
                 <label for="" class="w3-label">Description</label>
-                <textarea class="w3-input" placeholder="Descritption" autosize name="description" id="desc" cols="30" rows="10"></textarea>
+                <textarea [(ngModel)]="description" class="w3-input" placeholder="Descritption" autosize name="description" id="desc" cols="30" rows="10"></textarea>
             </div>
          
             <div class="navbar">
                 <div class="navbar-rigth">
                     <ul class="navbar-nav nav">
                         <li class="w3-margin"><button (click)="Pick.click()" class="btn btn-primary"><span class="glyphicon glyphicon-file"></span></button></li>
-                        <li class="w3-margin"><button class="btn btn-primary"><span class="glyphicon glyphicon-send"></span> Envoyer </button>
+                        <li class="w3-margin"><button (click)="SaveResponse()" class="btn btn-primary"><span class="glyphicon glyphicon-send"></span> Envoyer </button>
                         </li>
                     </ul>
                 </div>
@@ -26,4 +26,8 @@
         </form>
     </div>
 </div>
-<input (change)="SelectFile($event)" type="file" accept=".docx ,.txt, .pdf, .png, .jpg, .mp4, .mp3" #Pick id="FileJoint" name="FileJ" class="pick">-
+<input (change)="SelectFile($event)" type="file" accept=".docx ,.txt, .pdf, .png, .jpg, .mp4, .mp3" #Pick id="FileJoint" name="FileJ" class="pick">
+
+
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora eum necessitatibus similique iste ullam hic sit ipsa magnam maxime mollitia vel voluptate adipisci quibusdam pariatur, quia possimus dolore, ea non?

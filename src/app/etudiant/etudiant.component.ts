@@ -17,8 +17,8 @@ export class EtudiantComponent implements OnInit {
   constructor(private LoginService: LoginService, private router: Router, private EtudiantService: EtudiantService) { }
 
   ngOnInit(): void {
-    this.getEtudiant();
     this.getFlashInfo();
+    this.getEtudiant();
   }
 
   Etudiant!: Etudiant;
@@ -64,24 +64,37 @@ export class EtudiantComponent implements OnInit {
   }
 
   getFlashInfo() {
-    let it = this.EtudiantService.info;
-    if (it.length != 0) {
-      this.info = this.EtudiantService.info;
-      this.openModal();
-    }
-    else {
-
       this.EtudiantService.getInfo().subscribe
         ((res) => {
           this.info = res;
+          this.getlast();
           this.openModal();
         },
           (err) => {
             console.log(err.error)
           }
         )
-    }
   }
+
+  getlast(){
+    setTimeout(
+      ()=>{
+        this.EtudiantService.getLastInfo().subscribe(
+          (res)=>{
+            let r = res;
+            if(r.idflashInfo != this.info[0].idflashInfo){
+              this.getFlashInfo();
+            }
+            this.getlast();
+          },
+          (err)=>{
+            console.log(err.error)
+          }
+        )
+      },60000
+    )
+  }
+
 
   ngOnDestroy() {
     const it: any = null;

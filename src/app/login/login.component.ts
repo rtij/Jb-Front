@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
     // identify user type
     localStorage.setItem('code',this.code);
     if(this.loginService.getUserType(this.code)=="AD"){
-     document.location.href="https://www.digitec.mg/ists24/FR/PAGE-Liste-employe.php";
+    //  document.location.href="https://www.digitec.mg/ists24/FR/PAGE-Liste-employe.php";
+    this.router.navigate(['/Admin']);
     }
     if(this.loginService.getUserType(this.code)=="PF"){
       this.router.navigate(['/Professeur']);

@@ -32,7 +32,7 @@ export class AdminComponent implements OnInit {
     this.LoginService.Logout().subscribe((res) => {
       localStorage.removeItem('token');
       localStorage.removeItem('code');
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
     },
       (err) => {
         console.log(err.error);

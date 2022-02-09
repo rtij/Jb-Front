@@ -12,6 +12,7 @@ import { TokenInterceptor } from './token.interceptor';
 import { ErrorInterceptor } from './error.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ExamReponseComponent } from './exam-reponse/exam-reponse.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { ExamReponseComponent } from './exam-reponse/exam-reponse.component';
     StartComponent,
     PageNotFoundComponent,
     ExamReponseComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,

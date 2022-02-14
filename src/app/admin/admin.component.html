@@ -1,30 +1,51 @@
-<div class="title w3-display-container">
-  <div class="w3-display-middle w3-text-white">
-    <h1><span class="glyphicon glyphicon-education"></span> ISTS Fomation à distance</h1>
-    <p class="annee">Année universitaire : {{ AnneeEncours.annee}}</p>
-  </div>
-</div>
-<nav class="navbar w3-teal">
+<nav class="navbar first">
   <div class="w3-container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+      <a routerLink="/Admin/" class="navbar-brand navbar-title w3-circle w3-card-2"><span
+          class="glyphicon glyphicon-education w3-text-teal"></span></a>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li ><a routerLinkActive="active" routerLink="/admin/etudiant">Etudiant</a></li>
-        <li ><a routerLinkActive="active" routerLink="/admin/enseignant">Enseignant</a></li>
-        <li ><a routerLinkActive="active" routerLink="/admin">Administrateur</a></li>
-        <li ><a routerLinkActive="active" routerLink="/admin/communique">Communiqué</a></li>
-        <li><a>Paramètre</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a (click)="logout()"> Se déconnecter</a></li>
+    <div class="navbar-right">
+      <ul class="navbar-nav nav">
+        <li class="w3-margin w3-container annee "><span class="w3-text-teal"> Année universitaire: </span> {{AnneeEncours.annee}}</li>
       </ul>
     </div>
   </div>
 </nav>
-<router-outlet></router-outlet>
+<nav class="navbar w3-teal second">
+  <div class="navbar-header">
+    <button class="navbar-toggle" data-target="#myNavbar" data-toggle="collapse">
+      <span class="glyphicon glyphicon-menu-hamburger"></span>
+    </button>
+  </div>
+  <div class="navbar-collapse collapse" id="myNavbar">
+    <ul class="navbar-nav nav">
+      <li><a routerLink="Etudiant" routerLinkActive="active">Etudiant</a></li>
+      <li><a routerLink="Enseignant" routerLinkActive="active">Enseignant</a></li>
+      <li><a routerLink="Administrateur" routerLinkActive="active">Administrateur</a></li>
+      <li><a routerLink="FlashInfo" routerLinkActive="active">Communiqué</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle w3-text-white w3-teal" data-toggle="dropdown">Paramètre <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li class="w3-hover-teal"><a routerLink="Annee">Année</a></li>
+          <li class="w3-hover-teal"><a routerLink="Parcours">Parcours</a></li>
+          <li class="w3-hover-teal"><a routerLink="Niveau">Niveau</a></li>
+          
+          <li class="w3-hover-teal"><a routerLink="Module">Module</a></li>
+          
+          <li class="w3-hover-teal"><a routerLink="Niveau">Module et intervenant</a></li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="navbar-nav nav navbar-right">
+      <li><a (click)="logout()">Se deconnecter</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="routerContainer">
+  <div class="w3-display-container fond">
+    <div class="w3-display-middle">
+      <span class="glyphicon glyphicon-education icon"></span>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>

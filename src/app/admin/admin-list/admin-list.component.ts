@@ -9,13 +9,16 @@ import { AdminService } from 'src/app/Service/admin.service';
 })
 export class AdminListComponent implements OnInit {
 
-  constructor(private Adminservice: AdminService) { }
+  constructor(private Adminservice: AdminService) { 
+    
+  }
 
   ngOnInit(): void {
     this.getEmploye();
   }
   EmployeSearch:string="";
-  Admins!: Employe[];
+  Admins: Employe[] = [];
+  selectedAdmin!:Employe;
   show(){
     alert(this.EmployeSearch);
   }
@@ -28,4 +31,19 @@ export class AdminListComponent implements OnInit {
       }
     );
   }
+  select(it:Employe){
+    this.selectedAdmin = it;
+  }
+  
+  Update(){
+    
+  }
+
+
+  deleteAdmin(){
+    if(confirm("Voulez-vous vraiment supprimmer cet administrateur")){
+      
+    }
+  }
+  
 }

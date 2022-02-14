@@ -1,56 +1,39 @@
 .contenu{
     width: 100%;
-    min-height: 70%;
+    height: 100%;
+    overflow: auto;
 }
-.box{
-    width: 90%;
-    height: 550px;
-    color: #000;
-    margin-left: 5% !important;
-    margin-right: 5% !important;
-    margin-top: 10px;
+.act{
+    width: 50px;
     position: relative;
-    box-shadow: 0 0 5px rgba(77, 77, 77, 0.5);
+    transition: width;
+    transition-duration: 0.5s;
 }
-.action{
-    width: 100%;
-    height: 70px;
-    background-color: teal;
-    padding-top: 10px;
-    margin: 0;
-    position: absolute;
-    top:0
+.text{
+    display: none;
+}
+.line{
+    display: flex;
 }
 .list{
     margin: 0;
-    margin-top: 70px;
-    box-shadow: 0 0 5px rgba(77, 77, 77, 0.5);
 }
-input{
-    color: #000;
-    width: 300px;
+
+.w3-table tr:nth-child(even){
+    background-color: rgba(255, 255, 255, 0.5);
 }
-input:focus{
-    outline: none;
-    border-bottom: 1px solid #009688;
+.w3-table tr:nth-child(odd){
+    background-color: rgba(95, 95, 95, 0.5);
 }
-thead{
-    border-bottom: 1px solid black;
-}
-tr:hover{
-    background-color: rgb(199, 199, 199);
-}
-.modal-header{
-    background-color:#009688 ;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-}
-.modal-content{
+.act:hover, .act:focus {
     border-radius: 20px;
+    width: auto;
+    color: teal;
 }
-.modal-content button{
-    color: #009688;
+.act:hover > .text, .act:focus > .text{
+    margin-left: 5px;
+    display: inline-block;
 }
-.w3-btn:focus{
-    outline: none;
+.selected{
+    color: teal;
 }

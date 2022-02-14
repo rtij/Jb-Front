@@ -98,6 +98,7 @@ export class EtudiantComponent implements OnInit {
 
   ngOnDestroy() {
     const it: any = null;
+    this.logout();
     this.EtudiantService.DestructData();
   }
 }

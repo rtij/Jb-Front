@@ -1,28 +1,28 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
-import { StartComponent } from './start/start.component';
+import { AppRoutingModule } from './app-routing.module';
+import { NavbarComponent } from './navbar/navbar.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TokenInterceptor } from './token.interceptor';
 import { ErrorInterceptor } from './error.interceptor';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { ExamReponseComponent } from './exam-reponse/exam-reponse.component';
-import { SpinnerComponent } from './spinner/spinner.component';
-
+import { StockEquipeComponent } from './stock-equipe/stock-equipe.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    StartComponent,
+    NavbarComponent,
     PageNotFoundComponent,
-    ExamReponseComponent,
-    SpinnerComponent,
+    StockEquipeComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +31,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     BrowserAnimationsModule,
     Ng2SearchPipeModule,
     HttpClientModule,
-    AppRoutingModule
+     ToastrModule.forRoot(),
+    AppRoutingModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi:true},

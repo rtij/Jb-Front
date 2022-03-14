@@ -1,0 +1,188 @@
+<div class="w3-container">
+    <h3 class="w3-center"><strong>Saisie dépôt urne</strong></h3>
+    <form class="form-horizontal w3-margin-bottom w3-margin-top w3-card-2 w3-container w3-padding-24" #d="ngForm">
+        <div class="form-group">
+            <label class="col-sm-4" for="DateD">Date de dépôt</label>
+            <div class="col-sm-8">
+                <input required [(ngModel)]="dated" type="date" id="DateD" name="DateD" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="HateD">Heure de dépôt</label>
+            <div class="col-sm-8">
+                <input required [(ngModel)]="heured" type="time" id="HateD" name="HateD" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="CodeT">Code Tsena</label>
+            <div class="col-sm-8">
+                <input (change)="FindTsena()" [(ngModel)]="codet" type="number" id="CodeT" name="CodeT" class="w3-input" placeholder="Code tsena">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="NomT">Anaran'ny tsena</label>
+            <div class="col-sm-8">
+                <input required [(ngModel)]="nomt" type="input" id="NomT" name="NomT" class="w3-input" placeholder="Anaran'ny tsena">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="TypeT">Karazan'ny tsena</label>
+            <div class="col-sm-8">
+                <select required [(ngModel)]="typet" name="TypeT" id="TypeT" class="w3-select">
+                    <option value="Epicérie">Epicérie</option>
+                    <option value="Supermaki">Supermaki</option>
+                    <option value="Grossiste">Grossiste</option>
+                    <option value="Aigle d'or">Aigle d'or</option>
+                    <option value="Gargote">Autres</option>
+                    <option value="Autres">Autres</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="NomP">Anaran'ny tompontsena</label>
+            <div class="col-sm-8">
+                <input required [(ngModel)]="nomp" type="text" id="NomP" name="NomP" placeholder="Anaran'ny tompontsena" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="AdrT">Adiresy</label>
+            <div class="col-sm-8">
+                <input required [(ngModel)]="adrt" type="text" id="AdrT" name="AdrT" placeholder="Adiresy" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="TelT">Tel</label>
+            <div class="col-sm-8">
+                <input [(ngModel)]="tel1" type="text" id="TelT" name="TelT" placeholder="Anaran'ny tompontsena" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="Responsable">Tompon'andraikitra faharoa</label>
+            <div class="col-sm-8">
+                <input [(ngModel)]="responsable" type="text" id="Responsable" name="Responsable" placeholder="Tompon'andraikitra faharoa"
+                    class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="AdrT2">Adiresy</label>
+            <div class="col-sm-8">
+                <input [(ngModel)]="adrt2" type="text" id="AdrT2" name="AdrT2" placeholder="Adiresy" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="Tel2">Tel</label>
+            <div class="col-sm-8">
+                <input [(ngModel)]="tel2" type="text" id="Tel2" name="Tel2" placeholder="Tel" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="TelS">Tel secours</label>
+            <div class="col-sm-8">
+                <input [(ngModel)]="tel3" type="text" id="TelS" name="TelS" placeholder="Tel secours" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="Reperage">Repérage</label>
+            <div class="col-sm-8">
+                <input [(ngModel)]="reperage" type="text" id="Reperage" name="Reperage" placeholder="Repérage" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="Niveau">Niveau</label>
+            <div class="col-sm-8">
+                <select [(ngModel)]="niveau" name="Niveau" id="Niveau" class="w3-select">
+                    <option value="Niveau 1">Niveau 1</option>
+
+                    <option value="Niveau 2">Niveau 2</option>
+
+                    <option value="Niveau 3">Niveau 3</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="HeureO">Ora fisokafany</label>
+            <div class="col-sm-8">
+                <input [(ngModel)]="houverture" type="time" id="HeureO" name="HeureO" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="HeureF">Ora hikatonany</label>
+            <div class="col-sm-8">
+                <input [(ngModel)]="hfermeture" type="time" id="HeureF" name="HeureF" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="OuvertR">
+                Tsena misokatra ny andro fangalana urne</label>
+            <div class="col-sm-8">
+                <input [(ngModel)]="ouvert" type="checkbox" id="OuvertR" name="OuvertR" class="w3-check">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4" for="JFermetrure">Andro hikatonany</label>
+            <div class="col-sm-8">
+                <select [(ngModel)]="jourf" id="JFermetrure" name="JFermetrure" placeholder="Adiresy" class="w3-input">
+                    <option value="Lundi">Lundi</option>
+                    <option value="Mardi">Mardi</option>
+                    <option value="Mercredi">Mercredi</option>
+                    <option value="Jeudi">Jeudi</option>
+                    <option value="Vendredi">Vendredi</option>
+                    <option value="Samedi">Samedi</option>
+                    <option value="Dimanche">Dimanche</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="DateNo">Daty tsy hisokafany</label>
+            <div class="col-sm-8">
+                <input [(ngModel)]="datef" type="date" id="DateNo" name="DateNo" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="NumU">Numero Urnes</label>
+            <div class="col-sm-8">
+                <input [(ngModel)]="numu" type="text" id="NumU" name="NumU" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="NbU">Isany</label>
+            <div class="col-sm-8">
+                <input [(ngModel)]="nb" type="number" id="NbU" name="NbU" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="TypeU">Karazany</label>
+            <div class="col-sm-8">
+                <select (change)="VerifyQte()" [(ngModel)]="SelectedArticle" class="w3-select" name="TypeU" id="TypeU">
+                    <option *ngFor="let s of Urnes" [ngValue]="s">{{s.idarticle.designation}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="place">Toerana ipetrahany</label>
+            <div class="col-sm-8">
+                <input (change)="VerifyQte()" [(ngModel)]="place" type="text" id="place" name="place" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="NbEnv">Isan’ny valopy napetraka</label>
+            <div class="col-sm-8">
+                <input [(ngModel)]="nbenv" type="number" id="NbEnv" name="NbEnv" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="NbAff">
+                Isan’ny affiche mipetraka
+            </label>
+            <div class="col-sm-8">
+                <input [(ngModel)]="nbaff" type="number" id="NbAff" name="NbAff" class="w3-input">
+            </div>
+        </div>
+        <button [disabled]="d.invalid || VerifyQte()" (click)="SaveData(d)" class="btn full-width w3-blue"> Enregistrer</button>
+    </form>
+</div>
+<datalist id="ListeU">
+    <option *ngFor="let t of TsenaL" value="">{{t.codet}} {{t.nomt}} {{t.proprietaire}}</option>
+</datalist>

@@ -1,0 +1,46 @@
+<div class="content">
+    <div @animatezoom class="w3-container" *ngIf="!modif">
+        <div class="navbar">
+            <ul class="nav navbar-nav">
+                <li><a (click)="show()" class="btn w3-hover-blue"><span class="glyphicon glyphicon-plus"></span> <span
+                            class="text">
+                            Nouveau</span></a></li>
+                <li><a (click)="modifier()" class="btn w3-hover-green"><span class="glyphicon glyphicon-pencil"></span> <span class="text">
+                            Modifier</span></a></li>
+                <li><a (click)="DeleteVilleI()" class="btn w3-hover-red"><span class="glyphicon glyphicon-trash"></span><span class="text">
+                            Supprimer</span></a></li>
+            </ul>
+        </div>
+         <h4 class="w3-center"><strong>Ville Intermédiaire liste</strong></h4>
+        <div class="w3-responsive w3-white">
+            <table class="w3-table w3-striped">
+                <tr class="w3-blue">
+                    <th>Nom</th>
+                </tr>
+                <tr [class.w3-text-blue]="v == selectedVilleI" (click)="selectVilleI(v)" *ngFor="let v of VilleiL">
+                    <td >{{v.libelle}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div  @animatezoom *ngIf="modif" class="box w3-container w3-padding-24 w3-card-2">
+        <div class="navbar">
+            <div class="w3-right">
+                <ul class="navbar-nav nav">
+                    <li><a (click)="hide()" class="btn w3-red"><span class="glyphicon glyphicon-remove"></span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="Libelle" class="col-sm-4">Libelle</label>
+                <div class="col-sm-8">
+                    <input type="text" class="w3-input" placeholder="Libelle" id="Libelle" name="Libelle" [(ngModel)]="libelle" required>
+                </div>
+            </div>
+            <button (click)="SaveData()" [disabled]="libelle ==''" class="btn w3-blue full-width"><span class="glyphicon glyphicon-save"> Enregistrer</span></button>
+        </form>
+    </div>
+</div>
+<!-- Article Box -->

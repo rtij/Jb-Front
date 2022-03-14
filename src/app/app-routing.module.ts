@@ -1,21 +1,23 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AdminGuard } from './admin.guard';
-import { EtudiantGuard } from './etudiant.guard';
+import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { ProfGuard } from './prof.guard';
+import { AdminGuard } from './service/admin.guard';
+import { ClientGuard } from './service/client.guard';
+import { UserGuard } from './service/user.guard';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'Admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate:[AdminGuard] },
-  { path: 'Etudiant', loadChildren: () => import('./etudiant/etudiant.module').then(m => m.EtudiantModule) ,canActivate:[EtudiantGuard]},
-  { path: 'Professeur', loadChildren: () => import('./prof/prof.module').then(m => m.ProfModule), canActivate:[ProfGuard]},
-  { path: '**', component: PageNotFoundComponent },
+  {path:'',redirectTo:'Login', pathMatch:'full'},
+  {path:'Login',component:LoginComponent},
+  { path: 'Admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),canActivate:[AdminGuard] },
+  { path: 'Client', loadChildren: () => import('./client/client.module').then(m => m.ClientModule),canActivate:[ClientGuard] },
+  { path: 'Users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule),canActivate:[UserGuard] },
+  {path:'**', component:PageNotFoundComponent}
 ];
-
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{preloadingStrategy: PreloadAllModules})],
+  declarations: [],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

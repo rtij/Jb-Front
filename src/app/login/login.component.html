@@ -1,24 +1,23 @@
 <div class="contenu">
-    <div class="box">
-        <div class="header">
-            <strong>
-                <h4 class="w3-text-white title"><label>ISTS FORMATION A DISTANCE </label></h4>
-            </strong>
+    <div class="login">
+        <div class="w3-padding">
+            <form class="w3-container" #l="ngForm">
+                <div class="w3-margin">
+                    <label class="w3-text-blue">
+                        Nom de l'utilisateur
+                    </label>
+                    <input required [(ngModel)]="nom" type="text" class="w3-input" name="UserName" id="Username" placeholder="Nom et prenom de l'utilisateur">
+                </div>
+                <div class="w3-margin ">
+                    <label for="Mdp" class="w3-text-blue">Mot de passe</label>
+                    <input required [(ngModel)]="mdp" type="password" id="Mdp" name="Mdp" class="w3-input" placeholder="Mot de passe">
+                </div>
+                <div class="w3-center">
+                    <button (click)="login()" [disabled]="l.invalid" class="btn w3-blue">
+                        Se connecter
+                    </button>
+                </div>
+            </form>
         </div>
-        <form class="w3-padding-top-64" #l="ngForm">
-            <strong>
-                <h4 class="w3-center">Veuillez vous identifier</h4>
-            </strong>
-            <label for="codeA" class="w3-center">Saisissez votre code d'accès</label>
-            <input name="codeA" id="codeA" [(ngModel)]="code" #Code="ngModel" required type="text" class="w3-input">
-            <label for="codeA" class="w3-center w3-margin-top">Saisissez votre mot de passe</label>
-            <input name="Pass" id="Pass" [(ngModel)]="password" #Password="ngModel" type="password" required
-                class="w3-input">
-            <button [disabled]="l.invalid" (click)="login()" class="btn w3-teal w3-margin-top mx-auto w-50"
-                type="submit"> Connexion</button>
-            <h6 class="w3-margin-top w3-center"><a class="modif w3-text-blue"
-                    href="https://www.digitec.mg/ists/index.php">Administrateur</a>
-            </h6>
-        </form>
     </div>
 </div>

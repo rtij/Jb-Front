@@ -1,0 +1,46 @@
+.content {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  li a {
+    border-radius: 20px;
+    margin: 5px;
+    box-shadow: 0 0 5px rgba(53, 53, 53, 0.5);
+  }
+  .text {
+    display: none;
+  }
+  li a:hover .text {
+    display: inline-block;
+    margin-left: 5px;
+  }
+  .box {
+    width: 500px;
+    height: auto;
+    margin: auto;
+    border-radius: 20px;
+    margin-top: 20px;
+    background-color: white;
+  }
+  .login{
+      background-color: white;
+  }
+  .telListe {
+    background-color: rgb(146, 146, 146);
+    position: relative;
+  }
+  table tr:nth-child(odd){
+    background-color: rgb(167, 167, 167);
+    color: white;
+  }
+  @media screen and (max-width: 750px) {
+    .box {
+      width: 100%;
+      height: 100vh;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      overflow: auto;
+    }
+  }
+  

@@ -1,0 +1,18 @@
+<div class="w3-container">
+    <div class="flex search w3-card-2 w3-margin">
+        <span class="btn w3-blue"><span class="glyphicon glyphicon-search"></span></span>
+        <input [(ngModel)]="search" type="text" id="UserStockSearch" name="UserStockSearch" class="w3-input" placeholder="Recherche">
+    </div>
+    <div class="w3-responsive">
+        <table class="w3-table w3-striped">
+            <tr class="w3-blue">
+                <th>Désignation</th>
+                <th>Quantité</th>
+            </tr>
+            <tr *ngFor='let s of Stocke | filter:search'>
+                <td>{{s.idarticle.designation}}</td>
+                <td>{{s.qte}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

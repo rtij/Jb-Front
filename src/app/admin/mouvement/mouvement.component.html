@@ -1,0 +1,36 @@
+<div class="w3-container w3-padding-24">
+    <div class="navbar w3-container">
+        <div class="w3-right">
+            <div class="box w3-card-2 flex">
+                <div class="icon">
+                    <button class="w3-btn w3-blue"> <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </div>
+                <input [(ngModel)]="search" type="text" placeholder="Recherche" class="search w3-input w3-round-large" id="MouvementSearch"
+                    name="MouvementkSearch">
+            </div>
+        </div>
+    </div>
+    <div class="w3-table w3-white">
+        <table class="w3-table w3-striped">
+            <tr class="w3-blue">
+                <th>Type</th>
+                <th>Désignation</th>
+                <th>Quantité</th>
+                <th>Couleur</th>
+                <th>Usage</th>
+                <th>Date retour</th>
+                <th></th>
+            </tr>
+            <tr *ngFor="let d of DetMvtListe | filter:search">
+                <td>{{d.idarticle.type}}</td>
+                <td>{{d.idarticle.designation}}</td>
+                <td>{{d.qte}}</td>
+                <td>{{d.couleur}}</td>
+                <td>{{d.usages}}</td>
+                <td>{{d.dater}}</td>
+            </tr>
+        </table>
+    </div>
+
+</div>

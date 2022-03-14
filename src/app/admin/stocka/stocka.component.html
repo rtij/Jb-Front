@@ -1,0 +1,28 @@
+<div class="w3-container">
+    <div class="navbar w3-container">
+        <div class="w3-right">
+            <div class="box w3-card-2 flex">
+                <div class="icon">
+                    <button class="w3-btn w3-blue"> <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </div>
+                <input [(ngModel)]="search" type="text" placeholder="Recherche" class="search w3-input w3-round-large" id="StockSearch"
+                    name="StockSearch">
+            </div>
+        </div>
+    </div>
+    <div class="w3-responsive w3-white">
+        <table class="w3-table w3-striped">
+            <tr class="w3-blue">
+                <th>Désignation</th>
+                <th>Quantité</th>
+                <th>Prix Unitaire</th>
+            </tr>
+            <tr *ngFor="let a of Articles | filter:search">
+                <td>{{a.designation}}</td>
+                <td>{{a.qte}}</td>
+                <td>{{a.prixu}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

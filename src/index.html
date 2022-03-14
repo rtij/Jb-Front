@@ -1,73 +1,40 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
-  <title>ISTS-Formation</title>
+  <title>JB</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="assets/Bootstrap/bootstrap 3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/W3.css/4/w3.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="assets/fontawesome-free-6.0.0-beta3-web/css/all.min.css">
+  <link rel="stylesheet" href="assets/W3.css/4/w3.css">
 </head>
-
 <body>
   <app-root></app-root>
-  <script src="assets/Javascript/Jquery/jquery.js"></script>
+  <script src="assets/Javascript/Jquery/jquery 3.5.1.js"></script>
   <script src="assets/Bootstrap/bootstrap 3.7/js/bootstrap.min.js"></script>
   <script>
-    
-    function test() {
-      var width = $(".sidenav").css("width");
-      if (width == "250px") {
-        close();
-      }
-      else {
-        show();
-      }
-    }
-    
-    function ShowCoursList(){
-      var a = $('#list').css("display");
-      if(a == "block"){  
-        $('#list').hide();
-        $(".btn-list").css({transform: "rotateY(0deg)"});
-      }
-      else{
-        $(".btn-list").css(
-        {transform: "rotateY(180deg)"}
-      );
-        $('#list').show();
-      }
+    function move(){
+      var a = $(".sidenav").css("width");
+     if(a == "50px"){
+       show();
+     }else{
+       hide();
+     }
     }
 
-    
-
-    function show() {
-      var position = $('.sidenav').css("position");
-      if (position == "absolute") {
-        $('#content').css({ width: "calc(100vw - 250px)" });
-        $("#content").animate({ "margin-left": "250px" });
-      }
-      
-      $('.nav-title h5').show();
-      $(".sidenav").animate({ width: "250px" });
-      $(".sidenav").css({ "background-color": "rgb(240, 240, 240)" });
-      $(".sidenav ul").show();
-      $(".sidenav button").css({transform: "rotateY(0deg)"});
+    function show(){
+      $('#contenu').css({width: 'calc(100vw - 200px)'})
+      $('#contenu').animate({"margin-left":"200px"})
+      $(".sidenav").animate({"width":"200px"});
+      $(".sidenav .text").css({display: "inline-block"});
     }
-    function close() {
-      $(".sidenav button").css(
-        {transform: "rotateY(180deg)"}
-      );
-      $('.nav-title h5').hide();
-      $(".sidenav").animate({ width: "50px" });
-      $('#content').css({ width: "calc(100vw - 50px)" });
-      $("#content").animate({ "margin-left": "50px" });
-      $(".sidenav").css({ "background-color": "black" });
-      $(".sidenav ul").hide();
+    function hide(){
+      $('#contenu').css({"width": "calc(100vw - 50px)"})
+      $('#contenu').animate({"margin-left":"50px"})
+      $(".sidenav").animate({"width":"50px"});
+      $(".sidenav .text").css({display: "none"});  
     }
   </script>
 </body>
-
 </html>

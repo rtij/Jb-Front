@@ -1,0 +1,24 @@
+<div class="w3-container w3-padding">
+    <div class="w3-margin w3-card-2 w3-round-large w3-container">
+        <div class="form-group">
+            <label for="SelectEquipe">Equipe</label>
+            <select (change)="SetListe()" [(ngModel)]="SelectedEquipe" class="w3-select" name="SelectEquipe"
+                id="SelectEquipe">
+                <option *ngFor="let e of Equipe" [ngValue]="e">{{e.equipe}}</option>
+            </select>
+        </div>
+
+    </div>
+    <div class="w3-responsive">
+        <table class="w3-table w3-white w3-striped">
+            <tr class="w3-blue">
+                <th>Désignation</th>
+                <th>Quantité</th>
+            </tr>
+            <tr *ngFor="let s of Result">
+                <td>{{s.idarticle.designation}}</td>
+                <td>{{s.qte}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

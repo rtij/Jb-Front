@@ -14,8 +14,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const token = localStorage.getItem("token");
-    const code = localStorage.getItem("code");
-    if(token && code){
+    if(token){
   
       const cloned = request.clone({
         headers: request.headers.set("X-Auth-Token",token)

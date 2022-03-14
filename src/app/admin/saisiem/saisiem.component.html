@@ -1,0 +1,312 @@
+<!-- Article Box -->
+
+<div @fade *ngIf="!next" class="box w3-white w3-round-large w3-container w3-card-2 w3-padding-24">
+    <h3 class="w3-center">Saisie mouvement stock</h3>
+    <form #m="ngForm" class="form-horizontal w3-margin-top">
+        <div class="form-group">
+            <label class="col-sm-4" for="Action">Action</label>
+            <div class="col-sm-8">
+                <select required [(ngModel)]="action" class="w3-select" name="Action" id="Action">
+                    <option value="Expédition">Expédition</option>
+                    <option value="Réception">Réception</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="RefD">Référence document</label>
+            <div class="col-sm-8">
+                <input [(ngModel)]="RefDoc" required type="text" class="w3-input" placeholder="Référence document"
+                    id="RefD" name="RefD">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="DateM" class="col-sm-4">Date</label>
+            <div class="col-sm-8">
+                <input required [(ngModel)]="dateM" type="date" class="w3-input" id="DateM" name="DateM">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Origine" class="col-sm-4">Origine / Source</label>
+            <div class="col-sm-8">
+                <select (change)="setSource()" required [(ngModel)]="Origine" class="w3-select" name="Origine"
+                    id="Origine">
+                    <option value="Tandem">Tandem</option>
+                    <option value="Equipe">Equipe</option>
+                    <option value="Fournisseur">Fournisseur</option>
+                    <option value="Client"> Client</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4">Id source</label>
+            <div class="col-sm-8">
+                <input required *ngIf="Origine != 'Equipe'" [(ngModel)]="idsource" class="w3-input" type="text"
+                    id="idFrs" name="idFrs" placeholder="Identité de la source">
+                <!-- User Liste by -->
+                <select required *ngIf="Origine == 'Equipe'" [(ngModel)]="SelectedUserS" class="w3-select"
+                    name="idSource" id="idSource">
+                    <option *ngFor="let e of UserL" [ngValue]="e">{{e.codeu}} {{e.nomu}}</option>
+                </select>
+            </div>
+        </div>
+        <!-- Info Liste Si Source Equipe -->
+        <div *ngIf="SelectedUserS">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label for="SourceN">Nom</label>
+                </div>
+                <div class="col-sm-8">
+                    <input [(ngModel)]="SelectedUserS.nomu" class="w3-input" readonly type="text" id="SourceN"
+                        name="SourceN">
+                </div>
+            </div>
+            <div *ngIf="SelectedUserS.idequipe">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="SourceN">Equipe</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input [(ngModel)]="SelectedUserS.idequipe.equipe" class="w3-input" readonly type="text"
+                            id="SourceN" name="SourceN">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="SourceN">Zone d'activité</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input [(ngModel)]="SelectedUserS.idequipe.zonea" class="w3-input" readonly type="text"
+                            id="SourceN" name="SourceN">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="SourceN">Quartier/Ville</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input [(ngModel)]="SelectedUserS.idequipe.quartierv" class="w3-input" readonly type="text"
+                            id="SourceN" name="SourceN">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="SourceN">Localité</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input [(ngModel)]="SelectedUserS.idequipe.localite" class="w3-input" readonly type="text"
+                            id="Localite" name="Localite">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="SourceN">Faritany</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input [(ngModel)]="SelectedUserS.idequipe.faritany" class="w3-input" readonly type="text"
+                            id="Faritany" name="Faritany">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Info end -->
+        <div class="form-group">
+            <label for="Livreur" class="col-sm-4">Livreur</label>
+            <div class="col-sm-8">
+                <input required [(ngModel)]="livreur" type="text" class="w3-input" placeholder="Livreur" id="Livreur"
+                    name="Livreur">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="DestF" class="col-sm-4">Déstinataire final</label>
+            <div class="col-sm-8">
+                <select required [(ngModel)]="destinatairef" class="w3-select" placeholder="Déstinataire final" id="DestF"
+                    name="DestF">
+                    <option value="Tandem">Tandem</option>
+                    <option value="Equipe">Equipe</option>
+                    <option value="Fournisseur">Fournisseur</option>
+                    <option value="Client"> Client</option>
+                </select>
+            </div>
+        </div>
+        <div *ngIf="destinatairef != 'Equipe'" class="form-group">
+            <label for="IdD" class="col-sm-4">Id Déstinataire</label>
+            <div class="col-sm-8">
+                <input required [(ngModel)]="idDestinataire" type="text" placeholder="ID destinataire" id="IdD" name="IdD"
+                    class="w3-input">
+            </div>
+        </div>
+        <div *ngIf="destinatairef == 'Equipe'" class="form-group">
+            <label for="UserD" class="col-sm-4">Id Déstinataire</label>
+            <div class="col-sm-8">
+                <select required [(ngModel)]="SelectedUserD" class="w3-select" name="UserD" id="UserD">
+                    <option *ngFor="let e of UserL" [ngValue]="e">{{e.codeu}} {{e.nomu}}</option>
+                </select>
+            </div>
+        </div>
+        <!-- Info Liste Si Déstinataire Equipe -->
+        <div *ngIf="SelectedUserD">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label for="DestinataireN">Nom</label>
+                </div>
+                <div class="col-sm-8">
+                    <input [(ngModel)]="SelectedUserD.nomu" class="w3-input" readonly type="text" id="DestinataireN"
+                        name="DestinataireN">
+                </div>
+            </div>
+            <div *ngIf="SelectedUserD.idequipe">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="EquipeD">Equipe</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input [(ngModel)]="SelectedUserD.idequipe.equipe" class="w3-input" readonly type="text"
+                            id="EquipeD" name="EquipeD">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="UserDzone">Zone d'activité</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input [(ngModel)]="SelectedUserD.idequipe.zonea" class="w3-input" readonly type="text"
+                            id="UserDzone" name="UserDzone">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="DQuartierV">Quartier/Ville</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input [(ngModel)]="SelectedUserD.idequipe.quartierv" class="w3-input" readonly type="text"
+                            id="DQuartierV" name="DQuartierV">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="DLocalite">Localité</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input [(ngModel)]="SelectedUserD.idequipe.localite" class="w3-input" readonly type="text"
+                            id="DLocalite" name="DLocalite">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="DFaritany">Faritany</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input [(ngModel)]="SelectedUserD.idequipe.faritany" class="w3-input" readonly type="text"
+                            id="DFaritany" name="DFaritany">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Info end -->
+        <button type="button" [disabled]="m.invalid" (click)="Next()" class="btn full-width w3-blue"> Suivant</button>
+    </form>
+</div>
+<div @fade *ngIf="next">
+    <div class="w3-container">
+        <div class="w3-container w3-white">
+            <h3 class="w3-center">Détails</h3>
+            <div class="navbar">
+                <div class="w3-right">
+                    <ul class="navbar-nav nav">
+                        <li class="w3-margin-right"><button [disabled]="DetListe.length == 0" (click)="SaveMvt()" class="btn w3-green"><span
+                                    class="glyphicon glyphicon-save"> Enregistrer</span></button></li>
+                        <li><button (click)="Prev()" class="btn w3-blue"><span
+                                    class="glyphicon glyphicon-chevron-left"></span></button></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="navbar">
+                <div class="navbar-right">
+                    <ul class="navbar-nav nav">
+                        <li><button [disabled]="d.invalid" (click)="AddDet()" class="btn w3-blue"><span class="glyphicon glyphicon-plus"></span></button></li>
+                    </ul>
+                </div>
+            </div>
+            <form #d="ngForm" class="navbar w3-card-2 w3-round w3-padding">
+                <ul class="navbar-nav nav">
+                    <li>
+                        <div class="form-group w3-container">
+                            <label for="Article">Article</label>
+                            <select required [(ngModel)]="SelectedA" class="w3-select" name="Article" id="Article">
+                                <option *ngFor="let a of Articles" [ngValue]="a">{{a.designation}}</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <div *ngIf="SelectedA" class="form-group  w3-container">
+                            <label for="TypesA">Type</label>
+                            <input [(ngModel)]="SelectedA.type" id="TypeA" name="TypeA" type="text" class="w3-input"
+                                placeholder="Type" readonly>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group w3-container">
+                            <label for="Usages">Usages</label>
+                            <select required class="w3-select" [(ngModel)]="usages" name="Usages" id="Usages">
+                                <option value="Animation">Animation</option>
+                                <option value="Vente">Vente</option>
+                                <option value="Don">Don</option>
+                                <option value="Dépôt">Dépôt</option>
+                                <option value="Stock">Stock</option>
+                            </select>
+                        </div>        
+                    </li>
+                    <li>
+                        <div *ngIf="SelectedA">
+                            <div *ngIf="SelectedA.type == 'Matériels'" class="form-group  w3-container">
+                                <label for="TypesA">Couleur</label>
+                                    <input id="Couleur" name="Couleur" [(ngModel)]="couleur" type="text" class="w3-input" placeholder="Type">
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group  w3-container">
+                            <label for="TypesA">Quantité</label>
+                            <input id="QteA" name="QteA" [(ngModel)]="qte" type="number" class="w3-input">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group w3-container">
+                            <label for="Aretourner"> <input [(ngModel)]="aretourner" type="checkbox" id="Aretourner"
+                                    name="Aretourner" class="w3-check">
+                                A retourner</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div *ngIf="aretourner" class="form-group w3-container">
+                            <label for="TypesA">Date prévue retour</label>
+                            <input required type="date" [(ngModel)]="dateR" class="w3-input" id="DateR" name="DateR">
+                        </div>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+    <div class="w3-responsive w3-margin-top">
+        <table class="w3-table w3-striped w3-white">
+            <tr>
+                <th>Désignation</th>
+                <th>Usages</th>
+                <th>Couleur</th>
+                <th>Quantité</th>
+                <th>A retourner</th>
+                <th>Date retour</th>
+                <th></th>
+            </tr>
+            <tr *ngFor="let d of DetListe">
+                <td >{{d.idarticle.designation}}</td>
+                <td>{{d.usages}}</td>
+                <td>{{d.couleur}}</td>
+                <td>{{d.qte}}</td>
+                <td><input [(ngModel)]="d.aretourner" type="checkbox" class="w3-check"></td>
+                <td>{{d.dater}}</td>
+                <td><button (click)="RemoveDetails(d)" class="btn w3-red glyphicon glyphicon-remove"></button></td>
+            </tr>
+        </table>
+    </div>
+</div>

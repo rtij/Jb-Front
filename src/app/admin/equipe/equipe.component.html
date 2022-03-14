@@ -1,0 +1,95 @@
+<div class="content">
+    <div @translate *ngIf="!modif" class="w3-container">
+        <div class="navbar">
+            <ul class="nav navbar-nav">
+                <li><a (click)="show()" class="btn w3-hover-blue"><span class="glyphicon glyphicon-plus"></span> <span class="text">
+                            Nouveau</span></a></li>
+                <li><a (click)="Modifier()" class="btn w3-hover-green"><span class="glyphicon glyphicon-pencil"></span> <span class="text">
+                            Modifier</span></a></li>
+                <li><a (click)="DeleteEquipe()" class="btn w3-hover-red"><span class="glyphicon glyphicon-trash"></span><span class="text">
+                            Supprimer</span></a></li>
+            </ul>
+        </div>
+        <div class="w3-responsive">
+            <table class="w3-white w3-table w3-striped">
+                <tr class="w3-blue">
+                    <th>Nom</th>
+                    <th>Zone d'activité</th>
+                    <th>Localite</th>
+                    <th>Faritany</th>
+                    <th>Quartier ville</th>
+                    <th>Ville Intermédiare</th>
+                </tr>
+                <tr [class.w3-text-blue]="e == SelectedEquipe" (click)="SelectEquipe(e)" *ngFor="let e of EquipeL">
+                    <td>{{e.equipe}}</td>
+                    <td>{{e.zonea}}</td>
+                    <td>{{e.localite}}</td>
+                    <td>{{e.faritany}}</td>
+                    <td>{{e.quartierv}}</td>
+                    <td ><span *ngIf="e.idvillei">{{e.idvillei.libelle}}</span> </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Article Box -->
+    <div @translate *ngIf="modif" class="box w3-container w3-padding-24 w3-card-2">
+        <div class="navbar">
+            <div class="w3-right">
+                <ul class="navbar-nav nav">
+                    <li><a (click)="hide()" class="btn w3-red"><span class="glyphicon glyphicon-remove"></span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <form #e="ngForm" class="form-horizontal">
+            <div class="form-group">
+                <label for="Nom" class="col-sm-4">Nom</label>
+                <div class="col-sm-8">
+                    <input [(ngModel)]="equipeN" type="text" placeholder="Nom" class="w3-input" id="Nom" name="Nom">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="localite" class="col-sm-4">Zone d'activité</label>
+                <div class="col-sm-8">
+                    <input type="number" [(ngModel)]="zonea" class="w3-input" placeholder="Zone d'activité" id="zonea" name="zonea">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="quartierv" class="col-sm-4">Quartier/ Ville</label>
+                <div class="col-sm-8">
+                    <input type="text" [(ngModel)]="quartierv" class="w3-input" placeholder="Quartier/ Ville" id="quartierv" name="quartierv">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="localite" class="col-sm-4">Localite</label>
+                <div class="col-sm-8">
+                    <select class="w3-select" name="localite" id="localite" [(ngModel)]="localite">
+                        <option value="Grande Ville">Grande Ville</option>
+                        <option value="Ville Intermédiaire">Ville Intermédiaire</option>
+                    </select>
+                </div>
+            </div>
+            <div *ngIf="localite == 'Ville Intermédiaire'" class="form-group">
+                <label class="col-sm-4" for="VilleI">Ville Intermédiaire</label>
+                <div class="col-sm-8">
+                    <select [(ngModel)]="selectedVillei" class="w3-select" name="VilleI" id="VilleI">
+                        <option *ngFor="let v of VilleIL" [ngValue]="v">{{v.libelle}}</option>
+                    </select>
+                </div>    
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4" for="Faritany">Faritany</label>
+                <div class="col-sm-8">
+                    <input list="FaritanyL" [(ngModel)]="selectedF"  id="Faritany" name="Faritany" type="text" class="w3-input" placeholder="Faritany">
+                </div>
+            </div>
+            <button (click)="SaveData(e)" [disabled]="e.invalid || !(findFaritany())" class="full-width btn w3-blue"><span class="glyphicon glyphicon-save"></span> Enregistrer</button>
+        </form>
+    </div>
+</div>
+<!-- Faritany Liste -->
+<datalist id="FaritanyL">
+    <option *ngFor="let f of Faritany">{{f}}</option>
+</datalist>

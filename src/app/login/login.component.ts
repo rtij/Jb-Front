@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Route, Router } from '@angular/router';
-import { LoginService } from '../login.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Authtoken } from 'src/Object/Authtoken';
+import { LoginService } from '../service/login.service';
 
 @Component({
   selector: 'app-login',
@@ -9,35 +11,48 @@ import { LoginService } from '../login.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService:LoginService, private router:Router) { }
+  constructor(private router: Router, private LoginService: LoginService, private Tostr: ToastrService) { }
 
+  nom: string = "";
+  mdp: string = "";
   ngOnInit(): void {
   }
-  code:string="";
-  password:string="";
-  token:string = "";
-
-  login(){
-    this.loginService.Login(this.code,this.password).subscribe((res: string) => {
-    this.token = res;
-    this.loginService.storeToken(this.token);
-    // identify user type
-    localStorage.setItem('code',this.code);
-    if(this.loginService.getUserType(this.code)=="AD"){
-    //  document.location.href="https://www.digitec.mg/ists24/FR/PAGE-Liste-employe.php";
-    this.router.navigate(['/Admin']);
-    }
-    if(this.loginService.getUserType(this.code)=="PF"){
-      this.router.navigate(['/Professeur']);
-    }
-    if(this.loginService.getUserType(this.code)=="ET"){
-      this.router.navigate(['/Etudiant']);
-    }
-    },
+  Authtoken!:Authtoken;
+  login() {
+    this.LoginService.Login(this.nom, this.mdp).subscribe(
+      (res) => {
+        this.LoginService.storeToken(res);
+        if(this.LoginService.isLogedIn()){
+          this.getMyUser();
+        }
+       
+      },
       (err) => {
+        this.Tostr.warning("Nom d'utilisateur introuvable ou le mot de passe est incorrect");
         console.log(err.error);
       }
-    );
+    )
   }
 
+  getMyUser() {
+    this.LoginService.getUser().subscribe(
+      (res) => {
+        this.Authtoken = res;
+        let u = this.Authtoken.codeu;
+        if(u.idtypeu.destypeu == "Simple"){
+          localStorage.setItem('type',"Simple");
+          this.router.navigate(['/Users']);
+        }else if(u.idtypeu.destypeu == "Administrateur"){
+          localStorage.setItem('type','Administrateur');
+          this.router.navigate(['/Admin']);
+        }else{
+          localStorage.setItem('type',"Client");
+          this.router.navigate(['/Client']);
+        }
+      }, (err) => {
+        console.log(err.error);
+      }
+    )
+
+  }
 }

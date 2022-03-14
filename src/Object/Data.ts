@@ -1,0 +1,1 @@
+export let Faritany:string[] = ["Antananarivo", "Antsirabe", "Fianarantsoa", "Mahajanga", "Toliary", "Toamasina", "Antsiaranana"]

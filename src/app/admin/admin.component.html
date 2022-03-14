@@ -1,51 +1,41 @@
-<nav class="navbar first">
-  <div class="w3-container">
-    <div class="navbar-header">
-      <a routerLink="/Admin/" class="navbar-brand navbar-title w3-circle w3-card-2"><span
-          class="glyphicon glyphicon-education w3-text-teal"></span></a>
-    </div>
-    <div class="navbar-right">
-      <ul class="navbar-nav nav">
-        <li class="w3-margin w3-container annee "><span class="w3-text-teal"> Année universitaire: </span> {{AnneeEncours.annee}}</li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<nav class="navbar w3-teal second">
-  <div class="navbar-header">
-    <button class="navbar-toggle" data-target="#myNavbar" data-toggle="collapse">
-      <span class="glyphicon glyphicon-menu-hamburger"></span>
-    </button>
-  </div>
-  <div class="navbar-collapse collapse" id="myNavbar">
-    <ul class="navbar-nav nav">
-      <li><a routerLink="Etudiant" routerLinkActive="active">Etudiant</a></li>
-      <li><a routerLink="Enseignant" routerLinkActive="active">Enseignant</a></li>
-      <li><a routerLink="Administrateur" routerLinkActive="active">Administrateur</a></li>
-      <li><a routerLink="FlashInfo" routerLinkActive="active">Communiqué</a></li>
-      <li class="dropdown">
-        <a class="dropdown-toggle w3-text-white w3-teal" data-toggle="dropdown">Paramètre <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li class="w3-hover-teal"><a routerLink="Annee">Année</a></li>
-          <li class="w3-hover-teal"><a routerLink="Parcours">Parcours</a></li>
-          <li class="w3-hover-teal"><a routerLink="Niveau">Niveau</a></li>
-          
-          <li class="w3-hover-teal"><a routerLink="Module">Module</a></li>
-          
-          <li class="w3-hover-teal"><a routerLink="Niveau">Module et intervenant</a></li>
+<div class="contenu">
+    <ul class="sidenav nav w3-display-container w3-text-blue">
+        <li class="w3-padding w3-margin-bottom"><a onclick="move()" class="btn w3-margin-right"><span
+                    class="glyphicon glyphicon-menu-hamburger"></span></a></li>
+        <li class="w3-padding w3-margin-top"><a onclick="hide()" routerLink="Profil" routerLinkActive="active"
+                class="btn w3-margin-right"><span class="fa fa-user"></span> <span class="text w3-margin-left"> <strong>
+                        Profil</strong></span></a></li>
+        <li class="w3-padding w3-margin-top"><a onclick="hide()" routerLink="Article" routerLinkActive="active"
+                class="btn w3-margin-right"><span class="fa fa-shopping-bag"></span> <span
+                    class="text w3-margin-left"><strong> Articles</strong> </span></a></li>
+        <li class="w3-padding w3-margin-top"><a onclick="hide()" routerLink="Etats" class="btn w3-margin-right"><span
+                    class="fa fa-clipboard"></span> <span class="text w3-margin-left"> <strong>
+                        Etats</strong></span></a></li>
+        <li class="w3-padding w3-margin-top"><a onclick="hide()" routerLink="Stocks" routerLinkActive="active"
+                class="btn w3-margin-right"><span class="fa fa-box"></span> <span class="text w3-margin-left"> <strong>
+                        Stocks</strong></span></a></li>
+        <li class="w3-padding w3-margin-top"><a routerLinkActive="active" routerLink="Livrables"
+                class="btn w3-margin-right" onclick="hide()"><span class="fa fa-truck"></span> <span
+                    class="text w3-margin-left"><strong> Livrables</strong></span></a></li>
+        <li class="w3-margin-top">
+            <a data-toggle="collapse" data-target="#demo" class="btn"><span class="glyphicon glyphicon-cog"></span>
+                <span class="text w3-margin-left"><strong> Paramètres</strong> </span></a>
+        </li>
+        <ul id="demo" class="collapse nav">
+            <li><a onclick="hide()" routerLink="Utilisateurs" data-toggle="collapse" data-target="#demo"
+                    class="btn"><span class="text"> <strong> Utilisateurs</strong></span></a></li>
+            <li><a onclick="hide()" routerLink="Equipe" data-toggle="collapse" data-target="#demo" class="btn"><span
+                        class="text"> <strong> Equipe</strong></span></a></li>
+            <li><a onclick="hide()" routerLink="VilleI" data-toggle="collapse" data-target="#demo" class="btn"><span
+                        class="text"> <strong>Ville Intermédiaire</strong> </span></a></li>
         </ul>
-      </li>
+        <div class="bot w3-display-bottomleft">
+            <li><a (click)="Logout()" class="w3-container w3-padding btn w3-margin-right"><span
+                        class="glyphicon glyphicon-log-out "></span><span class="text w3-margin-left"><strong> Se
+                            déconnecter</strong></span></a></li>
+        </div>
     </ul>
-    <ul class="navbar-nav nav navbar-right">
-      <li><a (click)="logout()">Se deconnecter</a></li>
-    </ul>
-  </div>
-</nav>
-<div class="routerContainer">
-  <div class="w3-display-container fond">
-    <div class="w3-display-middle">
-      <span class="glyphicon glyphicon-education icon"></span>
-    </div>
-  </div>
-  <router-outlet></router-outlet>
+</div>
+<div id="contenu" class="routerContainer">
+    <router-outlet></router-outlet>
 </div>

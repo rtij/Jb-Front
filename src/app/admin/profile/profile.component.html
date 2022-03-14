@@ -1,0 +1,13 @@
+<div class="content">
+    <div @fade *ngIf="modif == false" class="w3-white box w3-padding-24 w3-container w3-card-2">
+        <button (click)="show()" class="full-width btn w3-blue"><span class="glyphicon glyphicon-pencil"></span> Modifier</button>
+    </div>
+</div>
+<!-- Modif box -->
+<div @fade *ngIf="modif" class="w3-white box w3-padding-24 w3-container w3-card-2">
+    <div class="navbar">
+        <div class="w3-right">
+            <button (click)="hide()" class="btn w3-red"><span class="glyphicon glyphicon-remove"></span></button>
+        </div>
+    </div>
+</div>

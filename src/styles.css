@@ -1,47 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
-body{
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
+.full-width {
+  width: 100%;
 }
-.full-width{
-    width: 100%;
+input::placeholder {
+  transition: color 1s ease;
 }
-.border-green{
-    border: 1px solid #009688;
+input:focus::placeholder {
+  color: transparent;
+}
+input:focus{
+  outline:  none;
+}
+button:focus{
+  outline: none;
 }
 .flex{
-    display: flex;
-}
-button:focus ,input:focus{
-    outline:none;
-}
-input:focus::placeholder{
-    color: transparent;
-}
-input::placeholder{
-    color: grey;
-    transition: color 1s ease;
-}
-/* 
-    scrollbar
-*/
-
-::-webkit-scrollbar {
-    width: 15px;
-    height: 10px;
-    
-}
-::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.1);
-    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
-}
-::-webkit-scrollbar-thumb {
-    background: rgb(117, 117, 117);
-    border: 1px solid rgba(0, 0, 0, 0.2);
-}
-::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(to left, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4));
+  display: flex;
 }

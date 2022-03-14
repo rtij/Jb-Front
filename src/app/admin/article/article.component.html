@@ -1,0 +1,70 @@
+<div class="content">
+    <div @fade *ngIf="!show" class="w3-container">
+
+        <div class="navbar">
+            <ul class="nav navbar-nav">
+                <li><a (click)="showBox()" class="btn w3-hover-blue"><span class="glyphicon glyphicon-plus"></span>
+                        <span class="text">
+                            Nouveau</span></a></li>
+                <li><a (click)="modifier()" class="btn w3-hover-green"><span class="glyphicon glyphicon-pencil"></span> <span class="text">
+                            Modifier</span></a></li>
+                <li><a (click)="DeleteArticle()" class="btn w3-hover-red"><span class="glyphicon glyphicon-trash"></span><span class="text">
+                            Supprimer</span></a></li>
+            </ul>
+        </div>
+        <div class="w3-responsive">
+            <table class="w3-table w3-striped w3-white">
+                <tr class="w3-blue">
+                    <th>Désignation</th>
+                    <th>Type</th>
+                    <th>Prix unitaire</th>
+                </tr>
+                <tr [class.w3-text-blue]="a == selectedArticle" (click)="SelectArticle(a)" *ngFor="let a of Articles">
+                    <td>{{a.designation}}</td>
+                    <td>{{a.type}}</td>
+                    <td>{{a.prixu}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Article Box -->
+    <div @fade *ngIf="show" class="box w3-container w3-padding-24 w3-margin-top">
+        <div class="navbar">
+            <div class="w3-right">
+                <ul class="navbar-nav nav">
+                    <li><a (click)="hideBox()" class="btn w3-red"><span class="glyphicon glyphicon-remove"></span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <form #a="ngForm" class="form-horizontal">
+            <div class="form-group">
+                <label for="Designation" class="col-sm-4">Désignation</label>
+                <div class="col-sm-8">
+                    <input required [(ngModel)]="designation" type="text" placeholder="Désignation" class="w3-input" name="Designation" id="Designaiton">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="TypeArticle" class="col-sm-4">Type</label>
+                <div class="col-sm-8">
+                    <select class="w3-select" [(ngModel)]="type" name="TypeArtilce" id="TypeArticle">
+                        <option value="Lot">Lot</option>
+                        <option value="Goodies">Goodies</option>
+                        <option value="Urne">Urne</option>
+                        <option value="Matériels">Enveloppe</option>
+                        <option value="Matériels">Matériels</option>
+                        <option value="Produit">Produit</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PrixU" class="col-sm-4">Prix unitaire</label>
+                <div class="col-sm-8">
+                    <input id="PrixU" name="PrixU" [(ngModel)]="prixu" required type="number" placeholder="Prix unitaire" class="w3-input">
+                </div>
+            </div>
+            <button (click)="SaveData()" [disabled]="a.invalid" class="btn w3-blue full-width"><span class="glyphicon glyphicon-save"> Enregistrer</span></button>
+        </form>
+    </div>
+</div>

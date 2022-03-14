@@ -1,6 +1,10 @@
 .box{
     width: 500px;
-    height: 500px;
+    height: auto;
     margin:auto;
     margin-top: 50px;
+    border-radius: 20px;
+}
+label{
+    color: rgb(0, 162, 255);
 }

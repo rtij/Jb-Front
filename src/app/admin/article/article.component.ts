@@ -123,6 +123,9 @@ export class ArticleComponent implements OnInit {
         this.Adminservice.updateArticle(this.selectedArticle).subscribe(
           (res)=>{
             this.toastr.success("Suppréssion effectuer");
+            this.Articles = this.Articles.filter((item)=>{
+              return item.idarticle != this.selectedArticle.idarticle
+            });
             this.Reset();
           },
           (err)=>{

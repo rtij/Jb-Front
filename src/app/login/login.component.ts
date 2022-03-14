@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
         if(this.LoginService.isLogedIn()){
           this.getMyUser();
         }
-       
       },
       (err) => {
         this.Tostr.warning("Nom d'utilisateur introuvable ou le mot de passe est incorrect");

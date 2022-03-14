@@ -153,7 +153,6 @@ export class EquipeComponent implements OnInit {
         this.EquipeL = res;
         alert("Donner sauvegarder");
         a.reset();
-
       },
       (err) => {
         console.log(err.error)

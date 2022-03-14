@@ -3,7 +3,7 @@
   height: 100vh;
   position: relative;
   overflow: hidden;
-  background: url("../../assets/Images/JBLight.jpg");
+  background-color: rgb(228, 228, 228);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

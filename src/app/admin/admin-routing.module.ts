@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { StockEquipeComponent } from '../stock-equipe/stock-equipe.component';
 import { AdminComponent } from './admin.component';
 import { ArticleComponent } from './article/article.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { EquipeComponent } from './equipe/equipe.component';
 import { HistoqteComponent } from './histoqte/histoqte.component';
 import { LivrableComponent } from './livrable/livrable.component';
@@ -17,6 +18,8 @@ import { VilleiComponent } from './villei/villei.component';
 const routes: Routes = [
   {
     path: '', component: AdminComponent, children: [
+      { path: '', redirectTo: 'Dashboard', pathMatch: 'full' },
+      { path: 'Dashboard', component: DashboardComponent },
       { path: 'Profil', component: ProfileComponent },
       { path: 'Article', component: ArticleComponent },
       { path: 'Utilisateurs', component: UsersComponent },

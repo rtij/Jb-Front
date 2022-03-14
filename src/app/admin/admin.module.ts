@@ -19,6 +19,7 @@ import { HistoqteComponent } from './histoqte/histoqte.component';
 import { SaisiemComponent } from './saisiem/saisiem.component';
 import { LivrableComponent } from './livrable/livrable.component';
 import { StockListeComponent } from './stock-liste/stock-liste.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { StockListeComponent } from './stock-liste/stock-liste.component';
     HistoqteComponent,
     SaisiemComponent,
     LivrableComponent,
-    StockListeComponent
+    StockListeComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule,

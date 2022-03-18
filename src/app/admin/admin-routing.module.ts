@@ -10,6 +10,7 @@ import { LivrableComponent } from './livrable/livrable.component';
 import { MouvementComponent } from './mouvement/mouvement.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SaisiemComponent } from './saisiem/saisiem.component';
+import { StartComponent } from './start/start.component';
 import { StockComponent } from './stock/stock.component';
 import { StockaComponent } from './stocka/stocka.component';
 import { UsersComponent } from './users/users.component';
@@ -18,7 +19,8 @@ import { VilleiComponent } from './villei/villei.component';
 const routes: Routes = [
   {
     path: '', component: AdminComponent, children: [
-      { path: '', redirectTo: 'Dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'Start', pathMatch: 'full' },
+      {path:'Start', component:StartComponent},
       { path: 'Dashboard', component: DashboardComponent },
       { path: 'Profil', component: ProfileComponent },
       { path: 'Article', component: ArticleComponent },

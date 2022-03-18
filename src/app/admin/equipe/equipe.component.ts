@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/service/admin.service';
 import { Faritany } from 'src/Object/Data';
 import { Equipe } from 'src/Object/Equipe';
@@ -14,7 +15,7 @@ import { Villei } from 'src/Object/Villei';
 })
 export class EquipeComponent implements OnInit {
 
-  constructor(private AdminService: AdminService) { }
+  constructor(private AdminService: AdminService, private toastr:ToastrService) { }
   EquipeL: Equipe[] = [];
   SelectedEquipe!: Equipe;
   VilleIL: Villei[] = [];
@@ -56,7 +57,7 @@ export class EquipeComponent implements OnInit {
 
   Modifier() {
     if (!this.SelectedEquipe) {
-      alert("Selectionner une équipe d''abord");
+      this.toastr.warning("Selectionner une équipe d'abord");
     }
     else {
       this.modif = true;
@@ -91,7 +92,7 @@ export class EquipeComponent implements OnInit {
     this.AdminService.UpdateEquipe(this.SelectedEquipe).subscribe
     (
       (res)=>{
-        alert("Modification effectuer");
+        this.toastr.success("Modification effectuer");
         this.Reset();
         this.modif = false;
         this.EquipeL  = res;
@@ -151,7 +152,8 @@ export class EquipeComponent implements OnInit {
     this.AdminService.CreateEquipe(e).subscribe(
       (res) => {
         this.EquipeL = res;
-        alert("Donner sauvegarder");
+        this.toastr.success("Donner sauvegarder");
+        this.modif = false;
         a.reset();
       },
       (err) => {
@@ -162,13 +164,13 @@ export class EquipeComponent implements OnInit {
 
   DeleteEquipe() {
     if (!this.SelectedEquipe) {
-      alert("Selectionner une équipe d''abord");
+      this.toastr.warning("Selectionner une équipe d'abord");
     }else{
       if(confirm("Voulez vous vraiment supprimmer cette équipe ?")){
         this.SelectedEquipe.issup = true;
         this.AdminService.UpdateEquipe(this.SelectedEquipe).subscribe(
           (res)=>{
-            alert("Suppression effectuer");
+            this.toastr.success("Suppression effectuer");
             this.EquipeL = this.EquipeL.filter((item)=>{
               return item != this.SelectedEquipe
             });

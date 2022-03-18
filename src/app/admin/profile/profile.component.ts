@@ -53,7 +53,38 @@ export class ProfileComponent implements OnInit {
 
 
   updateUser() {
+    this.User.telAirtel = this.telAirtel;
+    this.User.telOrange = this.User.telOrange;
+    this.User.nomu = this.nomu;
+    this.User.telTelma = this.User.telTelma;
+    this.User.password = this.mdp;
+    this.AdminService.UpdateUser(this.User).subscribe(
+      (res) => {
+        this.AdminService.getMyUser().subscribe(
+          (res) => {
+            this.User = res;
+            this.Toastr.success('Modification effectuer');
+            this.modif = false;
+            this.Reset();
+          },
+          (err) => {
+            console.log(err.error);
+          }
+        )
+      },
+      (err) => {
+        console.log(err.error)
+      }
+    )
+  }
 
+  Reset() {
+    this.nomu = "";
+    this.mdp = "";
+    this.confMdp = "";
+    this.telAirtel = "";
+    this.telOrange = "";
+    this.telTelma = "";
   }
 
 }

@@ -72,6 +72,6 @@
                 <input [(ngModel)]="confMdp" type="password" id="ConfMdp" name="ConfMdp" class="w3-input" placeholder="Confirmer mot de passe" required>
             </div>
         </div>
-        <button [disabled]="u.invalid" class="btn w3-blue full-width"> Enregistrer</button>
+        <button [disabled]="u.invalid || mdp != confMdp" class="btn w3-blue full-width"> Enregistrer</button>
     </form>
 </div>

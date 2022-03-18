@@ -128,7 +128,7 @@ export class SaisiemComponent implements OnInit {
     } else {
       this.idDestinataire = "";
     }
-    let m = new Mouvement(this.action, this.dateM, this.Origine, this.idsource, this.SelectedUserS, this.SelectedUserD, this.destinatairef, this.livreur, this.RefDoc, this.idDestinataire);
+    let m = new Mouvement(this.action, this.dateM, this.Origine, this.idsource, this.SelectedUserS, this.SelectedUserD, this.destinatairef, this.livreur, this.RefDoc, this.idDestinataire,[]);
     this.AdminService.SaveMvt(m).subscribe
       (
         (res) => {

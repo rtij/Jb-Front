@@ -1,3 +1,4 @@
+import { Detlivrables } from "./Detlivrable";
 import { Users } from "./Users";
 
 export class Mouvement {
@@ -11,8 +12,9 @@ export class Mouvement {
     iddest:string;
     livreur: string;
     refdoc:string;
+    iddetmvt:Detlivrables[];
     idmvt?: number;
-    constructor(action: string, datem: Date, source: string, idsourcef: string, idsource: Users, iddestinataire: Users, destinatairef: string, livreur: string, refdoc: string,iddest:string, idmvt?: number) {
+    constructor(action: string, datem: Date, source: string, idsourcef: string, idsource: Users, iddestinataire: Users, destinatairef: string, livreur: string, refdoc: string,iddest:string,[], idmvt?: number) {
         this.action = action;
         this.datem = datem;
         this.source = source;
@@ -23,5 +25,6 @@ export class Mouvement {
         this.idsource = idsource;
         this.iddestinataire = iddestinataire;
         this.iddest = iddest;
+        this.iddetmvt = [];
     }
 }

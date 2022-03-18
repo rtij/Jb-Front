@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -31,12 +31,13 @@ import { StockEquipeComponent } from './stock-equipe/stock-equipe.component';
     BrowserAnimationsModule,
     Ng2SearchPipeModule,
     HttpClientModule,
-     ToastrModule.forRoot(),
+    ToastrModule.forRoot(),
     AppRoutingModule,
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi:true},
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi:true},
+    
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

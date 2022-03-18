@@ -8,3 +8,9 @@
 label{
     color: rgb(0, 162, 255);
 }
+@media screen and (max-width:750px) {
+    .box{
+        width: 100%;
+        margin: 5px;
+    }
+}

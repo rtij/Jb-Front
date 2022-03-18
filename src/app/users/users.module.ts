@@ -11,6 +11,7 @@ import { RamassageUComponent } from './ramassage-u/ramassage-u.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ToastrModule } from 'ngx-toastr';
+import { TriComponent } from './tri/tri.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ToastrModule } from 'ngx-toastr';
     UrneComponent,
     LivrableComponent,
     DepotUComponent,
-    RamassageUComponent
+    RamassageUComponent,
+    TriComponent
   ],
   imports: [
     CommonModule,

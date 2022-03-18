@@ -1,0 +1,112 @@
+<div class="w3-container">
+    <form #t="ngForm" class="form-horizontal w3-container w3-padding-24 w3-round-large w3-card-2">
+        <div class="form-group w3-margin">
+            <label for="NomP" class="col-sm-4">Nom et prénom</label>
+            <div class="col-sm-8">
+                <input required class="w3-input" (change)="FindParticipant()" type="text" id="NomP" name="NomP"
+                    list="NomL" [(ngModel)]="nomp" placeholder="Nom et prénom">
+            </div>
+        </div>
+        <div class="form-group w3-margin">
+            <label for="AdrP" class="col-sm-4">Adresy</label>
+            <div class="col-sm-8">
+                <input (change)="FindParticipant()" [(ngModel)]="adrp" required list="ParticipationA" type="text" id="AdrP" name="AdrP" placeholder="Adresy" class="w3-input">
+            </div>
+        </div>
+        <div class="form-group w3-margin ">
+            <label for="Dates" class="col-sm-4">Date</label>
+            <div class="col-sm-8">
+                <input type="date" class="w3-input" [(ngModel)]="dates" name="DateS" id="DateS">
+            </div>
+        </div>
+        <div class="form-group w3-margin ">
+            <label for="TelAirtel" class="col-sm-4">Tel airtel</label>
+            <div class="col-sm-8">
+                <input type="text" class="w3-input" placeholder="Tel airtel" [(ngModel)]="telairtel" name="TelAirtel" id="TelAirtel">
+            </div>
+        </div>
+        <div class="form-group w3-margin ">
+            <label for="TelOrange" class="col-sm-4">Tel orange</label>
+            <div class="col-sm-8">
+                <input type="text" class="w3-input" placeholder="Tel orange" [(ngModel)]="telorange" name="TelOrange" id="TelOrange">
+            </div>
+        </div>
+        <div class="form-group w3-margin ">
+            <label for="TelAirtel" class="col-sm-4">Tel telma</label>
+            <div class="col-sm-8">
+                <input type="text" class="w3-input" placeholder="Tel telma" [(ngModel)]="teltelma" name="TelAirtel" id="TelAirtel">
+            </div>
+        </div>
+        <div class="form-group w3-margin ">
+            <label for="NumEnv" class="col-sm-4">Numero enveloppe</label>
+            <div class="col-sm-8">
+                <input type="number" class="w3-input" [(ngModel)]="numenv" name="NumEnv" id="NumEnv">
+            </div>
+        </div>
+        <div class="form-group w3-margin ">
+            <label for="NbPP" class="col-sm-4"> PP</label>
+            <div class="col-sm-8">
+                <input (change)="UpdateTotal()" type="number" class="w3-input" [(ngModel)]="nbPP" name="NbPP" id="NbPP">
+            </div>
+        </div>
+        <div class="form-group w3-margin ">
+            <label for="Vi" class="col-sm-4">VI </label>
+            <div class="col-sm-8">
+                <input type="number" (change)="UpdateTotal()" class="w3-input" [(ngModel)]="nbVi" name="Vi" id="Vi">
+            </div>
+        </div>
+        <div class="form-group w3-margin ">
+            <label for="Oe" class="col-sm-4">OE</label>
+            <div class="col-sm-8">
+                <input (change)="UpdateTotal()" type="number" class="w3-input" [(ngModel)]="nbOe" name="Oe" id="Oe">
+            </div>
+        </div>
+        <div class="form-group w3-margin ">
+            <label for="Ps" class="col-sm-4">PS</label>
+            <div class="col-sm-8">
+                <input (change)="UpdateTotal()" type="number" class="w3-input" [(ngModel)]="nbPs" name="Ps" id="Ps">
+            </div>
+        </div>
+        <div class="form-group w3-margin ">
+            <label for="TotalTtri" class="col-sm-4">Total</label>
+            <div class="col-sm-8">
+                <input readonly type="number" class="w3-input" [(ngModel)]="total" name="TotalTtri" id="TotalTtri">
+            </div>
+        </div>
+        <div class="form-group w3-margin ">
+            <label for="Feno" class="col-sm-4">Isa feno</label>
+            <div class="col-sm-8">
+                <input type="checkbox" class="w3-check" [(ngModel)]="feno" name="Feno" id="Feno">
+            </div>
+        </div>
+        <div class="form-group w3-margin ">
+            <label for="Valide" class="col-sm-4">Valide</label>
+            <div class="col-sm-8">
+                <input (change)="UnsetMotif()" type="checkbox" class="w3-check" [(ngModel)]="valide" name="Valide" id="Valide">
+            </div>
+        </div>
+        <div *ngIf="!valide" class="form-group w3-margin ">
+            <label for="motifInv" class="col-sm-4">Motif non valide</label>
+            <div class="col-sm-8">
+                <select [(ngModel)]="motifinv" class="w3-select" name="motifInv" id="motifInv">
+                    <option value="Autres produits (Calnort, Maman goût, etc)">Autres produits (Calnort, Maman goût, etc)</option>
+                    <option value="Autres contenants (sachet, flyers, etc)">Autres contenants (sachet, flyers, etc)</option>
+                    <option value="Aucun contenant (vide)">Aucun contenant (vide)</option>
+                    <option value="Nombres insuffisants">Nombres insuffisants</option>
+                </select>
+            </div>
+        </div>
+        
+        <button (click)="SaveTri()" class="btn w3-blue full-width"><span class="glyphicon glyphicon-save"></span> Enregistrer</button>
+    </form>
+</div>
+<datalist id="NomL">
+    <option *ngFor="let p of Participation" value="{{p.nomp}}">{{p.nomp}} {{p.adrp}}</option>
+</datalist>
+<datalist id="ParticipationA">
+    <option *ngFor="let pa of Participation" value="{{pa.adrp}}">{{pa.nomp}} {{pa.adrp}}</option>
+</datalist>
+<!-- 
+<datalist id="ListeT">
+    <option *ngFor="let t of TsenaL" value="{{t.codet}}">{{t.codet}} {{t.nomt}} {{t.proprietaire}}</option>
+</datalist> -->

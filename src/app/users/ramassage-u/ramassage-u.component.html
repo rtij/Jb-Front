@@ -1,1 +1,46 @@
-<p>ramassage-u works!</p>
+<div class="w3-container">
+    <h3 class="w3-center"><strong> Saisie ramassage urne </strong></h3>
+    <form class="form-horizontal w3-margin-bottom w3-margin-top w3-card-2 w3-container w3-padding-24" #r="ngForm">
+        <div class="">
+
+        </div>
+        <div class="form-group w3-margin-bottom">
+            <label class="col-sm-4" for="">Code tsena</label>
+            <div class="col-sm-8">
+                <input (change)="selectTsena()" required list="ListeTr" [(ngModel)]="codet" type="number" id="CodeTR"
+                    name="CodeTR" class="w3-input">
+            </div>
+        </div>
+        <div *ngIf="selectedDepot" class="form-group w3-margin-bottom">
+            <label for="NumU" class="col-sm-4">Numero urne</label>
+            <div class="col-sm-8">
+                <input class="w3-input" type="text" id="NumU" name="NumU" [(ngModel)]="selectedDepot.numu" readonly>
+            </div>
+        </div>
+        <h4>Ramassages précedents :</h4>
+        <div *ngFor="let r of Ramassage; let i=index" class="form-group w3-margin-bottom">
+            <label class="col-sm-4" for="">Date ramassage {{i + 1}}</label>
+            <div class="col-sm-8">
+                <label >{{r.dater}}</label>
+            </div>
+        </div>
+        <div class="form-group w3-margin-top w3-margin-bottom">
+            <label class="col-sm-4" for="DateR">Date nangalana valopy</label>
+            <div class="col-sm-8">
+                <input class="w3-input" type="date" id="DateR" name="DateR" [(ngModel)]="dateR" required>
+            </div>
+        </div>
+        <!-- Liste des date de ramassage précedents -->
+        <div class="form-group w3-margin-bottom">
+            <label class="col-sm-4" for="RamassageA">Ramassage achevé</label>
+            <div class="col-sm-8">
+                <input type="checkbox" class="w3-check" id="RamassageA" name="RamassageA" [(ngModel)]="ramassageA">
+            </div>
+        </div>
+        <button (click)="SaveRamassage(r)" [disabled]="r.invalid" class="btn w3-blue full-width"><span class="glyphicon glyphicon-save"></span>
+            Enregistrer</button>
+    </form>
+</div>
+<datalist id="ListeTr">
+    <option *ngFor="let t of TsenaL" value="{{t.codet}}">{{t.codet}} {{t.nomt}}</option>
+</datalist>

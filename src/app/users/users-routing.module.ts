@@ -4,6 +4,7 @@ import { DepotUComponent } from './depot-u/depot-u.component';
 import { LivrableComponent } from './livrable/livrable.component';
 import { RamassageUComponent } from './ramassage-u/ramassage-u.component';
 import { StockequipeComponent } from './stockequipe/stockequipe.component';
+import { TriComponent } from './tri/tri.component';
 import { UrneComponent } from './urne/urne.component';
 import { UsersComponent } from './users.component';
 
@@ -16,7 +17,9 @@ const routes: Routes = [
       {path:'Ramassage', component:RamassageUComponent},
 
     ]},
-    {path:'Stock', component:StockequipeComponent}
+    {path:'Stock', component:StockequipeComponent},
+    {path:'Participation', component:TriComponent}
+
   ] },
 ];
 

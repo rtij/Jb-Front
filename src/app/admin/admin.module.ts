@@ -20,6 +20,10 @@ import { SaisiemComponent } from './saisiem/saisiem.component';
 import { LivrableComponent } from './livrable/livrable.component';
 import { StockListeComponent } from './stock-liste/stock-liste.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UrneComponent } from './urne/urne.component';
+import { DepotuComponent } from './depotu/depotu.component';
+import { RamassageComponent } from './ramassage/ramassage.component';
+import { StartComponent } from './start/start.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     SaisiemComponent,
     LivrableComponent,
     StockListeComponent,
-    DashboardComponent
+    DashboardComponent,
+    UrneComponent,
+    DepotuComponent,
+    RamassageComponent,
+    StartComponent
   ],
   imports: [
     CommonModule,

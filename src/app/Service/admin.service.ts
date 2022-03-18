@@ -286,6 +286,7 @@ export class AdminService {
         this.DetMvtListe = res['data'];
         this.DetMvtListe.forEach((item)=>{
           item.dater = DateToShortDate(item.dater);
+          return item;
         });
         return this.DetMvtListe;
       }),
@@ -299,6 +300,7 @@ export class AdminService {
         this.HistoStockListe = res['data'];
         this.HistoStockListe.forEach((item)=>{
           item.dateh = DateToShortDate(item.dateh);
+          return item
         });
         return this.HistoStockListe;
       }),

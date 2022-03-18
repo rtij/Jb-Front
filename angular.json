@@ -28,10 +28,12 @@
             ],
             "styles": [
               "src/styles.css",
+              "node_modules/ngx-toastr/toastr.css",
               "src/assets/Bootstrap/bootstrap 3.7/css/bootstrap.min.css"
-
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -96,9 +98,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "src/assests/Bootstrap/bootstrap 3.7/css/bootstrap.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"
+            ]
           }
         }
       }

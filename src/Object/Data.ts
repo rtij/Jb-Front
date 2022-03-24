@@ -1,1 +1,3 @@
 export let Faritany:string[] = ["Antananarivo", "Antsirabe", "Fianarantsoa", "Mahajanga", "Toliary", "Toamasina", "Antsiaranana"];
+export let motif:string[] = ["Autres produits (Calnort, Maman goût, etc)","Autres contenants (sachet, flyers, etc)","Aucun contenant (vide)","Nombres insuffisants","Autres"];
+export let Activite:string[ ] = ["Animation", "Boite postale","Epicerie", "Gargote", "Urne GM"];

@@ -1,0 +1,42 @@
+<div class="w3-container">
+    <h3 class="w3-center">Cumul produit par zone Tana</h3>
+    <div class="form-inline">
+        <div class="form-group w3-margin">
+            <label for="VilleIP">Zone</label>
+            <input type="number" id="PZone" name="PZone" class="w3-input" [(ngModel)]="vi">
+        </div>
+        <div class="form-group w3-margin">
+            <label for="DateP">Date</label>
+            <input class="w3-input" type="date" name="DateP" id="DateP" [(ngModel)]="DateD">
+        </div>
+    </div>
+    <div class="form-horizontal w3-margin">
+        <div class="form-group w3-white w3-card-2 w3-padding w3-margin">
+            <label class="col-sm-4" for="PP">PP</label>
+            <div class="col-sm-8">
+                <h3 class="w3-right">{{Produit('PP')}}</h3>
+            </div>
+        </div>
+        
+        <div class="form-group w3-white w3-card-2 w3-padding w3-margin">
+            <label class="col-sm-4" for="PP">VI</label>
+            <div class="col-sm-8">
+                <h3 class="w3-right">{{Produit('VI')}}</h3>
+            </div>
+        </div>
+        
+        <div class="form-group w3-white w3-card-2 w3-padding w3-margin">
+            <label class="col-sm-4" for="PP">OE</label>
+            <div class="col-sm-8">
+                <h3 class="w3-right">{{Produit('OE')}}</h3>
+            </div>
+        </div>
+        
+        <div class="form-group w3-white w3-card-2 w3-padding w3-margin">
+            <label class="col-sm-4" for="PP">PS</label>
+            <div class="col-sm-8">
+                <h3 class="w3-right">{{Produit('PS')}}</h3>
+            </div>
+        </div>
+    </div>
+</div>

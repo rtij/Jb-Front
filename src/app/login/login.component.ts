@@ -41,8 +41,8 @@ export class LoginComponent implements OnInit {
         if(u.idtypeu.destypeu == "Simple"){
           localStorage.setItem('type',"Simple");
           this.router.navigate(['/Users']);
-        }else if(u.idtypeu.destypeu == "Administrateur"){
-          localStorage.setItem('type','Administrateur');
+        }else if(u.idtypeu.destypeu == "Tandem"){
+          localStorage.setItem('type','Tandem');
           this.router.navigate(['/Admin']);
         }else{
           localStorage.setItem('type',"Client");

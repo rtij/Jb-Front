@@ -1,1 +1,53 @@
-<p>livrable works!</p>
+<div class="content">
+    <div class="w3-container">
+        <div class="navbar">
+            <ul class="nav navbar-nav">
+                <li><a class="droppdoxn-toggle" data-toggle="dropdown">Enveloppes <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a routerLink="EnvEquipe" routerLinkActive="w3-blue">Cumul enveloppe équipe</a></li>
+                        <li><a routerLink="EnvVilleIntermediaire" routerLinkActive="w3-blue">Cumul enveloppe ville intermédiaire</a></li>
+                        <li><a routerLink="EnvZoneA" routerLinkActive="w3-blue"> Zone Tanà</a></li>
+                        <li><a routerLink="EnvSemaineC" routerLinkActive="w3-blue"> Cumul enveloppe par semaine</a></li>
+                        <li><a routerLink="EnvActivite" routerLinkActive="w3-blue"> Cumul enveloppe par activité</a></li>
+                    </ul>
+                </li>
+
+                <li><a class="droppdoxn-toggle" data-toggle="dropdown">Produit <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a routerLink="HistoAppEquipe" routerLinkActive="w3-blue"> Historique d'approvisionnement par équipe</a></li>
+                        <li><a routerLink="ProduitEquipe" routerLinkActive="w3-blue"> Cumul produit par équipe</a></li>
+                        <li><a routerLink="ProduitVi" routerLinkActive="w3-blue">Cumul produit ville intérmediaire</a></li>
+                        <li><a routerLink="ProduitZonet" routerLinkActive="w3-blue"> Zone Tanà</a></li>
+                        <li><a routerLink="ProduitSemaineC" routerLinkActive="w3-blue"> Cumul produit par semaine</a></li>
+                        <li><a routerLink="ProduitActivite" routerLinkActive="w3-blue"> Cumul produit par activité</a></li>
+                    </ul>
+                </li>
+                <li><a class="droppdoxn-toggle" data-toggle="dropdown">Recette <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a routerLink="RecetteEquipe" routerLinkActive="w3-blue"> Cumul recette par équipe</a></li>
+                        <li><a routerLink="RecetteVi" routerLinkActive="w3-blue">Cumul recette ville intérmediaire</a></li>
+                        <li><a routerLink="RecetteZoneTana" routerLinkActive="w3-blue"> Zone Tanà</a></li>
+                        <li><a routerLink="RecetteSC" routerLinkActive="w3-blue"> Cumul recette par semaine</a></li>
+                        <li><a routerLink="RecetteAc" routerLinkActive="w3-blue"> Cumul recette par activité</a></li>
+                        <li><a routerLink="RapportAnimation" routerLinkActive="w3-blue">Rapport Animation</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="routerContainer">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+
+
+<!-- <div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href="#">HTML</a></li>
+      <li><a href="#">CSS</a></li>
+      <li><a href="#">JavaScript</a></li>
+    </ul>
+  </div> -->

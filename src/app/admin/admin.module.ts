@@ -24,6 +24,37 @@ import { UrneComponent } from './urne/urne.component';
 import { DepotuComponent } from './depotu/depotu.component';
 import { RamassageComponent } from './ramassage/ramassage.component';
 import { StartComponent } from './start/start.component';
+import { ItineraireComponent } from './itineraire/itineraire.component';
+import { ListedComponent } from './listed/listed.component';
+import { DistributionComponent } from './distribution/distribution.component';
+import { ParticipationComponent } from './participation/participation.component';
+import { PartListeComponent } from './part-liste/part-liste.component';
+import { MotifComponent } from './motif/motif.component';
+import { ParfumsComponent } from './parfums/parfums.component';
+import { EnveloppeComponent } from './enveloppe/enveloppe.component';
+import { ProduitComponent } from './produit/produit.component';
+import { RecetteComponent } from './recette/recette.component';
+import { EnvsemainecComponent } from './envsemainec/envsemainec.component';
+import { EnvequipeComponent } from './envequipe/envequipe.component';
+import { EnvviComponent } from './envvi/envvi.component';
+import { HistoeComponent } from './histoe/histoe.component';
+import { RecetteSCComponent } from './recette-sc/recette-sc.component';
+import { EnvactiviteComponent } from './envactivite/envactivite.component';
+import { ZonetComponent } from './zonet/zonet.component';
+import { RecetteacComponent } from './recetteac/recetteac.component';
+import { RecetteEquipeComponent } from './recette-equipe/recette-equipe.component';
+import { RecetteviComponent } from './recettevi/recettevi.component';
+import { RapportAnimationComponent } from './rapport-animation/rapport-animation.component';
+import { EnvzonetComponent } from './envzonet/envzonet.component';
+import { RecettezonetComponent } from './recettezonet/recettezonet.component';
+import { HistoAppEquipeComponent } from './histo-app-equipe/histo-app-equipe.component';
+import { ProduitEquipeComponent } from './produit-equipe/produit-equipe.component';
+import { ProduitViComponent } from './produit-vi/produit-vi.component';
+import { ProduitZoneComponent } from './produit-zone/produit-zone.component';
+import { ProduitSemaineCComponent } from './produit-semaine-c/produit-semaine-c.component';
+import { ProduitAcComponent } from './produit-ac/produit-ac.component';
+import { ListeRComponent } from './liste-r/liste-r.component';
+import { StockFaritanyComponent } from './stock-faritany/stock-faritany.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +76,38 @@ import { StartComponent } from './start/start.component';
     UrneComponent,
     DepotuComponent,
     RamassageComponent,
-    StartComponent
+    StartComponent,
+    ItineraireComponent,
+    ListedComponent,
+    DistributionComponent,
+    ParticipationComponent,
+    PartListeComponent,
+    MotifComponent,
+    ParfumsComponent,
+    EnveloppeComponent,
+    ProduitComponent,
+    RecetteComponent,
+    EnvsemainecComponent,
+    EnvequipeComponent,
+    EnvviComponent,
+    HistoeComponent,
+    RecetteSCComponent,
+    EnvactiviteComponent,
+    ZonetComponent,
+    RecetteacComponent,
+    RecetteEquipeComponent,
+    RecetteviComponent,
+    RapportAnimationComponent,
+    EnvzonetComponent,
+    RecettezonetComponent,
+    HistoAppEquipeComponent,
+    ProduitEquipeComponent,
+    ProduitViComponent,
+    ProduitZoneComponent,
+    ProduitSemaineCComponent,
+    ProduitAcComponent,
+    ListeRComponent,
+    StockFaritanyComponent
   ],
   imports: [
     CommonModule,

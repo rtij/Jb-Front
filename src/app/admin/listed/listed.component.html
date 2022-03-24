@@ -1,0 +1,18 @@
+<div class="w3-conatiner">
+    <div class="w3-responsive w3-round-large w3-card-2 w3-margin w3-white">
+        <table class="w3-table">
+            <tr class="w3-blue">
+                <th>Date dépôt</th>
+                <th>Heure dépôt</th>
+                <th>Zone</th>
+                <th>Quartier/Ville</th>
+            </tr>
+            <tr *ngFor="let d of Depotu">
+                <td>{{d.dated}}</td>
+                <td>{{d.heured}}</td>
+                <td *ngIf="d.codeu.idequipe">{{d.codeu.idequipe.zonea}}</td>    
+                <td *ngIf="d.codeu.idequipe">{{d.codeu.idequipe.quartierv}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

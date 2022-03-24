@@ -1,0 +1,12 @@
+
+.search{
+    border-radius: 0px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.icon,.icon button{
+    width: 50px;
+    height: 60px;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+}

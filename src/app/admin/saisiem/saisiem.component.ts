@@ -174,7 +174,6 @@ export class SaisiemComponent implements OnInit {
       this.AdminService.SaveDetMvt(this.DetListe[this.index]).subscribe
         ((res) => {
           this.CheckUpdateStock();
-          this.toastr.info('Details '+this.index+ ' Enregistrer' );
         },
           (err) => {
             console.log(err.error)

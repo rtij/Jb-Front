@@ -1,0 +1,19 @@
+<div class="w3-container">
+    <h3 class="w3-center">Rapport d'animation</h3>
+    <div class="w3-responsive w3-round-large w3-card-2 w3-white">
+        <table class="w3-table w3-striped">
+            <tr class="w3-blue">
+                <th>FARITANY</th>
+                <th>Grandes Villes</th>
+                <th>Ville Intermédiaires</th>
+                <th>Total</th>
+            </tr>
+            <tr *ngFor="let f of Faritany">
+                <td>{{f}}</td>
+                <td>{{Result('Grande Ville',f)}}</td>
+                <td>{{Result('Ville Intermédiaire',f)}}</td>
+                <td>{{SumF(f)}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

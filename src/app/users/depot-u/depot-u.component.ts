@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/service/user.service';
 import { Article } from 'src/Object/Article';
 import { Depotu } from 'src/Object/Depotu';
+import { Histoe } from 'src/Object/Histostocke';
 import { Stocke } from 'src/Object/Stocke';
 import { Tsena } from 'src/Object/Tsena';
 import { Users } from 'src/Object/Users';
@@ -20,7 +21,6 @@ export class DepotUComponent implements OnInit {
   ngOnInit(): void {
     this.getUser();
     this.getTsenaListe();
-    this.getStock();
   }
   // Data
   User!: Users;
@@ -30,7 +30,7 @@ export class DepotUComponent implements OnInit {
   Stocke: Stocke[] = [];
   Urnes: Stocke[] = [];
   // Variable
-  SelectedArticle!: Article;
+  SelectedArticle!: Stocke;
   responsable: string = "";
   tel1: string = "";
   tel2: string = "";
@@ -77,11 +77,9 @@ export class DepotUComponent implements OnInit {
 
   VerifyQte(){
     if(this.SelectedArticle){
-      if(this.nb <= this.SelectedArticle.qte){
-        return true;
-      }
+      return this.SelectedArticle.qte;
     }
-    return false;
+    return 0;
   }
 
   FindTsena() {
@@ -134,7 +132,7 @@ export class DepotUComponent implements OnInit {
   }
 
   SaveDepot(f: any, Tsena: Tsena) {
-    let d = new Depotu("Dépot urnes", this.dated, this.heured, this.SelectedArticle.designation, this.numu, this.nb, this.place, Tsena, this.User, this.nbenv, this.nbaff);
+    let d = new Depotu("Dépot urnes", this.dated, this.heured, this.SelectedArticle.idarticle.designation, this.numu, this.nb, this.place, Tsena, this.User, this.nbenv, this.nbaff);
     this.UserService.SaveDepot(d).subscribe(
       (res) => {
         this.UpdateEquipeStock();
@@ -149,6 +147,16 @@ export class DepotUComponent implements OnInit {
 
   SaveTsena(f: any) {
     let u: any = this.User;
+    let n:any = null;
+    if(!this.hfermeture){
+      this.hfermeture = n;
+    }
+    if(!this.houverture){
+      this.houverture = n;
+    }
+    if(!this.datef){
+      this.datef = n;
+    }
     let t = new Tsena(this.nomt, this.nomp, this.responsable, this.typet, this.reperage, u.idequipe?.localite, u.idequipe?.faritany, u.idequipe?.zonea, u.idequipe?.quartierv, this.adrt, this.adrt2, this.tel1, this.tel2, this.tel3, this.niveau, this.hfermeture, this.houverture, this.jourf, this.datef, this.ouvert, u.idequipe.idvillei);
     this.UserService.CreateTsena(t).subscribe(
       (res) => {
@@ -173,7 +181,7 @@ export class DepotUComponent implements OnInit {
     this.UserService.UpdateStockEquipe(this.SelectedArticle, this.nb).subscribe(
       (res)=>{
         this.Stocke = res;
-        this.Toastr.success('Enregistrement effectuer');
+        this.SaveHistoStockEquipe();
         this.FilterArticle();
       },
       (err)=>{
@@ -181,6 +189,19 @@ export class DepotUComponent implements OnInit {
       }
     )
   }
+
+  SaveHistoStockEquipe(){
+    let h = new Histoe(this.dated,0, this.nb, this.SelectedArticle.qte, this.SelectedArticle);
+    this.UserService.SaveHistorique(h).subscribe(
+      (res)=>{
+        this.Toastr.success('Enregistrement effectuer');
+      },
+      (err)=>{
+        console.log(err.error)
+      }
+    )
+  }
+
 
   FilterArticle() {
     this.Urnes = this.Stocke.filter((item) => {

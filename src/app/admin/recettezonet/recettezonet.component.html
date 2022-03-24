@@ -1,0 +1,19 @@
+<div class="w3-container">
+    <div class="w3-padding-top-64">
+        <h3 class="w3-center">Cumul recette Zone Tanà </h3>
+        <div class="form-inline">
+            <div class="form-group w3-margin">
+                <label for="RVI">Zone Tanà</label>
+                <input (change)="filterData()" [(ngModel)]="Vi" type="number" max="44" min="1" class="w3-input" name="RZone" id="RZone">
+            </div>
+            <div class="form-group w3-margin">
+                <label for="RDateVi">Date</label>
+                <input (change)="filterData()" type="date" class="w3-input" name="RDateZ" id="RDateZ" [(ngModel)]="DateVi">
+            </div>
+            <div class="form-group w3-margin">
+                <label for="EnvVi">Recette</label>
+                <input type="number" class="w3-input" name="REnvZ" id="REnvZ" [(ngModel)]="env" readonly>
+            </div>
+        </div>
+    </div>
+</div>

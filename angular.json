@@ -32,6 +32,7 @@
               "src/assets/Bootstrap/bootstrap 3.7/css/bootstrap.min.css"
             ],
             "scripts": [
+              "node_modules/jspdf/dist/jspdf.umd.min.js",
               "node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"
             ]
           },
@@ -40,8 +41,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1.5mb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -103,6 +104,7 @@
               "src/assests/Bootstrap/bootstrap 3.7/css/bootstrap.min.css"
             ],
             "scripts": [
+              "node_modules/jspdf/dist/jspdf.umd.min.js",
               "node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"
             ]
           }

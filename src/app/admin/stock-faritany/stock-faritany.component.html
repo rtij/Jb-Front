@@ -1,0 +1,22 @@
+<div class="w3-container">
+    <div class="w3-responsive w3-card-2 w3-round-large w3-white">
+        <table class="w3-table w3-striped">
+            <tr class="w3-blue">
+                <th>Faritany</th>
+                <th>PP</th>
+                <th>PS</th>
+                <th>OE</th>
+                <th>VI</th>
+                <th>Total</th>
+            </tr>
+            <tr *ngFor="let f of faritany">
+                <td>{{f}}</td>
+                <td>{{Result(f,'PP') }}</td>
+                <td>{{Result(f,'PS')}}</td>
+                <td>{{Result(f,'OE')}}</td>
+                <td>{{Result(f,'VI')}}</td>
+                <td>{{SumF(f)}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

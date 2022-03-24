@@ -1,0 +1,23 @@
+<nav class="navbar w3-white w3-card-2">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="glyphicon glyphicon-menu-hamburger"></span>
+            </button>
+            <a class="navbar-brand" routerLink="/Client">Jeu Collector</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a data-toggle="collapse" data-target="#myNavbar" routerLink="Urnes" routerLinkActive="active" class="w3-hover-blue"><strong>Urnes</strong></a></li>
+                <li><a data-toggle="collapse" data-target="#myNavbar" routerLink="Livrables" routerLinkActive="active" class="w3-hover-blue"><strong> Livrables</strong></a></li>
+                <li><a data-toggle="collapse" data-target="#myNavbar" routerLink="Participation" routerLinkActive="active" class="w3-hover-blue"><strong> Participation</strong></a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a (click)="Logout()"><strong>Se deconnecter</strong></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="rouerContainer">
+    <router-outlet></router-outlet>
+</div>

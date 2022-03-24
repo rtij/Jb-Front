@@ -21,6 +21,12 @@
                 </div>
             </div>
             <div class="form-group">
+                <label for="SemaineC" class="col-sm-4">Semaine concernée</label>
+                <div class="col-sm-8">
+                    <input type="number" class="w3-input" min="1" max="6" id="SemaineC" name="SemaineC" [(ngModel)]="semainec" required>
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="ContactE" class="col-sm-4">Contact estimé</label>
                 <div class="col-sm-8">
                     <input type="number" [(ngModel)]="ContactE" id="ContactE" name="ContactE" class="w3-input">
@@ -44,12 +50,11 @@
                     <input [(ngModel)]="numu" required type="number" id="NumUl" name="NumUl" class="w3-input">
                 </div>
             </div>
-
             <div class="navbar">
-                <button type="button" class="btn w3-blue w3-right" (click)="Next()"><span></span> Suivant</button>
+                <button [disabled]="s.invalid" type="button" class="btn w3-blue w3-right" (click)="Next()"><span></span>
+                    Suivant</button>
             </div>
         </form>
-        <!--  [disabled]="s.invalid" -->
     </div>
     <div @fade *ngIf="page == 2">
         <h4 class="w3-center"><strong>Saisie vente animation</strong></h4>
@@ -60,44 +65,42 @@
         <form #a="ngForm" class="form-inline w3-container w3-round-large w3-card-2">
             <div class="form-group w3-margin">
                 <label for="ArticleA">Désignation</label>
-                <select [(ngModel)]="SelectedStocke" class="w3-select" name="ArticleA"
+                <select (change)="selectStock()" required [(ngModel)]="SelectedStocke" class="w3-select" name="ArticleA"
                     id="ArticleA">
-                    <option *ngFor="let s of Stocke" [ngValue]="s.idarticle">{{s.idarticle.designation}}</option>
+                    <option *ngFor="let s of Stocke" [ngValue]="s">{{s.idarticle.designation}}</option>
                 </select>
             </div>
-
             <div class="form-group w3-margin">
                 <label for="Vente1">Vente</label>
-                <input type="number" class="w3-input" id="Vente1" name="Vente1" [(ngModel)]="vente" required>
+                <input (change)="selectStock()" type="number" class="w3-input" [max]="getMax()" min="0" id="Vente1" name="Vente1"
+                    [(ngModel)]="vente" required>
             </div>
             <div class="form-group w3-margin">
                 <label for="Valeur1">Valeur</label>
-                
-                <input *ngIf="!SelectedStocke" class="w3-input" type="number" id="Prix1" name="Prix1" [(ngModel)]="prix">
-                <input class="w3-input" *ngIf="SelectedStocke" type="number" id="Valeur1" name="Valeur1" [(ngModel)]="SelectedStocke.idarticle.prixu*vente">
+                <input type="number" id="PirxA" name="PirxA" class="w3-input" readonly [(ngModel)]="prix">
             </div>
             <div class="form-group">
-                <button [disabled]="a.invalid" class="btn w3-blue"><span class="glyphicon glyphicon-plus"></span> Ajouter</button>
+                <button type="submit" (click)=" AddVenteAnimation(a)" [disabled]="a.invalid" class="btn w3-blue"><span
+                        class="glyphicon glyphicon-plus"></span> Ajouter</button>
             </div>
         </form>
         <div class="navbar w3-margin-top">
             <div class="w3-right">
                 <label for="Total1">Total</label>
-                <input class="w3-input" type="number" id="Total1" name="Total1" [(ngModel)]="Total1">
+                <input readonly class="w3-input" type="number" id="Total1" name="Total1" [(ngModel)]="Total1">
             </div>
         </div>
         <div class="w3-responsive w3-round-large w3-card-2">
             <table class="w3-table">
                 <tr class="w3-blue">
                     <th>Désignation</th>
-                    <th>Appro initial</th>
                     <th>Vente</th>
-                    <th>Stock départ</th>
                     <th>Valeur</th>
-                    <th>Stock restant</th>
                 </tr>
-                <tr>
-                    <td></td>
+                <tr *ngFor="let a of DetAnimation">
+                    <td> {{a.idstocke.idarticle.designation}}</td>
+                    <td>{{a.sortie}}</td>
+                    <td>{{a.idstocke.idarticle.prixu * a.sortie}}</td>
                 </tr>
             </table>
         </div>
@@ -112,47 +115,47 @@
         <form #d="ngForm" class="form-inline w3-container w3-round-large w3-card-2">
             <div class="form-group w3-margin">
                 <label for="ArticleD">Désignation</label>
-                <select required [(ngModel)]="SelectedStocke" class="w3-select" name="ArticleD"
+                <select (change)="selectStock()" required [(ngModel)]="SelectedStocke" class="w3-select" name="ArticleD"
                     id="ArticleD">
-                    <option *ngFor="let s of Stocke" [ngValue]="s.idarticle">{{s.idarticle.designation}}</option>
+                    <option *ngFor="let s of Stocke" [ngValue]="s">{{s.idarticle.designation}}</option>
                 </select>
             </div>
-
             <div class="form-group w3-margin">
                 <label for="Vente2">Vente</label>
-                <input type="number" class="w3-input" id="Vente2" name="Vente2" [(ngModel)]="vente" required>
+                <input (change)="selectStock()" type="number" [max]="getMax()" min="0" class="w3-input" id="Vente2" name="Vente2"
+                    [(ngModel)]="vente" required>
             </div>
             <div class="form-group w3-margin">
                 <label for="Valeur2">Valeur</label>
-                <input readonly class="w3-input" type="number" id="Valeur2" name="Valeur2" [(ngModel)]="SelectedStocke.idarticle.prixu*vente">
+                <input readonly class="w3-input" type="number" id="Valeur2" name="Valeur2" [(ngModel)]="prix">
             </div>
             <div class="form-group">
-                <button [disabled]="d.invalid" class="btn w3-blue"><span class="glyphicon glyphicon-plus"></span> Ajouter</button>
+                <button (click)="AddDon(d)" [disabled]="d.invalid" class="btn w3-blue"><span
+                        class="glyphicon glyphicon-plus"></span> Ajouter</button>
             </div>
         </form>
         <div class="navbar w3-margin-top">
             <div class="w3-right">
-                <label for="Total1">Total</label>
-                <input class="w3-input" type="number" id="Total1" name="Total1" [(ngModel)]="Total1">
+                <label for="Total2">Total</label>
+                <input readonly class="w3-input" type="number" id="Total2" name="Total2" [(ngModel)]="Total2">
             </div>
         </div>
         <div class="w3-responsive w3-round-large w3-card-2">
             <table class="w3-table">
                 <tr class="w3-blue">
                     <th>Désignation</th>
-                    <th>Appro initial</th>
                     <th>Vente</th>
-                    <th>Stock départ</th>
                     <th>Valeur</th>
-                    <th>Stock restant</th>
                 </tr>
-                <tr>
-                    <td></td>
+                <tr *ngFor="let d of DetDon">
+                    <td>{{d.idstocke.idarticle.designation}}</td>
+                    <td>{{d.sortie}}</td>
+                    <td>{{d.prix}}</td>
                 </tr>
             </table>
         </div>
     </div>
-    
+
     <div @fade *ngIf="page == 4">
         <h4 class="w3-center"><strong>Saisie Lot</strong></h4>
         <div class="navbar">
@@ -162,42 +165,43 @@
         <form #l="ngForm" class="form-inline w3-container w3-round-large w3-card-2">
             <div class="form-group w3-margin">
                 <label for="ArticleL">Désignation</label>
-                <select required [(ngModel)]="SelectedStocke" class="w3-select" name="ArticleL"
+                <select (change)="selectStock()" required [(ngModel)]="SelectedStocke" class="w3-select" name="ArticleL"
                     id="ArticleL">
-                    <option *ngFor="let s of Stocke" [ngValue]="s.idarticle">{{s.idarticle.designation}}</option>
+                    <option *ngFor="let s of Stocke" [ngValue]="s">{{s.idarticle.designation}}</option>
                 </select>
             </div>
 
             <div class="form-group w3-margin">
                 <label for="Vente3">Vente</label>
-                <input type="number" class="w3-input" id="Vente3" name="Vente3" [(ngModel)]="vente" required>
+                <input (change)="selectStock()" type="number" [max]="getMax()" min="0" class="w3-input" id="Vente3" name="Vente3"
+                    [(ngModel)]="vente" required>
             </div>
             <div class="form-group w3-margin">
                 <label for="Valeur3">Valeur</label>
-                <input readonly class="w3-input" type="number" id="Valeur3" name="Valeur3" [(ngModel)]="prix*vente">
+                <input readonly class="w3-input" type="number" id="Valeur3" name="Valeur3" [(ngModel)]="prix">
             </div>
             <div class="form-group">
-                <button [disabled]="l.invalid" class="btn w3-blue"><span class="glyphicon glyphicon-plus"></span> Ajouter</button>
+                <button (click)="AddLot(l)" [disabled]="l.invalid" class="btn w3-blue"><span
+                        class="glyphicon glyphicon-plus"></span> Ajouter</button>
             </div>
         </form>
         <div class="navbar w3-margin-top">
             <div class="w3-right">
-                <label for="Total1">Total</label>
-                <input class="w3-input" type="number" id="Total1" name="Total1" [(ngModel)]="Total1">
+                <label for="Total3">Total</label>
+                <input readonly class="w3-input" type="number" id="Total3" name="Total3" [(ngModel)]="Total3">
             </div>
         </div>
         <div class="w3-responsive w3-round-large w3-card-2">
             <table class="w3-table">
                 <tr class="w3-blue">
                     <th>Désignation</th>
-                    <th>Appro initial</th>
                     <th>Vente</th>
-                    <th>Stock départ</th>
                     <th>Valeur</th>
-                    <th>Stock restant</th>
                 </tr>
-                <tr>
-                    <td></td>
+                <tr *ngFor="let l of DetLot">
+                    <td>{{l.idstocke.idarticle.designation}}</td>
+                    <td>{{l.sortie}}</td>
+                    <td>{{l.prix}}</td>
                 </tr>
             </table>
         </div>

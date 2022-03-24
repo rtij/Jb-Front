@@ -1,0 +1,34 @@
+<div class="w3-container">
+    
+    <div class="form-inline">
+        <div class="form-group w3-margin">
+            <label for="NomU">Nom du poseur</label>
+            <select (change)="SelectUsers()" name="SelectU" id="SelectU" [(ngModel)]="SelectedUsers" class="w3-select">
+                <option *ngFor="let u of UserL" [ngValue]="u">{{u.nomu}}</option>
+            </select>
+        </div>
+        <div class="form-group w3-margin">
+            <label for="CodeU">Code</label>
+            <input readonly *ngIf="SelectedUsers" class="w3-input" type="number" id="CodeU" name="CodeU" [(ngModel)]="SelectedUsers.codeu">
+            <input  *ngIf="!SelectedUsers" type="number" class="w3-input" >
+        </div>
+        <div class="form-group w3-margin">
+            <label for="DateS">Date</label>
+            <input (change)="SelectUsers()" type="date" id="DateS" name="DateS" [(ngModel)]="dateS" class="w3-input">
+        </div>
+    </div>
+    <div class="w3-responsive w3-white w3-round-large w3-card-2">
+        <table class="w3-table">
+            <tr class="w3-blue">
+                <th>Heure de dépôt</th>
+                <th>Anaran'ny tsena</th>
+                <th>Adiresy</th>
+            </tr>
+            <tr *ngFor="let i of Result">
+                <td>{{i.heured}}</td>
+                <td>{{i.codet.nomt}}</td>
+                <td>{{i.codet.adrt}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

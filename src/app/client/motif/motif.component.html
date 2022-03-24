@@ -1,0 +1,16 @@
+<div class="w3-container">
+    <div class="w3-responsive w3-white w3-round-large w3-card-2">
+        <table class="w3-table w3-striped">
+            <tr class="w3-blue">
+                <th>Motifs</th>
+                <th *ngFor="let fa of f">{{fa}}</th>
+                <th>Total</th>
+            </tr>
+            <tr *ngFor="let m of motif">
+                <td>{{m}}</td>
+                <td *ngFor="let fa of f">{{Result(fa,m)}}</td>
+                <td>{{Sum(m)}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

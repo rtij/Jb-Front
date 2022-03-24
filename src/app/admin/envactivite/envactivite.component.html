@@ -1,0 +1,25 @@
+ <div class="w3-container">
+    <div class="w3-padding-64">
+        <h3 class="w3-center"> 	Cumul enveloppes « par activité »</h3>
+
+        <div class="w3-white w3-responsive w3-card-2 w3-round-large w3-margin-top">
+            <table class="w3-table w3-striped">
+                <tr class="w3-blue">
+                    <th>Faritany</th>
+                    <th *ngFor="let a of Activite">{{a}}</th>
+                    <th>Total</th>
+                </tr>
+                <tr *ngFor="let f of faritany">
+                    <td>{{f}}</td>
+                    <td *ngFor="let a of Activite">{{Result(f,a)}}</td>
+                    <td>{{Sumf(f)}}</td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td *ngFor="let a of Activite">{{SumA(a)}}</td>
+                    <td>{{total}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+ </div>

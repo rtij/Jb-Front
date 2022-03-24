@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/service/admin.service';
 import { animatezoom } from 'src/Object/MyAnimations';
 import { Villei } from 'src/Object/Villei';
@@ -10,7 +11,7 @@ import { Villei } from 'src/Object/Villei';
 })
 export class VilleiComponent implements OnInit {
 
-  constructor(private AdminService: AdminService) { }
+  constructor(private AdminService: AdminService, private Toastr:ToastrService) { }
   VilleiL: Villei[] = [];
   selectedVilleI!: Villei;
   libelle: string = "";
@@ -36,7 +37,7 @@ export class VilleiComponent implements OnInit {
 
   modifier() {
     if (!this.selectedVilleI) {
-      alert("Selectionner une ville d'abord");
+      this.Toastr.warning("Selectionner une ville d'abord");
     } else {
       this.modif = true;
       this.libelle = this.selectedVilleI.libelle;
@@ -77,7 +78,7 @@ export class VilleiComponent implements OnInit {
       (
         (res) => {
           this.VilleiL = res;
-          alert("Modification terminer");
+          this.Toastr.success("Modification terminer");
           let a: any = null;
           this.selectedVilleI = a;
           this.modif = false
@@ -91,7 +92,7 @@ export class VilleiComponent implements OnInit {
     this.AdminService.CreateVillei(this.libelle).subscribe
       ((res) => {
         this.VilleiL = res;
-        alert("Enregistrement effectuer");
+        this.Toastr.success("Enregistrement effectuer");
         this.modif = false;
 
       }, (err) => {
@@ -113,7 +114,7 @@ export class VilleiComponent implements OnInit {
           )
       }
     } else {
-      alert("Selectionner une ville d'abord");
+      this.Toastr.warning("Selectionner une ville d'abord");
     }
   }
 

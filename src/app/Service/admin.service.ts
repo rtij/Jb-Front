@@ -3,17 +3,23 @@ import { Injectable } from '@angular/core';
 import { catchError, map, throwError } from 'rxjs';
 import { Article } from 'src/Object/Article';
 import { Contacts } from 'src/Object/Contacts';
+import { Depotu } from 'src/Object/Depotu';
+import { Detlivrables } from 'src/Object/Detlivrable';
 import { DetailsMvt } from 'src/Object/Detmvt';
 import { Equipe } from 'src/Object/Equipe';
 import { HistoStock } from 'src/Object/Histostock';
 import { Histoe } from 'src/Object/Histostocke';
+import { Livrables } from 'src/Object/Livrables';
 import { Mouvement } from 'src/Object/Mvt';
+import { Participation } from 'src/Object/Participation';
+import { Ramassage } from 'src/Object/Ramassage';
 import { Stocke } from 'src/Object/Stocke';
+import { Tri } from 'src/Object/Tri';
 import { TypeU } from 'src/Object/TypeU';
 import { url } from 'src/Object/url';
 import { Users } from 'src/Object/Users';
 import { Villei } from 'src/Object/Villei';
-import { DateFormate, DateToShortDate, FormateDate } from '../../Object/Functions';
+import { DateFormate, DateToShortDate, FormateDate, GetResultTime } from '../../Object/Functions';
 
 @Injectable({
   providedIn: 'root'
@@ -28,14 +34,20 @@ export class AdminService {
   EquipeL: Equipe[] = [];
   VilleIL: Villei[] = [];
   Artilcles: Article[] = [];
-  StockE:Stocke[] = [];
-  histoStocke:Histoe[] = [];
-  DetMvtListe:DetailsMvt[] = [];
-  HistoStockListe:HistoStock[] = [];
-  User!:Users;
-  getMyUser(){
+  StockE: Stocke[] = [];
+  histoStocke: Histoe[] = [];
+  DetMvtListe: DetailsMvt[] = [];
+  HistoStockListe: HistoStock[] = [];
+  User!: Users;
+  DepotU: Depotu[] = [];
+  Ramassage: Ramassage[] = [];
+  Participation: Participation[] = [];
+  Tri: Tri[] = [];
+  Livrables: Livrables[] = [];
+  Detlivrable:Detlivrables[] = [];
+  getMyUser() {
     return this.http.get(url + 'api/admin/user').pipe(
-      map((res:any)=>{
+      map((res: any) => {
         this.User = res['data'];
         return this.User;
       }),
@@ -187,7 +199,6 @@ export class AdminService {
 
   }
 
-
   createArticle(Article: Article) {
     return this.http.post(url + "api/admin/article/create", { data: Article }).pipe
       (
@@ -198,6 +209,7 @@ export class AdminService {
         catchError(this.handleError)
       );
   }
+
   updateArticle(Article: Article) {
     return this.http.put(url + "api/admin/article/update/" + Article.idarticle, { data: Article }).pipe(
       map((res: any) => {
@@ -229,10 +241,20 @@ export class AdminService {
     )
   }
 
-  UpdateStock(Qte:number,Article:Article){
-    return this.http.post(url+"api/admin/stock/update/"+ Article.idarticle, {data:Qte}).pipe
-    (
-      map((res:any)=>{
+  UpdateStock(Qte: number, Article: Article) {
+    return this.http.post(url + "api/admin/stock/update/" + Article.idarticle, { data: Qte }).pipe
+      (
+        map((res: any) => {
+          let r = res['data'];
+          return r;
+        }),
+        catchError(this.handleError)
+      )
+  }
+
+  SaveHistoStock(h: HistoStock) {
+    return this.http.post(url + "api/admin/stock/historique", { data: h }).pipe(
+      map((res: any) => {
         let r = res['data'];
         return r;
       }),
@@ -240,19 +262,9 @@ export class AdminService {
     )
   }
 
-  SaveHistoStock(h:HistoStock){
-    return this.http.post(url +"api/admin/stock/historique", {data:h}).pipe(
-      map((res:any)=>{
-        let r = res['data'];
-        return r;
-      }),
-      catchError(this.handleError)
-    )
-  }
-
-  getStockE(){
+  getStockE() {
     return this.http.get(url + 'api/admin/equipe/stock/liste').pipe(
-      map((res:any)=>{
+      map((res: any) => {
         this.StockE = res['data'];
         return this.StockE;
       }),
@@ -260,9 +272,9 @@ export class AdminService {
     )
   }
 
-  UpdateStockEquipe(Stocke:Stocke){
-    return this.http.post(url+'api/admin/equipe/stock',{data:Stocke} ).pipe(
-      map((res:any)=>{
+  UpdateStockEquipe(Stocke: Stocke) {
+    return this.http.post(url + 'api/admin/equipe/stock', { data: Stocke }).pipe(
+      map((res: any) => {
         let r = res['data'];
         return r;
       }),
@@ -270,9 +282,9 @@ export class AdminService {
     )
   }
 
-  saveHistoStockE(Histoe:Histoe){
-    return this.http.post(url+'api/admin/equipe/histo/stock/create', {data:Histoe}).pipe(
-      map((res:any)=>{
+  saveHistoStockE(Histoe: Histoe) {
+    return this.http.post(url + 'api/admin/equipe/histo/stock/create', { data: Histoe }).pipe(
+      map((res: any) => {
         this.histoStocke = res['data'];
         return this.histoStocke;
       }),
@@ -280,12 +292,14 @@ export class AdminService {
     )
   }
 
-  getDetMvtListe(){
-    return this.http.get(url+'api/admin/mvt/liste').pipe(
-      map((res:any)=>{
+  getDetMvtListe() {
+    return this.http.get(url + 'api/admin/detmvt/liste').pipe(
+      map((res: any) => {
         this.DetMvtListe = res['data'];
-        this.DetMvtListe.forEach((item)=>{
-          item.dater = DateToShortDate(item.dater);
+        this.DetMvtListe.forEach((item) => {
+          if(item.dater){
+            item.dater = DateToShortDate(item.dater);  
+          }
           return item;
         });
         return this.DetMvtListe;
@@ -294,11 +308,11 @@ export class AdminService {
     )
   }
 
-  getHistoStockliste(){
-    return this.http.get(url+'api/admin/historique/stock/liste').pipe(
-      map((res:any)=>{
+  getHistoStockliste() {
+    return this.http.get(url + 'api/admin/historique/stock/liste').pipe(
+      map((res: any) => {
         this.HistoStockListe = res['data'];
-        this.HistoStockListe.forEach((item)=>{
+        this.HistoStockListe.forEach((item) => {
           item.dateh = DateToShortDate(item.dateh);
           return item
         });
@@ -306,6 +320,118 @@ export class AdminService {
       }),
       catchError(this.handleError)
     )
+  }
+
+  
+
+  getDepotUListe() {
+    return this.http.get(url + 'api/admin/depotu/liste').pipe(
+      map((res: any) => {
+        this.DepotU = res['data'];
+        this.DepotU.forEach((item) => {
+          item.dated = DateToShortDate(item.dated);
+          let a: any = item.heured;
+          item.heured = GetResultTime(a);
+          return item
+        });
+        return this.DepotU;
+      }),
+      catchError(this.handleError)
+    )
+  }
+
+  getRamassageListe() {
+    return this.http.get(url + 'api/admin/ramassage/liste').pipe(
+      map((res: any) => {
+        this.Ramassage = res['data'];
+        this.Ramassage.forEach((item) => {
+          item.dater = DateToShortDate(item.dater);
+          return item;
+        });
+        return this.Ramassage;
+      }),
+      catchError(this.handleError)
+    )
+  }
+
+  getParticipationListe() {
+    return this.http.get(url + 'api/admin/participation/liste').pipe(
+      map((res: any) => {
+        this.Participation = res['data'];
+        return this.Participation;
+      }),
+      catchError(this.handleError)
+    )
+  }
+
+  getTriListe() {
+    return this.http.get(url + 'api/admin/tri/liste').pipe(
+      map((res: any) => {
+        this.Tri = res['data'];
+        return this.Tri;
+      }),
+      catchError(this.handleError)
+    )
+  }
+
+  getLivrablesListe() {
+    return this.http.get(url + 'api/admin/livrables/liste').pipe(
+      map((res: any) => {
+        this.Livrables = res['data'];
+        this.Livrables.forEach((item) => {
+          item.datea = DateToShortDate(item.datea);
+        })
+        return this.Livrables;
+      }),
+      catchError(this.handleError)
+    )
+  }
+
+  getHistoStockEquipe(){
+    return this.http.get(url+'api/admin/histoe/liste').pipe(
+      map((res:any)=>{
+        this.histoStocke = res['data'];
+        this.histoStocke.forEach((item)=>{
+          item.dateh = DateToShortDate(item.dateh);
+          return item;
+        })
+        return this.histoStocke;
+      }),
+      catchError(this.handleError)
+    )
+  }
+  DetLivrablesListe(){
+    return this.http.get(url+'api/admin/detlivrable/liste').pipe(
+      map((res:any)=>{
+        this.Detlivrable = res['data'];
+        this.Detlivrable.forEach((item)=>{
+          item.idlivrables.datea = DateToShortDate(item.idlivrables.datea);
+        })
+        return this.Detlivrable;
+      }),
+      catchError(this.handleError)
+    )
+  }
+
+  Reset() {
+    let nu:any = null;
+    this.UserTypeListe = [];
+    this.UserListe = [];
+    this.LastUser = nu;
+    this.lastUserCode = 0;
+    this.EquipeL = [];
+    this.VilleIL = [];
+    this.Artilcles = [];
+    this.StockE = [];
+    this.histoStocke = [];
+    this.DetMvtListe= [];
+    this.HistoStockListe = [];
+    this.User = nu;
+    this.DepotU= [];
+    this.Ramassage= [];
+    this.Participation = [];
+    this.Tri= [];
+    this.Livrables = [];
   }
   // Handle Error
   private handleError(error: HttpErrorResponse) {

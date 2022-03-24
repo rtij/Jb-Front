@@ -17,7 +17,7 @@ export class ProfGuard implements CanActivate {
     if (this.authenticateService.isLogedIn() == true) {
       let code = localStorage.getItem('type');
       if (code) {
-        if (this.authenticateService.getUserType(code) == "Administrateur") {
+        if (this.authenticateService.getUserType(code) == "Tandem") {
           return true;
         }
       }

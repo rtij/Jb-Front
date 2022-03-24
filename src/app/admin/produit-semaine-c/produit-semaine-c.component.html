@@ -1,0 +1,37 @@
+<div class="w3-container">
+    <h3 class="w3-center">Cumul enveloppes « par semaine »</h3>
+    <div class="w3-responsive w3-white w3-round-large w3-card-2 w3-margin-bottom">
+        <table class="w3-table w3-margin-bottom">
+            <tr class="w3-blue">
+                <th>Faritany</th>
+                <th>S1</th>
+                <th>S2</th>
+                <th>S3</th>
+                <th>S4</th>
+                <th>S5</th>
+                <th>S6</th>
+                <th>Total</th>
+            </tr>
+            <tr *ngFor="let f of Faritany">
+                <td>{{f}}</td>
+                <td>{{Result(1,f)}}</td>
+                <td>{{Result(2,f)}}</td>
+                <td>{{Result(3,f)}}</td>
+                <td>{{Result(4,f)}}</td>
+                <td>{{Result(5,f)}}</td>
+                <td>{{Result(6,f)}}</td>
+                <td>{{SumF(f)}}</td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td>{{SumS(1)}}</td>
+                <td>{{SumS(2)}}</td>
+                <td>{{SumS(3)}}</td>
+                <td>{{SumS(4)}}</td>
+                <td>{{SumS(5)}}</td>
+                <td>{{SumS(6)}}</td>
+                <td>{{total}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

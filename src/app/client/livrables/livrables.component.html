@@ -1,0 +1,31 @@
+<div class="content">
+    <div class="w3-container">
+        <div class="navbar">
+            <ul class="nav navbar-nav">
+                <li><a class="droppdoxn-toggle" data-toggle="dropdown">Enveloppes <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a routerLink="EnvSemaineC" routerLinkActive="w3-blue"> Cumul enveloppe par semaine</a></li>
+                        <li><a routerLink="EnvActivite" routerLinkActive="w3-blue"> Cumul enveloppe par activité</a></li>
+                    </ul>
+                </li>
+
+                <li><a class="droppdoxn-toggle" data-toggle="dropdown">Produit <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                       <li><a routerLink="ProduitSemainec" routerLinkActive="w3-blue"> Cumul produit par semaine</a></li>
+                        <li><a routerLink="ProduitAc" routerLinkActive="w3-blue"> Cumul produit par activité</a></li>
+                    </ul>
+                </li>
+                <li><a class="droppdoxn-toggle" data-toggle="dropdown">Recette <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a routerLink="RecetteSc" routerLinkActive="w3-blue"> Cumul recette par semaine</a></li>
+                        <li><a routerLink="RecetteAc" routerLinkActive="w3-blue"> Cumul recette par activité</a></li>
+                        <li><a routerLink="RapportAnimation" routerLinkActive="w3-blue"> Rapport Animation</a></li>
+                    </ul>
+                </li>
+             </ul>
+        </div>
+    </div>
+    <div class="routerContainer">
+        <router-outlet></router-outlet>
+    </div>
+</div>

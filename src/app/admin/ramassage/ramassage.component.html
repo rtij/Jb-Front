@@ -1,1 +1,37 @@
-<p>ramassage works!</p>
+<div class="w3-container">
+    <h3 class="w3-center"><strong> Ramassage non achevé</strong></h3>
+    <div class="form-inline">
+        <div class="form-group w3-margin">
+            <label for="RamSearch">Recherche</label>
+            <input type="text" id="RamSearch" name="RamSearch" placeholder="Recherche" class="w3-input w3-round-large">
+        </div>
+        <div class="form-group w3-margin">
+            <label for="RamNb">Nombre Dépot</label>
+            <input class="w3-input w3-round-large" [(ngModel)]="Depotu.length" type="number" readonly name="DepotNb" id="DepotNb">
+        </div>
+        <div class="form-group w3-margin">
+            <label for="RamNb">Nombre ramassage non achevé</label>
+            <input class="w3-input w3-round-large" [(ngModel)]="Result.length" type="number" readonly name="RamNb" id="RamNb">
+        </div>
+        <div class="form-group w3-margin">
+            <label for="P">Pourcentage ramassage non achevé</label>
+            <input class="w3-input w3-round-large" [(ngModel)]="p" type="number" readonly name="P" id="P">
+        </div>
+    </div>
+    <div class="w3-round-large w3-white w3-card-2 w3-responsive">
+       <table class="w3-table"> 
+        <tr class="w3-blue">
+            <th>Anaran'ny tsena</th>
+            <th>Adiresy</th>
+            <th>Faritany</th>
+            <th>Localité</th>
+        </tr>
+        <tr *ngFor="let t of Result | filter:search">
+            <td>{{t.nomt}}</td>
+            <td>{{t.adrt}}</td>
+            <td>{{t.faritany}}</td>
+            <td>{{t.localite}}</td>
+        </tr>
+       </table> 
+    </div>
+</div>

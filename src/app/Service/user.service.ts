@@ -13,6 +13,8 @@ import { Mouvement } from 'src/Object/Mvt';
 import { Participation } from 'src/Object/Participation';
 import { Tri } from 'src/Object/Tri';
 import { Livrables } from 'src/Object/Livrables';
+import { Histoe } from 'src/Object/Histostocke';
+import { Detlivrables } from 'src/Object/Detlivrable';
 @Injectable({
   providedIn: 'root'
 })
@@ -23,11 +25,11 @@ export class UserService {
   Stocke: Stocke[] = [];
   Tsena: Tsena[] = [];
   Depotu: Depotu[] = [];
-  SelectedDepot!:Depotu;
-  RamassageL:Ramassage[] = [];
-  MvtListe:Mouvement[] = [];
-  Participation:Participation[] = [];
-
+  SelectedDepot!: Depotu;
+  RamassageL: Ramassage[] = [];
+  MvtListe: Mouvement[] = [];
+  Participation: Participation[] = [];
+  Lastlivrables!: Livrables;
   getUser() {
     return this.http.get(url + 'api/users/user').pipe(
       map((res: any) => {
@@ -79,9 +81,9 @@ export class UserService {
     )
   }
 
-  UpdateStockEquipe(Article: Article, qte: number) {
-    return this.http.post(url + 'api/users/stock/update/'+ Article.idarticle, {data:qte}).pipe(
-      map((res:any)=>{
+  UpdateStockEquipe(Stocke:Stocke, qte: number) {
+    return this.http.post(url + 'api/users/stock/update/' + Stocke.idstocke, { data: qte }).pipe(
+      map((res: any) => {
         this.Stocke = res['data'];
         return this.Stocke;
       }),
@@ -90,9 +92,9 @@ export class UserService {
   }
 
 
-  getDepotTsena(Tsena:Tsena){
-    return this.http.get(url+'api/users/tsena/depot/'+Tsena.codet).pipe(
-      map((res:any)=>{
+  getDepotTsena(Tsena: Tsena) {
+    return this.http.get(url + 'api/users/tsena/depot/' + Tsena.codet).pipe(
+      map((res: any) => {
         this.SelectedDepot = res['data'];
         return this.SelectedDepot;
       }),
@@ -100,9 +102,9 @@ export class UserService {
     )
   }
 
-  SaveRamassage(Ramassage:Ramassage){
-    return this.http.post(url+'api/users/ramassage/create', {data:Ramassage}).pipe(
-      map((res:any)=>{
+  SaveRamassage(Ramassage: Ramassage) {
+    return this.http.post(url + 'api/users/ramassage/create', { data: Ramassage }).pipe(
+      map((res: any) => {
         let r = res['data'];
         return r;
       }),
@@ -110,11 +112,11 @@ export class UserService {
     )
   }
 
-  getRamassageDepot(Depot:Depotu){
-    return this.http.get(url+'api/users/ramassage/depot/'+Depot.iddep).pipe(
-      map((res:any)=>{
+  getRamassageDepot(Depot: Depotu) {
+    return this.http.get(url + 'api/users/ramassage/depot/' + Depot.iddep).pipe(
+      map((res: any) => {
         this.RamassageL = res['data'];
-        this.RamassageL.forEach((item)=>{
+        this.RamassageL.forEach((item) => {
           item.dater = DateToShortDate(item.dater);
           return item;
         });
@@ -124,9 +126,9 @@ export class UserService {
     )
   }
 
-  getApproUser(){
-    return this.http.get(url+'api/users/appro/liste/'+this.User.codeu).pipe(
-      map((res:any)=>{
+  getApproUser() {
+    return this.http.get(url + 'api/users/appro/liste/' + this.User.codeu).pipe(
+      map((res: any) => {
         let r = res['data'];
         this.MvtListe = res['data'];
         return r;
@@ -135,11 +137,11 @@ export class UserService {
     )
   }
 
-  getParticipationList(){
-    return this.http.get(url+'api/users/participation/liste').pipe(
-      map((res:any)=>{
+  getParticipationList() {
+    return this.http.get(url + 'api/users/participation/liste').pipe(
+      map((res: any) => {
         this.Participation = res['data'];
-        this.Participation.forEach((item)=>{
+        this.Participation.forEach((item) => {
           item.dates = DateToShortDate(item.dates);
         })
         return this.Participation;
@@ -147,9 +149,9 @@ export class UserService {
       catchError(this.handleError)
     )
   }
-  createParticipation(Participation:Participation){
-    return this.http.post(url+'api/users/participation/create/' + this.User.codeu, {data:Participation}).pipe(
-      map((res:any)=>{
+  createParticipation(Participation: Participation) {
+    return this.http.post(url + 'api/users/participation/create/' + this.User.codeu, { data: Participation }).pipe(
+      map((res: any) => {
         this.Participation = res['data'];
         return this.Participation;
       }),
@@ -157,8 +159,18 @@ export class UserService {
     )
   }
 
-  createLivrables(Livrables:Livrables){
-    return this.http.post(url+'api/users/livrables/create/'+this.User.codeu,{data:Livrables}).pipe(
+  createLivrables(Livrables: Livrables) {
+    return this.http.post(url + 'api/users/livrables/create/' + this.User.codeu, { data: Livrables }).pipe(
+      map((res: any) => {
+        this.Lastlivrables = res['data'];
+        return this.Lastlivrables;
+      }),
+      catchError(this.handleError)
+    )
+  }
+
+  SaveDetLivrables(DetLivrables:Detlivrables){
+    return this.http.post(url+'api/users/detlivrables/create/'+DetLivrables.idlivrables.idlivrables, {data:DetLivrables}).pipe(
       map((res:any)=>{
         let r = res['data'];
         return r;
@@ -168,10 +180,9 @@ export class UserService {
   }
 
 
-
-  SaveTri(Tri:Tri){
-    return this.http.post(url+'api/users/tri/create/'+this.User.codeu,{data:Tri}).pipe(
-      map((res:any)=>{
+  SaveTri(Tri: Tri) {
+    return this.http.post(url + 'api/users/tri/create/' + this.User.codeu, { data: Tri }).pipe(
+      map((res: any) => {
         let r = res['data'];
         return r;
       }),
@@ -179,9 +190,9 @@ export class UserService {
     )
   }
 
-  UpdateParticipation(Participation:Participation){
-    return this.http.get(url+'api/users/participation/update/'+Participation.idparticipation).pipe(
-      map((res:any)=>{
+  UpdateParticipation(Participation: Participation) {
+    return this.http.get(url + 'api/users/participation/update/' + Participation.idparticipation).pipe(
+      map((res: any) => {
         this.Participation = res['data'];
         return this.Participation;
       }),
@@ -189,6 +200,15 @@ export class UserService {
     )
   }
 
+  SaveHistorique(Histoe:Histoe){
+    return this.http.post(url+'api/users/historique/create/'+Histoe.idstocke.idstocke, {data:Histoe}).pipe(
+      map((res:any)=>{
+        let r  = res['data'];
+        return r;
+      }),
+      catchError(this.handleError)
+    )
+  }
   // Handle Error
   private handleError(error: HttpErrorResponse) {
     console.log(error.error);

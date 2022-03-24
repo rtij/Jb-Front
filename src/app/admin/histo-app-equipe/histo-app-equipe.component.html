@@ -1,0 +1,25 @@
+<div class="w3-container">
+    <h4 class="w3-center">Historique approvisionnement de produit par équipe</h4>
+    <div class="form-inline">
+        <div class="form-group w3-margin">
+            <label for="EquipeLH">Equipe</label>
+            <select (change)="selectEquipe()" [(ngModel)]="selectedEquipe" name="EquipeLH" id="EquipeLH" class="w3-select">
+                <option *ngFor="let e of Equipe" [ngValue]="e">{{e.equipe}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="w3-responsive w3-card-2 w3-round-large w3-white">
+        <table class="w3-table w3-striped">
+            <tr class="w3-blue">
+                <th>Date</th>
+                <th>Quantité</th>
+                <th>Produit</th>
+            </tr>
+            <tr *ngFor="let h of Result">
+                <td>{{h.dateh}}</td>
+                <td>{{h.appro}}</td>
+                <td>{{h.idstocke.idarticle.designation}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

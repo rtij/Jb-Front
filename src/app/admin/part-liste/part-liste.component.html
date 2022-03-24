@@ -1,0 +1,36 @@
+<div class="w3-container">
+    <div class="form-inline">
+        <div class="form-group w3-margin">
+            <label for="SearchP">Recherche</label>
+            <input list="FaritanyL" (change)="selectFaritany()" type="text" class="w3-input" placeholder="Recherche" id="SearchP" name="SearchP" [(ngModel)]="search"> 
+        </div>
+        <div class="form-group w3-margin">
+            <button (click)="createPdf()" class="btn w3-blue w3-margin-top"> Exporter PDF</button>
+        </div>
+    </div>
+    <div class="w3-responsive w3-white w3-round-large w3-card-2 ">
+        <table id="ParticipantL" class="w3-table w3-striped">
+            <tr class="w3-blue">
+                <th>Anarana sy fanampiny</th>
+                <th>Tel telma</th>
+                <th>Tel orange</th>
+                <th>Tel airtel</th>
+                <th>Faritany</th>
+                <th>Adiresy</th>
+                <th>Participation</th>
+            </tr>
+            <tr *ngFor="let p of Result ">
+                <td>{{p.nomp}}</td>
+                <td>{{p.teltelma}}</td>
+                <td>{{p.telorange}}</td>
+                <td>{{p.telairtel}}</td>
+                <td>{{p.faritany}}</td>
+                <td>{{p.adrp}}</td>
+                <td>{{p.nbp}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<datalist id="FaritanyL">
+    <option *ngFor="let f of l" value="{{f}}">{{f}}</option>
+</datalist>

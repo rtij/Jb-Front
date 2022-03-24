@@ -34,7 +34,7 @@
         <div class="form-group w3-margin ">
             <label for="TelAirtel" class="col-sm-4">Tel telma</label>
             <div class="col-sm-8">
-                <input type="text" class="w3-input" placeholder="Tel telma" [(ngModel)]="teltelma" name="TelAirtel" id="TelAirtel">
+                <input type="text" class="w3-input" placeholder="Tel telma" [(ngModel)]="teltelma" name="TelTelmaP" id="TelTelmaP">
             </div>
         </div>
         <div class="form-group w3-margin ">
@@ -76,13 +76,13 @@
         <div class="form-group w3-margin ">
             <label for="Feno" class="col-sm-4">Isa feno</label>
             <div class="col-sm-8">
-                <input type="checkbox" class="w3-check" [(ngModel)]="feno" name="Feno" id="Feno">
+                <input [disabled]="total < 10" type="checkbox" class="w3-check" [(ngModel)]="feno" name="Feno" id="Feno">
             </div>
         </div>
         <div class="form-group w3-margin ">
             <label for="Valide" class="col-sm-4">Valide</label>
             <div class="col-sm-8">
-                <input (change)="UnsetMotif()" type="checkbox" class="w3-check" [(ngModel)]="valide" name="Valide" id="Valide">
+                <input [disabled]="total < 10" (change)="UnsetMotif()" type="checkbox" class="w3-check" [(ngModel)]="valide" name="Valide" id="Valide">
             </div>
         </div>
         <div *ngIf="!valide" class="form-group w3-margin ">
@@ -93,11 +93,12 @@
                     <option value="Autres contenants (sachet, flyers, etc)">Autres contenants (sachet, flyers, etc)</option>
                     <option value="Aucun contenant (vide)">Aucun contenant (vide)</option>
                     <option value="Nombres insuffisants">Nombres insuffisants</option>
+                    <option value="Autres">Autres</option>
                 </select>
             </div>
         </div>
         
-        <button (click)="SaveTri()" class="btn w3-blue full-width"><span class="glyphicon glyphicon-save"></span> Enregistrer</button>
+        <button [disabled]="t.invalid || !User" (click)="SaveTri()" class="btn w3-blue full-width"><span class="glyphicon glyphicon-save"></span> Enregistrer</button>
     </form>
 </div>
 <datalist id="NomL">

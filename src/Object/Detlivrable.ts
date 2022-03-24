@@ -3,20 +3,16 @@ import { Livrables } from "./Livrables";
 
 export class Detlivrables {
     sortie: number;
-    stockd:number;
-    appro: number;
     prix: number;
     t: string;
     idstocke: Stocke;
-    idlivrable: Livrables;
+    idlivrables: Livrables;
     iddetlivrable?: number;
-    constructor(idlivrable: Livrables, t: string,stockd:number,  sortie: number, appro: number, prix: number, stocke: Stocke) {
+    constructor(idlivrable: Livrables, t: string,  sortie: number, prix: number, stocke: Stocke) {
         this.sortie = sortie;
-        this.appro = appro;
         this.prix = prix;
         this.t = t;
-        this.stockd = stockd;
-        this.idlivrable = idlivrable;
+        this.idlivrables = idlivrable;
         this.idstocke = stocke;
     }
 

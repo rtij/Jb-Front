@@ -8,11 +8,11 @@ export class Livrables{
     numu:string;
     semainec:number;
     typel:string;
-    datel:Date;
+    datea:Date;
     envu:number;
     codeu:Users;
     idlivrables?:number;
-    constructor(contact:number,envu:number,nombera:number, recettej:number, numu:string, semainec:number, typel:string, datel:Date, codeu:Users){
+    constructor(contact:number,envu:number,nombera:number, recettej:number, numu:string, semainec:number, typel:string, datea:Date, codeu:Users){
         this.contact = contact;
         this.nombrea = nombera;
         this.recettej = recettej;
@@ -21,6 +21,6 @@ export class Livrables{
         this.envu = envu;
         this.semainec = semainec;
         this.typel = typel;
-        this.datel = datel;
+        this.datea = datea;
     }
 }

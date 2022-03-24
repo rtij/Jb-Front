@@ -1,0 +1,28 @@
+<div class="w3-container">
+    <div class="navbar w3-container">
+        <h4>Rapport de distribution d'urne</h4>
+        <div class="w3-right form-inline">
+            <div class="form-group">
+                <label for="TotalDistr">Total</label>
+                <input readonly [(ngModel)]="total" type="number" placeholder="Recherche" class="w3-input w3-round-large" id="TotalDistr"
+                    name="TotalDistr">
+            </div>
+        </div>
+    </div>
+    <div class="w3-responsive w3-card-2 w3-round-large w3-white">
+        <table class="w3-table">
+            <tr class="w3-blue">
+                <th>FARITANY</th>
+                <th>Grandes villes</th>
+                <th>Villes intérmediare</th>
+                <th>Total</th>
+            </tr>
+            <tr *ngFor="let d of Distribution">
+                <td >{{d.faritany}}</td>
+                <td>{{d.grandVille}}</td>
+                <td>{{d.Villei}}</td>
+                <td>{{d.grandVille + d.Villei}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

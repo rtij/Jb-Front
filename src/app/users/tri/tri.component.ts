@@ -41,6 +41,7 @@ export class TriComponent implements OnInit {
   total: number = 0;
   motifinv: string = "";
 
+  active: boolean = false;
 
   UnsetMotif() {
     if (this.valide) {
@@ -58,7 +59,7 @@ export class TriComponent implements OnInit {
         (res) => {
           this.User = res;
           let f: any = this.User.idequipe?.faritany;
-          this.faritany  = f;
+          this.faritany = f;
           this.getParticipation();
         },
         (err) => {
@@ -79,8 +80,8 @@ export class TriComponent implements OnInit {
           this.telairtel = r.telairtel
           this.telorange = r.telorange;
           this.teltelma = r.teltelma;
-        }else{
-          let n:any = null;
+        } else {
+          let n: any = null;
           this.selectedP = n;
         }
       }
@@ -126,34 +127,40 @@ export class TriComponent implements OnInit {
 
   SaveData() {
     if (this.selectedP) {
-      this.updateParticipation()
+      this.updateParticipation();
     } else {
       if (this.feno) {
         if (this.valide) {
           this.NewParticipation();
-        }else{
+        } else {
+          this.Reset();
           this.toastr.success('Enregistrement effectuer');
         }
-      }else{
-        this.SaveTri();
+      } else {
+        this.Reset();
+        this.toastr.success('Enregistrement effectuer');
       }
     }
   }
 
   SaveTri() {
-    let t = new Tri("Saisie", this.User, this.dates, this.numenv, this.feno,this.valide, this.nbPP, this.nbVi, this.nbOe, this.nbPs, this.total, this.motifinv, this.faritany, this.nomp);
-    this.UsersService.SaveTri(t).subscribe(
-      (res) => {
-        if(res != 'ok'){
-          this.toastr.warning(res);
-        }else{
-          this.SaveData();
+    if (this.User) {
+      let t = new Tri("Saisie", this.User, this.dates, this.numenv, this.feno, this.valide, this.nbPP, this.nbVi, this.nbOe, this.nbPs, this.total, this.motifinv, this.faritany, this.nomp);
+      this.UsersService.SaveTri(t).subscribe(
+        (res) => {
+          if (res != 'ok') {
+            this.toastr.warning(res);
+          } else {
+            this.SaveData();
+          }
+        },
+        (err) => {
+          console.log(err.error);
         }
-      },
-      (err) => {
-        console.log(err.error);
-      }
-    )
+      )
+    }else{
+      this.getUser();
+    }
 
   }
 
@@ -163,9 +170,8 @@ export class TriComponent implements OnInit {
     this.UsersService.createParticipation(p).subscribe(
       (res) => {
         this.Participation = res;
-        
         this.toastr.success('Enregistrement effectuer');
-        this.Reset();  
+        this.Reset();
       },
       (err) => {
         console.log(err.error);
@@ -174,21 +180,23 @@ export class TriComponent implements OnInit {
   }
 
   UpdateParticipationListe() {
-    setTimeout(
-      () => {
-        this.UsersService.getParticipationList().subscribe(
-          (res) => {
-            this.Participation = res;
-            this.UpdateParticipationListe();
-            console.log(this.Participation);
-          },
-          (err) => {
-            console.log(err.error);
-          }
-        )
-      }, 20000
-    )
+    if (this.active) {
+      setTimeout(
+        () => {
+          this.UsersService.getParticipationList().subscribe(
+            (res) => {
+              this.Participation = res;
+              this.UpdateParticipationListe();
+              console.log(this.Participation);
+            },
+            (err) => {
+              console.log(err.error);
+            }
+          )
+        }, 20000
+      )
 
+    }
   }
 
   updateParticipation() {
@@ -198,13 +206,19 @@ export class TriComponent implements OnInit {
           (res) => {
             this.Participation = res;
             this.toastr.success('Enregistrement effectuer');
-            this.Reset();  
+            this.Reset();
           },
           (err) => {
             console.log(err.error);
           }
         )
+      } else {
+        this.toastr.success('Enregistrement effectuer');
+        this.Reset();
       }
+    } else {
+      this.toastr.success('Enregistrement effectuer');
+      this.Reset();
     }
   }
 
@@ -229,5 +243,10 @@ export class TriComponent implements OnInit {
     this.motifinv = "";
     this.faritany = "";
     this.numenv = 0;
+  }
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.active = false;
   }
 }
